@@ -1,0 +1,16 @@
+{
+    "UrlHost": "http://www.dataaccess.com/webservicesserver/",
+    "UrlLocation": "NumberConversion.wso",
+    "Contratos": [
+        {
+            "Servico": "NumberToWords",
+            "Api": "https://localhost:7108/NumberToWords",
+            "Tipo": "POST",
+            "Autenticacao": ""
+        }
+    ],
+    "ArquivosWsdl": [
+        "NumberConversion.xml"
+    ]
+}
+ 

@@ -1,0 +1,6 @@
+@ApiParseSOAP_HostAddress = http://localhost:5075
+
+GET {{ApiParseSOAP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

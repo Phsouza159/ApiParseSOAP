@@ -1,0 +1,63 @@
+
+using ApiParseSOAP.Domain.Services;
+using ApiParseSOAP.Extensions;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+
+namespace ApiParseSOAP
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+
+            builder.Services.AddControllers()
+                        .AddXmlSerializerFormatters();
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+           // builder.Services.AddSwaggerGen();
+
+            // If using Kestrel:
+            builder.Services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            // If using IIS:
+            builder.Services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            var app = builder.Build();
+
+            var provider = builder.Services.BuildServiceProvider();
+            var config = provider.GetRequiredService<IConfiguration>();
+
+            ServicoArquivosWsdl.PastaWsdl = config.GetPathWsdl();
+            ServicoArquivosWsdl.PathHost = config.GetHost();
+
+            ServicoArquivosWsdl.CarregarArquivosConfiguracao();
+
+
+            // Configure the HTTP request pipeline.
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
