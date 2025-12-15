@@ -4,7 +4,7 @@
     "Contratos": [
         {
             "Servico": "NumberToWords",
-            "Api": "https://localhost:7108/NumberToWords",
+            "Api": "http://localhost:5090/NumberToWords",
             "Tipo": "POST",
             "Autenticacao": ""
         }

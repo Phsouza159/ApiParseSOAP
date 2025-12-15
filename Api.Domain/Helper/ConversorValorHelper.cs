@@ -1,5 +1,5 @@
 ﻿
-namespace ApiParseSOAP.Domain.Helper
+namespace Api.Domain.Helper
 {
     public static class ConversorValorHelper
     {

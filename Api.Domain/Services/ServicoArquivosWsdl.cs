@@ -1,6 +1,6 @@
 ﻿
 
-using ApiParseSOAP.Domain.Configuracao;
+using Api.Domain.Configuracao;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,15 +9,15 @@ using System.Text.Json.Nodes;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace ApiParseSOAP.Domain.Services
+namespace Api.Domain.Services
 {
     public static class ServicoArquivosWsdl
     {
         static string VAR_EXTENSION_WSDL = "wsdl";
 
-        internal static string PastaWsdl { get; set; }
+        public static string PastaWsdl { get; set; }
 
-        internal static string PathHost { get; set; }
+        public static string PathHost { get; set; }
 
         internal static List<Servicos> Configuracacoes { get; set; } = [];
 
@@ -81,7 +81,7 @@ namespace ApiParseSOAP.Domain.Services
         #endregion
 
 
-        internal static string ResoverNomeArquivo(string servico)
+        public static string ResoverNomeArquivo(string servico)
         {
             servico = servico.Replace("/", "");
 
@@ -95,14 +95,14 @@ namespace ApiParseSOAP.Domain.Services
         }
 
 
-        internal static XmlDocument TransformarXml(string xmlContent)
+        public static XmlDocument TransformarXml(string xmlContent)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xmlContent);
             return doc;
         }
 
-        internal static Schema CarregarXml(XmlDocument contrato, XmlDocument documento)
+        public static Schema CarregarXml(XmlDocument contrato, XmlDocument documento)
         {
             var schema = new Schema();
             schema.Documento = documento;
@@ -114,7 +114,7 @@ namespace ApiParseSOAP.Domain.Services
 
         #region CARREGAR CONFIGURACAO
 
-        internal static void CarregarArquivosConfiguracao()
+        public static void CarregarArquivosConfiguracao()
         {
             string[] diretorios = Directory.GetDirectories(PastaWsdl);
 
@@ -137,7 +137,7 @@ namespace ApiParseSOAP.Domain.Services
             }
         }
 
-        internal static Servicos? RecuperarServico(string servico)
+        public static Servicos? RecuperarServico(string servico)
         {
             servico = servico.Replace("/", "");
             return Configuracacoes.FirstOrDefault(e => e.UrlLocation.ToLower().Equals(servico.ToLower()));

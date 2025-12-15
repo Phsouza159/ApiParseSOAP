@@ -1,17 +1,22 @@
 ﻿using ApiParseSOAP.Domain;
-using ApiParseSOAP.Domain.Services;
+using Api.Domain.Services;
 using ApiParseSOAP.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.Text;
 using System.Xml;
+using Api.Domain.Configuracao;
+using Api.Domain.Interfaces;
+using Api.Domain.Facede;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using ApiParseSOAP.Controllers.Base;
 
 namespace ApiParseSOAP.Controllers
 {
     [ApiController]
     [Route("{servico}")]
-    public class ServicoSoapController : Controller
+    public class ServicoSoapController : BaseController 
     {
         public ServicoSoapController(IConfiguration config)
         {
@@ -23,7 +28,7 @@ namespace ApiParseSOAP.Controllers
         [HttpGet]
         public IActionResult Get(string servico, [FromQuery] string? wsdl)
         {
-            Domain.Configuracao.Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
+            Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
 
             if (servicoConfiguracao != null)
             {
@@ -40,31 +45,25 @@ namespace ApiParseSOAP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(
+
+                [FromServices] IProcessarChamadaSoapFacede processardorChamada
+                , [FromServices] IConvercaoJsonParaXml convercaoJsonParaXml
+            )
         {
             string servico = this.Request.Path;
-            Domain.Configuracao.Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
+            string xmlConteudo = base.RecuperarCorpoChamada();
 
-            if(servicoConfiguracao != null)
+            var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
+            if(!schema.IsVazio)
             {
-                string nomeTratado = ServicoArquivosWsdl.ResoverNomeArquivo(servicoConfiguracao.Nome);
+                await processardorChamada.EnviarProcessamento(schema);
 
-                if (servicoConfiguracao.ConteudoArquivos.ContainsKey(nomeTratado))
-                {
-                    using var reader = new StreamReader(Request.Body);
-                    string xmlConteudo = reader.ReadToEnd();
+                var objeto = convercaoJsonParaXml.Converter(schema);
 
-                    byte[] data = servicoConfiguracao.ConteudoArquivos[nomeTratado];
-                    string xmlContrato = Encoding.UTF8.GetString(data);
-
-                    var schema = ServicoArquivosWsdl.CarregarXml(
-                              ServicoArquivosWsdl.TransformarXml(xmlContrato)
-                            , ServicoArquivosWsdl.TransformarXml(xmlConteudo));
-
-                    await ServicoWeb.Enviar(servicoConfiguracao, schema);
-                    return Content(schema.Resultado, "application/json");
-                }
+                return Content(schema.Resultado, "application/json");
             }
+
 
             return NotFound();
         }

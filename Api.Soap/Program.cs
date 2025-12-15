@@ -1,5 +1,6 @@
 
-using ApiParseSOAP.Domain.Services;
+using ApiParseSOAP.Domain.Configuracao;
+using Api.Domain.Services;
 using ApiParseSOAP.Extensions;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
@@ -12,6 +13,8 @@ namespace ApiParseSOAP
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            ConfiguracaoDependencias.Configurar(builder.Services);
 
             builder.Services.AddControllers()
                         .AddXmlSerializerFormatters();
@@ -33,6 +36,7 @@ namespace ApiParseSOAP
             });
 
             var app = builder.Build();
+
 
             var provider = builder.Services.BuildServiceProvider();
             var config = provider.GetRequiredService<IConfiguration>();

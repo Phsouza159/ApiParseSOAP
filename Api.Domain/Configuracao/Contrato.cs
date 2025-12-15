@@ -1,4 +1,4 @@
-﻿namespace ApiParseSOAP.Domain.Configuracao
+﻿namespace Api.Domain.Configuracao
 {
     public class Contrato
     {

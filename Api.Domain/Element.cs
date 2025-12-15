@@ -1,9 +1,9 @@
 ﻿
-using ApiParseSOAP.Domain.Enum;
-using ApiParseSOAP.Domain.Helper;
+using Api.Domain.Enum;
+using Api.Domain.Helper;
 using System.Xml;
 
-namespace ApiParseSOAP.Domain
+namespace Api.Domain
 {
     public class Element
     {

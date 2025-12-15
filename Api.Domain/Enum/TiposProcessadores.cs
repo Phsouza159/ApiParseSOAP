@@ -1,8 +1,11 @@
-﻿namespace ApiParseSOAP.Domain.Enum
+﻿using System.ComponentModel;
+
+namespace Api.Domain.Enum
 {
     public enum TiposProcessadores
     {
         DEFAULT = 0,
         unsignedLong,
+        STRING,
     }
 }

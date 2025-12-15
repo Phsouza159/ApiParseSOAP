@@ -1,7 +1,6 @@
-﻿using ApiParseSOAP.Domain.Services;
-using System.Diagnostics.Contracts;
+﻿using Api.Domain.Services;
 
-namespace ApiParseSOAP.Domain.Configuracao
+namespace Api.Domain.Configuracao
 {
     public class Servicos
     {

@@ -1,6 +1,6 @@
-﻿using ApiParseSOAP.Domain.Enum;
+﻿using Api.Domain.Enum;
 
-namespace ApiParseSOAP.Domain.Helper
+namespace Api.Domain.Helper
 {
     public static class ProcessadoresHelper
     {
