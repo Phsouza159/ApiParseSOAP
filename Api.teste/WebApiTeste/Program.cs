@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
+using WebApiTeste.Registros;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,20 +10,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //app.UseHttpsRedirection();
 
-app.MapPost("/NumberToWords", () =>
+app.MapPost("/NumberToWords", ([FromBody] NumberToWordsData NumberToWordsData) =>
 {
-    var forecast =
-        new NumberToWordsResponse()
-        {
-            NumberToWordsResult = "ten",
-        };
+    var response = new NumberToWordsResponse(NumberToWordsData.ubiNum);
+    return response;
+});
 
-    return forecast;
+
+
+app.MapPost("/NumberToDollars", ([FromBody] NumberToDollarsData NumberToWordsData) =>
+{
+    var response = new NumberToDollarsResponse(NumberToWordsData.dNum);
+    return response;
 });
 
 app.Run();
 
-internal record NumberToWordsResponse()
-{
-    public string NumberToWordsResult { get; set; }
-}
