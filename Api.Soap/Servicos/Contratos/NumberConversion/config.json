@@ -1,10 +1,17 @@
 {
     "UrlHost": "http://www.dataaccess.com/webservicesserver/",
     "UrlLocation": "NumberConversion.wso",
+    "Prefixo" : "m",
     "Contratos": [
         {
             "Servico": "NumberToWords",
             "Api": "http://localhost:5090/NumberToWords",
+            "Tipo": "POST",
+            "Autenticacao": ""
+        },
+        {
+            "Servico": "NumberToDollars",
+            "Api": "http://localhost:5090/NumberToDollars",
             "Tipo": "POST",
             "Autenticacao": ""
         }

@@ -53,5 +53,14 @@ namespace Api.Domain
 
             return defaultNull;
         }
+
+        internal XmlElement ConverterXml(XmlDocument document, Schema schema)
+        {
+            XmlElement item = document.CreateElement(schema.Servico.Prefixo, $"{this.Nome}", schema.Servico.UrlHost);
+            // item.SetAttribute(this.Nome, this.Valor);
+            item.InnerText = this.Valor;
+
+            return item;
+        }
     }
 }

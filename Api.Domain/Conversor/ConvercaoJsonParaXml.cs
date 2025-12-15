@@ -2,16 +2,31 @@
 using Api.Domain.Enum;
 using Api.Domain.Interfaces;
 using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Api.Domain.Conversor
 {
     public class ConvercaoJsonParaXml : IConvercaoJsonParaXml
     {
+
+        public string ConverterParaXml(Schema schema)
+        {
+            List<Element> lista = this.Converter(schema);
+            XmlDocument data = this.ProcessarElementos(schema, lista);
+            return data.OuterXml;
+        }
+
         public List<Element> Converter(Schema schema)
         {
             string json = schema.Resultado;
             return this.ProcessarJson(schema, json);
+        }
+
+        public string RecuperarPrefixo(Schema schema)
+        {
+            return string.IsNullOrEmpty(schema.Servico.Prefixo) ? string.Empty : $"{schema.Servico.Prefixo}:";
         }
 
         #region PROCESSAR ELEMENTO JSON
@@ -51,7 +66,7 @@ namespace Api.Domain.Conversor
 
             this.ValidarTipoContrato(item, tipoProcessador, tipagemContrato);
 
-            element.Nome = item.Key;
+            element.Nome = this.TratarNomePropriedade(item.Key);
             element.Valor = item.Value.ToString();
             element.Tipo = this.RecuperarTipoElemento(item.Value);
             element.Processador = tipoProcessador;
@@ -64,6 +79,23 @@ namespace Api.Domain.Conversor
             //}
 
             return element;
+        }
+
+        private string TratarNomePropriedade(string key)
+        {
+            if (key.Length == 0) return string.Empty;
+
+            if (key.Length == 1 && char.IsLower(key[0]))
+            {
+                return char.ToUpper(key[0]).ToString();
+            }
+            else if (char.IsLower(key[0]))
+            {
+                char p1 = char.ToUpper(key[0]);
+                return char.ToUpper(p1) + key.Substring(1);
+            }
+
+            return key;
         }
 
         #endregion
@@ -170,6 +202,38 @@ namespace Api.Domain.Conversor
             }
 
             return TiposProcessadores.DEFAULT;
+        }
+
+        #endregion
+
+
+        #region PROCESSAR ELEMENTOS PARA XML
+
+        internal XmlDocument ProcessarElementos(Schema schema, List<Element> elementos)
+        {
+            XmlDocument soapDoc = new XmlDocument();
+            string prefixo = this.RecuperarPrefixo(schema);
+
+            // Criar Envelope com namespace SOAP
+            XmlElement envelope = soapDoc.CreateElement("soap", "Envelope", "http://schemas.xmlsoap.org/soap/envelope/");
+            soapDoc.AppendChild(envelope);
+
+            // Criar Body
+            XmlElement body = soapDoc.CreateElement("soap", "Body", "http://schemas.xmlsoap.org/soap/envelope/");
+            envelope.AppendChild(body);
+
+            // Criar elemento raiz
+            XmlElement response = soapDoc.CreateElement(schema.Servico.Prefixo, $"{schema.NomeServico}Response", schema.Servico.UrlHost);
+            body.AppendChild(response);
+
+            for (int i = 0; i < elementos.Count; i += 1)
+            {
+                Element elemento = elementos[i];
+                XmlElement item = elemento.ConverterXml(soapDoc, schema);
+
+                response.AppendChild(item);
+            }
+            return soapDoc;
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using Api.Domain.Services;
+﻿using Api.Domain.Helper;
+using Api.Domain.Services;
 
 namespace Api.Domain.Configuracao
 {
@@ -10,6 +11,8 @@ namespace Api.Domain.Configuracao
         
         public string UrlLocation { get; set; }
         
+        public string Prefixo { get; set; }
+
         public List<Contrato> Contratos { get; set; }
         
         public List<string> ArquivosWsdl { get; set; }
@@ -38,16 +41,7 @@ namespace Api.Domain.Configuracao
 
         internal string GetLocation()
         {
-            return this.ConcatenarUrl(this.UrlHost, this.UrlLocation);
+            return StringHelper.ConcatenarUrl(this.UrlHost, this.UrlLocation);
         }
-        internal string ConcatenarUrl(string baseUrl, string path)
-        {
-            baseUrl = baseUrl.TrimEnd('/');
-            path = path.TrimStart('/');
-
-            // Junta com uma única barra
-            return $"{baseUrl}/{path}";
-        }
-
     }
 }

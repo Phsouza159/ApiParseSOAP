@@ -59,9 +59,10 @@ namespace ApiParseSOAP.Controllers
             {
                 await processardorChamada.EnviarProcessamento(schema);
 
-                var objeto = convercaoJsonParaXml.Converter(schema);
+               // var objeto = convercaoJsonParaXml.Converter(schema);
 
-                return Content(schema.Resultado, "application/json");
+                string xmlResposta = convercaoJsonParaXml.ConverterParaXml(schema);
+                return Content(xmlResposta, "text/xml");
             }
 
 

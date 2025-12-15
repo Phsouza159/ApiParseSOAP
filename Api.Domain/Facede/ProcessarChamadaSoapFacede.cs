@@ -35,6 +35,10 @@ namespace Api.Domain.Facede
                               ServicoArquivosWsdl.TransformarXml(xmlContrato)
                             , ServicoArquivosWsdl.TransformarXml(xmlConteudo));
 
+                    // VALIR SE SERVICO ESTA CONFIGURADO
+                    if (!servicoConfiguracao.Contratos.Any(e => e.Servico.ToLower().Equals(schema.NomeServico.ToLower())))
+                        throw new ArgumentException($"Serviço não registrado: '{schema.NomeServico}'");
+
                     schema.Servico = servicoConfiguracao;
                     return schema;
                 }

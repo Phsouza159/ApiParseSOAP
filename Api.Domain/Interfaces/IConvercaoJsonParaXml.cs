@@ -9,5 +9,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IConvercaoJsonParaXml : IConvercao
     {
+        string ConverterParaXml(Schema schema);
     }
 }

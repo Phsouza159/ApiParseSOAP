@@ -1,6 +1,7 @@
 ﻿
 
 using Api.Domain.Configuracao;
+using Api.Domain.Helper;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -44,7 +45,7 @@ namespace Api.Domain.Services
             string targetnamespaceValue = PathHost; // servicos.ConcatenarUrl(PathHost, servicos.Nome);
 
             string location = servicos.GetLocation();
-            string locationValue = servicos.ConcatenarUrl(PathHost, servicos.UrlLocation); 
+            string locationValue = StringHelper.ConcatenarUrl(PathHost, servicos.UrlLocation); 
 
             for (int i = 0; i < lines.Length; i += 1)
             {
