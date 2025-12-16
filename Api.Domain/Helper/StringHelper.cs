@@ -8,6 +8,11 @@ namespace Api.Domain.Helper
 {
     public static class StringHelper
     {
+        public static string RecuperarParametro(this string texto, string separador, int posicao)
+        {
+           return texto.Contains(separador) ? texto.Split(":")[posicao] : texto;
+        }
+
         public static string ConcatenarUrl(string baseUrl, string path)
         {
             baseUrl = baseUrl.TrimEnd('/');

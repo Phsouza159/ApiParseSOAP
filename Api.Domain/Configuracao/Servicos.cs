@@ -19,6 +19,8 @@ namespace Api.Domain.Configuracao
 
         public Dictionary<string, byte[]> ConteudoArquivos { get; set; }
 
+        public bool IsImportacao { get => this.ConteudoArquivos.Any(e => e.Key.Contains(".xsd")); }
+
         internal bool CarregarDados(string raizPasta)
         {
             this.ConteudoArquivos = new Dictionary<string, byte[]>();

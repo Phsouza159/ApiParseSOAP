@@ -7,5 +7,7 @@ namespace Api.Domain.Enum
         DEFAULT = 0,
         unsignedLong,
         STRING,
+        OBJETO,
+        OBJETO_IMPORTADO,
     }
 }

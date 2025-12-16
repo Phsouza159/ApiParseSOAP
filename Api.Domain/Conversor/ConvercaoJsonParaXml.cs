@@ -69,7 +69,7 @@ namespace Api.Domain.Conversor
             element.Nome = this.TratarNomePropriedade(item.Key);
             element.Valor = item.Value.ToString();
             element.Tipo = this.RecuperarTipoElemento(item.Value);
-            element.Processador = tipoProcessador;
+            element.Processador.TiposProcessador = tipoProcessador;
 
             // TODO: ITENS FILHOS
             //if(element.Tipo == XmlNodeType.Element)

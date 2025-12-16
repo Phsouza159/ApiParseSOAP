@@ -1,0 +1,20 @@
+{
+    "UrlHost": "https://datapower.caixaseguros.intranet:443/GEWSV0006_Banco/",
+    "UrlLocation": "GEWSV0006_Banco",
+    "Prefixo": "",
+    "Contratos": [
+        {
+            "Servico": "listarBancos",
+            "Api": "http://localhost:5090/listarBancos",
+            "Tipo": "POST",
+            "Autenticacao": ""
+        }
+    ],
+    "ArquivosWsdl": [
+        "GEWSV0006_Banco.xml",
+        "GEWSV0006_Banco.xsd1.xsd",
+        "GEWSV0006_Banco.xsd2.xsd",
+        "GEWSV0006_Banco.xsd3.xsd"
+    ]
+}
+ 

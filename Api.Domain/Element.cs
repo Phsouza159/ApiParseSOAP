@@ -1,4 +1,5 @@
 ﻿
+using Api.Domain.Conversor;
 using Api.Domain.Enum;
 using Api.Domain.Helper;
 using System.Xml;
@@ -10,6 +11,7 @@ namespace Api.Domain
         public Element()
         {
             this.No = new List<Element?>();
+            this.Processador = new DadosProcessamento();
         }
 
         public string Nome { get; internal set; }
@@ -17,7 +19,7 @@ namespace Api.Domain
         public string Valor { get; internal set; }
         public XmlNodeType Tipo { get; internal set; }
         public List<Element> No { get; internal set; }
-        public TiposProcessadores Processador { get; internal set; }
+        public DadosProcessamento Processador { get; set; }
 
         public object Converter()
         {

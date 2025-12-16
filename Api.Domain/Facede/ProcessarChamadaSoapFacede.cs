@@ -3,9 +3,12 @@ using Api.Domain.Interfaces;
 using Api.Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace Api.Domain.Facede
 {
@@ -31,9 +34,10 @@ namespace Api.Domain.Facede
                     byte[] data = servicoConfiguracao.ConteudoArquivos[nomeTratado];
                     string xmlContrato = Encoding.UTF8.GetString(data);
 
-                    var schema = ServicoArquivosWsdl.CarregarXml(
-                              ServicoArquivosWsdl.TransformarXml(xmlContrato)
-                            , ServicoArquivosWsdl.TransformarXml(xmlConteudo));
+                    var document = ServicoArquivosWsdl.TransformarXml(xmlContrato);
+                    var conteudo = ServicoArquivosWsdl.TransformarXml(xmlConteudo);
+
+                    var schema = ServicoArquivosWsdl.CarregarXml(document, conteudo);
 
                     // VALIR SE SERVICO ESTA CONFIGURADO
                     if (!servicoConfiguracao.Contratos.Any(e => e.Servico.ToLower().Equals(schema.NomeServico.ToLower())))

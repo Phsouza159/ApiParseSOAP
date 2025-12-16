@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	xmlns:bons0="http://ge.caixaseguros.com.br/bo"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:bons1="http://ge.caixaseguros.com.br/wsv0006/bo"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://ge.caixaseguros.com.br/wsv0006"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ge.caixaseguros.com.br/bo">
+	<xsd:complexType name="MsgRetornoPadrao">
+		<xsd:annotation>
+			<xsd:documentation>Objeto padr&#227;o para retorno de dados nas mensagens dos servi&#231;os.
+Padroniza a exist&#234;ncia de c&#243;digo de retorno, mensagem sist&#234;mica e mensagem amig&#225;vel para apresenta&#231;&#227;o aos usu&#225;rios.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="codRetorno" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>C&#243;digo de retorno da mensagem.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element minOccurs="0" name="desMensagemSistema" type="xsd:string">
+				<xsd:annotation/>
+			</xsd:element>
+			<xsd:element minOccurs="0" name="desMensagemAmigavel" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Descri&#231;&#227;o da mensagem, para apresenta&#231;&#227;o &#224; usu&#225;rios finais, quando houver necessidade de se descrever um erro.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MsgEntradaPadrao">
+		<xsd:annotation>
+			<xsd:documentation>Objeto padr&#227;o para entrada de dados nos servi&#231;os.
+Deve ser herdado pelos objetos de cada servi&#231;o, para que a identifca&#231;&#227;o do sistema consumidor seja padronizada.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="codSistema">
+				<xsd:annotation>
+					<xsd:documentation>Identificador do sistema consumidor do servi&#231;o.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

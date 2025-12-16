@@ -86,6 +86,11 @@ namespace Api.Domain.Services
         {
             servico = servico.Replace("/", "");
 
+            // TRATATIVA PARA XSD
+            if (servico.ToLower().Contains(".xsd"))
+                return servico;
+
+            // TRATATIVA PARA WSDL
             if(servico.Contains("."))
             {
                 string[] s = servico.Split('.');
@@ -141,7 +146,16 @@ namespace Api.Domain.Services
         public static Servicos? RecuperarServico(string servico)
         {
             servico = servico.Replace("/", "");
-            return Configuracacoes.FirstOrDefault(e => e.UrlLocation.ToLower().Equals(servico.ToLower()));
+            return Configuracacoes.FirstOrDefault(e => TratarNomeServicoVariavel(e.UrlLocation, servico));
+        }
+
+        private static bool TratarNomeServicoVariavel(string servicoRegistrado, string servicoBusca)
+        {
+            // SERVICO COM {NOME}.{EXTENSAO}
+            servicoRegistrado = servicoRegistrado.Contains(".") ? servicoRegistrado.Split(".")[0] : servicoRegistrado;
+            servicoBusca = servicoBusca.Contains(".") ? servicoBusca.Split(".")[0] : servicoBusca;
+
+            return (servicoRegistrado.ToLower().Equals(servicoBusca.ToLower()));
         }
 
         #endregion

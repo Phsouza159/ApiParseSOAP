@@ -34,7 +34,7 @@ namespace Api.Domain.Helper
         {
             ProcessadoresHelper.CarregarProcessadores();
 
-            PROC_VALUE processador = ProcessadoresHelper.Processadores[(short)elemento.Processador];
+            PROC_VALUE processador = ProcessadoresHelper.Processadores[(short)elemento.Processador.TiposProcessador];
 
             if (processador == null)
             {

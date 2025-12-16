@@ -32,7 +32,7 @@ namespace ApiParseSOAP.Controllers
 
             if (servicoConfiguracao != null)
             {
-                string nomeTratado = ServicoArquivosWsdl.ResoverNomeArquivo(servicoConfiguracao.Nome);
+                string nomeTratado = ServicoArquivosWsdl.ResoverNomeArquivo(servico);
 
                 if(servicoConfiguracao.ConteudoArquivos.ContainsKey(nomeTratado))
                 {
@@ -48,7 +48,7 @@ namespace ApiParseSOAP.Controllers
         public async Task<IActionResult> Post(
 
                 [FromServices] IProcessarChamadaSoapFacede processardorChamada
-                , [FromServices] IConvercaoJsonParaXml convercaoJsonParaXml
+                , [FromServices] IConvercaoXmlParaJson conversao
             )
         {
             string servico = this.Request.Path;
@@ -57,12 +57,17 @@ namespace ApiParseSOAP.Controllers
             var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
             if(!schema.IsVazio)
             {
-                await processardorChamada.EnviarProcessamento(schema);
 
-               // var objeto = convercaoJsonParaXml.Converter(schema);
+               // var json = this.ConvercaoXmlParaJson.ConverterParaJson(schema);
+               // await processardorChamada.EnviarProcessamento(schema);
 
-                string xmlResposta = convercaoJsonParaXml.ConverterParaXml(schema);
-                return Content(xmlResposta, "text/xml");
+                // TESTE 
+                return Content(conversao.ConverterParaJson(schema), "application/json");
+
+                // var objeto = convercaoJsonParaXml.Converter(schema);
+
+                //string xmlResposta = convercaoJsonParaXml.ConverterParaXml(schema);
+                //return Content(xmlResposta, "text/xml");
             }
 
 
