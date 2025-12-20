@@ -3,6 +3,7 @@ using ApiParseSOAP.Domain.Configuracao;
 using Api.Domain.Services;
 using ApiParseSOAP.Extensions;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace ApiParseSOAP
 {
@@ -41,7 +42,7 @@ namespace ApiParseSOAP
             var provider = builder.Services.BuildServiceProvider();
             var config = provider.GetRequiredService<IConfiguration>();
 
-            ServicoArquivosWsdl.PastaWsdl = config.GetPathWsdl();
+            ServicoArquivosWsdl.PastaWsdl = Path.Combine(config.GetPathServicos(), "Contratos");
             ServicoArquivosWsdl.PathHost = config.GetHost();
 
             ServicoArquivosWsdl.CarregarArquivosConfiguracao();

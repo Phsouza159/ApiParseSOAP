@@ -19,11 +19,10 @@ namespace ApiParseSOAP.Controllers
     public class ServicoSoapController : BaseController 
     {
         public ServicoSoapController(IConfiguration config)
+            : base(config) 
         {
-            Config = config;
         }
 
-        public IConfiguration Config { get; }
 
         [HttpGet]
         public IActionResult Get(string servico, [FromQuery] string? wsdl)
@@ -52,27 +51,32 @@ namespace ApiParseSOAP.Controllers
                 , [FromServices] IConvercaoJsonParaXml conversaoXml
             )
         {
-            string servico = this.Request.Path;
-            string xmlConteudo = base.RecuperarCorpoChamada();
-
-            var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
-            if(!schema.IsVazio)
-            {
-
-                if (queryParametro == "DEBUG")
+            try
+            {  
+                string servico = this.Request.Path;
+                string xmlConteudo = base.RecuperarCorpoChamada();
+                var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
+                if (!schema.IsVazio)
                 {
-                    // DEBUG 
-                    var json = conversaoJson.ConverterParaJson(schema);
-                    return Content(json, "application/json");
+                    if (queryParametro == "DEBUG")
+                    {
+                        // DEBUG 
+                        var json = conversaoJson.ConverterParaJson(schema);
+                        return Content(json, "application/json");
+                    }
+
+                    await processardorChamada.EnviarProcessamento(schema);
+                    string xmlResposta = conversaoXml.ConverterParaXml(schema);
+
+                    return Content(xmlResposta, "text/xml");
                 }
-
-                await processardorChamada.EnviarProcessamento(schema);
-                string xmlResposta = conversaoXml.ConverterParaXml(schema);
-
-                return Content(xmlResposta, "text/xml");
+            }
+            catch (Exception ex)
+            {
+                return await base.TratamentoErroFatal(ex);
             }
 
-
+            // DEFAULT 404
             return NotFound();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Api.Domain.Enum;
+using Api.Domain.Exceptions;
 
 namespace Api.Domain.Helper
 {
@@ -33,19 +34,27 @@ namespace Api.Domain.Helper
 
         public static object CarregarValorFormatado(this Element elemento, string valor)
         {
-            ProcessadoresHelper.CarregarProcessadores();
-
-            PROC_VALUE processador = ProcessadoresHelper.Processadores[(short)elemento.Processador.TiposProcessador];
-
-            if (processador == null)
+            try
             {
-                processador = ConversorValorHelper.PRC_DEFAULT;
+                ProcessadoresHelper.CarregarProcessadores();
+
+                PROC_VALUE processador = ProcessadoresHelper.Processadores[(short)elemento.Processador.TiposProcessador];
+
+                if (processador == null)
+                {
+                    processador = ConversorValorHelper.PRC_DEFAULT;
+                }
+
+                if (valor is null)
+                    return null;
+
+                return processador(valor);
             }
-
-            if (valor is null)
-                return null;
-
-            return processador(valor);
+            catch (Exception ex)
+            {
+                string mensagem = $"Erro elemento: {elemento.Nome}. Valor: {valor}. Mensagem: {ex.Message}";
+                throw new ConversaoException(mensagem);
+            }
         }
     }
 }

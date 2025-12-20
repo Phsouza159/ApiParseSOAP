@@ -8,7 +8,7 @@
             return configuration.GetItem(par);
         }
 
-        public static string GetPathWsdl(this IConfiguration configuration)
+        public static string GetPathServicos(this IConfiguration configuration)
         {
             string par = "PATH_SERVICOS";
             return configuration.GetItem(par);
