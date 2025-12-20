@@ -1,7 +1,7 @@
 ﻿
 using Api.Domain.Configuracao;
 using Api.Domain.Services;
-using ApiParseSOAP.Extensions;
+using Api.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiParseSOAP.Controllers.Base

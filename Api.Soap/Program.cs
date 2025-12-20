@@ -1,7 +1,7 @@
 
 using ApiParseSOAP.Domain.Configuracao;
 using Api.Domain.Services;
-using ApiParseSOAP.Extensions;
+using Api.Domain.Extensions;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration.UserSecrets;
 

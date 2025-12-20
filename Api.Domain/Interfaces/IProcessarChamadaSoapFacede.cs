@@ -9,6 +9,6 @@ namespace Api.Domain.Interfaces
     public interface IProcessarChamadaSoapFacede
     {
         Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo);
-        Task EnviarProcessamento(Schema schema);
+        Task EnviarProcessamento(Schema schema, IServicoLog servicoLog);
     }
 }

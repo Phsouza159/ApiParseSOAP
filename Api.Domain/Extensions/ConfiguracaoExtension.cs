@@ -1,4 +1,6 @@
-﻿namespace ApiParseSOAP.Extensions
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Api.Domain.Extensions
 {
     public static class ConfiguracaoExtension
     {
@@ -14,6 +16,11 @@
             return configuration.GetItem(par);
         }
 
+        public static string GetPathLog(this IConfiguration configuration)
+        {
+            string par = "PATH_LOG";
+            return configuration.GetItem(par);
+        }
 
         private static string GetItem(this IConfiguration configuration, string key)
         {

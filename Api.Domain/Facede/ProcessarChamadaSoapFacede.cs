@@ -51,9 +51,9 @@ namespace Api.Domain.Facede
             return new Schema() { IsVazio = true };
         }
 
-        public async Task EnviarProcessamento(Schema schema)
+        public async Task EnviarProcessamento(Schema schema, IServicoLog servicoLog)
         {
-            await this.ServicoWeb.Enviar(schema);
+            await this.ServicoWeb.Enviar(schema, servicoLog);
         }
     }
 }

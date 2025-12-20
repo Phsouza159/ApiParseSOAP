@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Api.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IServicoWeb
+    public interface IServicoLog
     {
-        Task Enviar(Schema schema, IServicoLog servicoLog);
+        Task CriarLog(string servico, string data, TipoLog tipo);
     }
 }

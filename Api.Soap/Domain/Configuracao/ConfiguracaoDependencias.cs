@@ -12,6 +12,8 @@ namespace ApiParseSOAP.Domain.Configuracao
 
             services.AddScoped<IConvercaoJsonParaXml, ConvercaoJsonParaXml>();
             services.AddScoped<IConvercaoXmlParaJson, ConvercaoXmlParaJson>();
+            services.AddScoped<IServicoLog, ServicoLog>();
+            
 
             services.AddScoped<IProcessarChamadaSoapFacede, ProcessarChamadaSoapFacede>();
 
