@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "98f32683-f4e6-426c-8ab3-82d0b0ba0814",
+		"name": "API SOAP PARSE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6107170"
+	},
+	"item": [
+		{
+			"name": "GS BANCO",
+			"item": [
+				{
+					"name": "GET WSDL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/GEWSV0006_Banco?wsdl",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"GEWSV0006_Banco"
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET XSD1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/GEWSV0006_Banco.xsd1.xsd",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"GEWSV0006_Banco.xsd1.xsd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET XSD2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/GEWSV0006_Banco.xsd2.xsd",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"GEWSV0006_Banco.xsd2.xsd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET XSD3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/GEWSV0006_Banco.xsd3.xsd",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"GEWSV0006_Banco.xsd3.xsd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST - LISTAR DATA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "queryParametro",
+								"value": "DEBUG",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:wsv=\"http://ge.caixaseguros.com.br/wsv0006\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <wsv:listarBancos>\r\n         <dadosEntrada>\r\n            <codSistema>TESTE</codSistema>\r\n            <codUsuario>TESTE</codUsuario>\r\n            <codOperacao>10</codOperacao>\r\n         </dadosEntrada>\r\n      </wsv:listarBancos>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/GEWSV0006_Banco",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"GEWSV0006_Banco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[API TESTE] GEWSV0006_Banco",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dadosEntrada\": {\r\n        \"codSistema\": \"TESTE\",\r\n        \"codUsuario\": \"TESTE\",\r\n        \"codOperacao\": 10\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API_TESTE}}/GEWSV0006_Banco",
+							"host": [
+								"{{URL_API_TESTE}}"
+							],
+							"path": [
+								"GEWSV0006_Banco"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
