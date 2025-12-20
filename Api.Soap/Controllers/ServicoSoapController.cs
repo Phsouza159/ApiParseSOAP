@@ -58,21 +58,17 @@ namespace ApiParseSOAP.Controllers
             var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
             if(!schema.IsVazio)
             {
-                if(queryParametro == "DEBUG")
+
+                if (queryParametro == "DEBUG")
                 {
                     // DEBUG 
-                    return Content(conversaoJson.ConverterParaJson(schema), "application/json");
+                    var json = conversaoJson.ConverterParaJson(schema);
+                    return Content(json, "application/json");
                 }
 
-
-                var json = conversaoJson.ConverterParaJson(schema);
                 await processardorChamada.EnviarProcessamento(schema);
-
-                // TESTE 
-                // return Content(conversao.ConverterParaJson(schema), "application/json");
-                //var objeto = conversaoXml.Converter(schema);
-
                 string xmlResposta = conversaoXml.ConverterParaXml(schema);
+
                 return Content(xmlResposta, "text/xml");
             }
 

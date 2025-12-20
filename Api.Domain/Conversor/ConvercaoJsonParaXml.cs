@@ -229,11 +229,20 @@ namespace Api.Domain.Conversor
             for (int i = 0; i < elementos.Count; i += 1)
             {
                 Element elemento = elementos[i];
-                XmlElement item = elemento.ConverterXml(soapDoc, schema);
+                XmlElement item = ConverterXml(elemento, soapDoc, schema);
 
                 response.AppendChild(item);
             }
             return soapDoc;
+        }
+
+        internal XmlElement ConverterXml(Element elemento, XmlDocument document, Schema schema)
+        {
+            XmlElement item = document.CreateElement(schema.Servico.Prefixo, $"{elemento.Nome}", schema.Servico.UrlHost);
+            // item.SetAttribute(this.Nome, this.Valor);
+            item.InnerText = elemento.Valor;
+
+            return item;
         }
 
         #endregion
