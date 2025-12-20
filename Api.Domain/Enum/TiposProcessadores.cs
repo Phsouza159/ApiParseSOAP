@@ -7,7 +7,11 @@ namespace Api.Domain.Enum
         DEFAULT = 0,
         unsignedLong,
         STRING,
+        SHORT,
+
+        // OBJETOS COMPLEXOS
         OBJETO,
         OBJETO_IMPORTADO,
+        EXTENSION,
     }
 }

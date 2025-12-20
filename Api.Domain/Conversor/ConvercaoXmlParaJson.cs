@@ -20,11 +20,42 @@ namespace Api.Domain.Conversor
         public string ConverterParaJson(Schema schema)
         {
             List<Element> lista = this.Converter(schema);
-            JsonObject data = this.ProcessarElementos(lista);
-            //return data.ToJsonString();
+
+            //TODO - VALIDAR
+            // CRIAR FUNCAO PARA VALIDAR ELEMENTOS
+
+            List<Element> elementosCorpo = this.TratarLista(lista);
+            JsonObject data = this.ProcessarElementos(elementosCorpo);
+            return data.ToJsonString();
             // TESTE
-            return JsonConvert.SerializeObject(lista);
+            //return JsonConvert.SerializeObject(elementosCorpo);
         }
+
+        private List<Element> TratarLista(List<Element> lista)
+        {
+            List<Element> listaTratada = new List<Element>();
+
+            foreach (var item in lista)
+            {
+                var filhosFiltrados = TratarLista(item.No);
+
+                if (item.IsPropriedade)
+                {
+                    Element novo = new Element();
+                    item.Copiar(novo);
+                    novo.No = filhosFiltrados;
+
+                    listaTratada.Add(novo);
+                }
+                else
+                {
+                    listaTratada.AddRange(filhosFiltrados);
+                }
+            }
+
+            return listaTratada;
+        }
+
 
         public List<Element> Converter(Schema schema)
         {
@@ -37,6 +68,7 @@ namespace Api.Domain.Conversor
                 if (item != null)
                 {
                     Element element = this.ProcessarElemento(schema, item, prefixoBusca);
+                    element.IsPropriedade = true;
                     lista.Add(element);
                 }
             }
@@ -54,34 +86,73 @@ namespace Api.Domain.Conversor
             {
                 Nome = this.RecuperarNomeElemento(item),
                 Prefixo = item.Prefix,
-                Valor = string.IsNullOrEmpty(item.Value) ? string.Empty : item.Value,
                 Tipo = item.NodeType,
+                IsPropriedade = item.LocalName == "element",
             };
 
+            this.RecuperarValorPropriedade(element, schema);
             this.RecuperarProcessadorNode(element, schema, item, prefixoBusca);
 
             // MODO : complexType
-
             if (element.Processador.TiposProcessador == Enum.TiposProcessadores.OBJETO_IMPORTADO)
             {
-                // Criar o namespace manager
-                XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
-                ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
-
-                string path = $"//{prefixoBusca}:complexType[@name='{element.Processador.ElementoImportado}']";
-                var dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
-                
-                foreach (XmlNode d in dados)
-                {
-                    element.No.AddRange(this.ProcessarListaNoFilhos(schema, d.ChildNodes.Cast<XmlNode>(), prefixoBusca));
-                }
+                this.CarregarDodosElementosComplexo(element, schema, item, prefixoBusca);
+            }
+            // MODO : Extensions
+            else if (element.Processador.TiposProcessador == Enum.TiposProcessadores.EXTENSION)
+            {
+                this.CarregarDodosElementosComplexo(element, schema, item, prefixoBusca);
+                this.CarregarDadosElementoSimples(element, schema, item, prefixoBusca);
+            }
+            // MODO : Simples
+            else
+            {
+                this.CarregarDadosElementoSimples(element, schema, item, prefixoBusca);
             }
 
-            // MODO : Simples
-           else if (item.ChildNodes.Count > 0)
-                element.No = item.ChildNodes.Cast<XmlNode>().Select(e => this.ProcessarElemento(schema, e, prefixoBusca)).ToList();
-
             return element;
+        }
+
+        private void RecuperarValorPropriedade(Element element, Schema schema)
+        {
+            if (!element.IsPropriedade)
+                return;
+
+            string prefixoBusca = string.Empty;
+            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
+            ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
+
+            string path = $"//{element.Nome}";
+            var p = schema.Corpo.SelectNodes(path, ns);
+
+            if(p != null && p.Count == 1)
+            {
+                element.Valor = p[0].InnerText;
+                return;
+            }
+        }
+
+        private void CarregarDadosElementoSimples(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        {
+            if(item.ChildNodes.Count > 0)
+            {
+                element.No.AddRange(item.ChildNodes.Cast<XmlNode>().Select(e => this.ProcessarElemento(schema, e, prefixoBusca)).ToList());
+            }
+        }
+
+        private void CarregarDodosElementosComplexo(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        {
+            // Criar o namespace manager
+            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
+            ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
+
+            string path = $"//{prefixoBusca}:complexType[@name='{element.Processador.ElementoImportado}']";
+            var dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
+
+            foreach (XmlNode d in dados)
+            {
+                element.No.AddRange(this.ProcessarListaNoFilhos(schema, d.ChildNodes.Cast<XmlNode>(), prefixoBusca));
+            }
         }
 
         private string RecuperarNomeElemento(XmlNode item)
@@ -125,6 +196,18 @@ namespace Api.Domain.Conversor
                     element.Processador.TiposProcessador = tipoNode;
                     return;
                 }
+                // VALORES RESERVADOS
+                else if (p != null && p.Value != null && ConversorValorHelper.IsNomeReservado(p.Value.RecuperarParametro(":", 1)))
+                {
+                    element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(p.Value.RecuperarParametro(":", 1));
+                    return;
+                }
+                else if (this.IsElementoExtends(item))
+                {
+                    element.Processador.ElementoImportado = item.RecuperarAtributo("base").RecuperarParametro(":", 1);
+                    element.Processador.TiposProcessador = Enum.TiposProcessadores.EXTENSION;
+                    return;
+                }
 
                 // Criar o namespace manager
                 XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
@@ -151,6 +234,12 @@ namespace Api.Domain.Conversor
                     }
                 }
             }
+        }
+
+        private bool IsElementoExtends(XmlNode typeNode)
+        {
+            string prefixoExtends = "xsd";
+            return typeNode != null && typeNode.Name == $"{prefixoExtends}:extension";
         }
 
         private bool IsElementoNodeEntity(XmlNode typeNode)
@@ -266,7 +355,22 @@ namespace Api.Domain.Conversor
 
         internal void ProcessarElementos(JsonObject json, Element elemento)
         {
-            json[elemento.Nome] = JsonValue.Create(elemento.Converter());
+            var objet = elemento.Converter();
+
+            if(objet is JsonValue data)
+            {
+                json[elemento.Nome] = data;
+            }
+            else if (objet is JsonObject dataObjeto)
+            {
+                json[elemento.Nome] = dataObjeto;
+
+            }
+            else
+            {
+                json[elemento.Nome] = JsonValue.Create(objet);
+            }
+
         }
 
         #endregion

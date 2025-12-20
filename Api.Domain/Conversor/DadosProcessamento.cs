@@ -8,6 +8,12 @@ namespace Api.Domain.Conversor
 {
     public class DadosProcessamento
     {
+        public DadosProcessamento()
+        {
+            this.ElementoImportado = string.Empty;
+            this.TiposProcessador = Enum.TiposProcessadores.DEFAULT;
+        }
+
         public Enum.TiposProcessadores TiposProcessador { get; set; }
 
         public string ElementoImportado { get; set; }

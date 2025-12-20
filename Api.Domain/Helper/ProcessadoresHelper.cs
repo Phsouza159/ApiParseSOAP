@@ -24,6 +24,7 @@ namespace Api.Domain.Helper
             #region PROCS 
 
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.unsignedLong] = ConversorValorHelper.PRC_USINGNEDLONG;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.SHORT] = ConversorValorHelper.PRC_SHORT;
 
             #endregion
         }
@@ -40,6 +41,9 @@ namespace Api.Domain.Helper
             {
                 processador = ConversorValorHelper.PRC_DEFAULT;
             }
+
+            if (valor is null)
+                return null;
 
             return processador(valor);
         }
