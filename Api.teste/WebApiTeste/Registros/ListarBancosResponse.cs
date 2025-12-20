@@ -1,0 +1,1493 @@
+﻿
+using System.Reflection;
+
+namespace WebApiTeste.Registros
+{
+    public class ListarBancosResponse
+    {
+        internal static string RecuperarLista()
+        {
+            return @"
+{
+   ""codRetorno"":""0"",
+   ""objBancoArray"":{
+      ""objBanco"":[
+         {
+            ""codBanco"":""406"",
+            ""nomBanco"":""ACCREDITO - SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""332"",
+            ""nomBanco"":""ACESSO SOLUÇÕES DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""117"",
+            ""nomBanco"":""ADVANCED CORRETORA DE CÂMBIO LTDA""
+         },
+         {
+            ""codBanco"":""272"",
+            ""nomBanco"":""AGK CORRETORA DE CAMBIO S.A.""
+         },
+         {
+            ""codBanco"":""349"",
+            ""nomBanco"":""AL5 S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""172"",
+            ""nomBanco"":""ALBATROSS CORRETORA DE CAMBIO E VALORES S.A""
+         },
+         {
+            ""codBanco"":""313"",
+            ""nomBanco"":""AMAZÔNIA CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""461"",
+            ""nomBanco"":""ASAAS GESTÃO FINANCEIRA INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""513"",
+            ""nomBanco"":""ATF CREDIT SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""527"",
+            ""nomBanco"":""ATICCA - SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""188"",
+            ""nomBanco"":""ATIVA INVESTIMENTOS S.A. CORRETORA DE TÍTULOS, CÂMBIO E VALORES""
+         },
+         {
+            ""codBanco"":""508"",
+            ""nomBanco"":""AVENUE SECURITIES DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""463"",
+            ""nomBanco"":""AZUMI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""080"",
+            ""nomBanco"":""B&T CORRETORA DE CAMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""246"",
+            ""nomBanco"":""BANCO ABC BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""075"",
+            ""nomBanco"":""BANCO ABN AMRO S.A.""
+         },
+         {
+            ""codBanco"":""121"",
+            ""nomBanco"":""BANCO AGIBANK S.A.""
+         },
+         {
+            ""codBanco"":""025"",
+            ""nomBanco"":""BANCO ALFA S.A.""
+         },
+         {
+            ""codBanco"":""641"",
+            ""nomBanco"":""BANCO ALVORADA S.A.""
+         },
+         {
+            ""codBanco"":""065"",
+            ""nomBanco"":""BANCO ANDBANK (BRASIL) S.A.""
+         },
+         {
+            ""codBanco"":""213"",
+            ""nomBanco"":""BANCO ARBI S.A.""
+         },
+         {
+            ""codBanco"":""096"",
+            ""nomBanco"":""BANCO B3 S.A.""
+         },
+         {
+            ""codBanco"":""024"",
+            ""nomBanco"":""BANCO BANDEPE S.A.""
+         },
+         {
+            ""codBanco"":""330"",
+            ""nomBanco"":""BANCO BARI DE INVESTIMENTOS E FINANCIAMENTOS S.A.""
+         },
+         {
+            ""codBanco"":""334"",
+            ""nomBanco"":""BANCO BESA S.A.""
+         },
+         {
+            ""codBanco"":""318"",
+            ""nomBanco"":""BANCO BMG S.A.""
+         },
+         {
+            ""codBanco"":""752"",
+            ""nomBanco"":""BANCO BNP PARIBAS BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""107"",
+            ""nomBanco"":""BANCO BOCOM BBM S.A.""
+         },
+         {
+            ""codBanco"":""063"",
+            ""nomBanco"":""BANCO BRADESCARD S.A.""
+         },
+         {
+            ""codBanco"":""036"",
+            ""nomBanco"":""BANCO BRADESCO BBI S.A.""
+         },
+         {
+            ""codBanco"":""122"",
+            ""nomBanco"":""BANCO BRADESCO BERJ S.A.""
+         },
+         {
+            ""codBanco"":""204"",
+            ""nomBanco"":""BANCO BRADESCO CARTÕES S.A.""
+         },
+         {
+            ""codBanco"":""394"",
+            ""nomBanco"":""BANCO BRADESCO FINANCIAMENTOS S.A.""
+         },
+         {
+            ""codBanco"":""237"",
+            ""nomBanco"":""BANCO BRADESCO S.A.""
+         },
+         {
+            ""codBanco"":""378"",
+            ""nomBanco"":""BANCO BRASILEIRO DE CRÉDITO SOCIEDADE ANÔNIMA""
+         },
+         {
+            ""codBanco"":""218"",
+            ""nomBanco"":""BANCO BS2 S.A.""
+         },
+         {
+            ""codBanco"":""208"",
+            ""nomBanco"":""BANCO BTG PACTUAL S.A.""
+         },
+         {
+            ""codBanco"":""413"",
+            ""nomBanco"":""BANCO BV S.A.""
+         },
+         {
+            ""codBanco"":""626"",
+            ""nomBanco"":""BANCO C6 CONSIGNADO S.A.""
+         },
+         {
+            ""codBanco"":""336"",
+            ""nomBanco"":""BANCO C6 S.A.""
+         },
+         {
+            ""codBanco"":""473"",
+            ""nomBanco"":""BANCO CAIXA GERAL - BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""040"",
+            ""nomBanco"":""BANCO CARGILL S.A.""
+         },
+         {
+            ""codBanco"":""266"",
+            ""nomBanco"":""BANCO CEDULA S.A.""
+         },
+         {
+            ""codBanco"":""739"",
+            ""nomBanco"":""BANCO CETELEM S.A.""
+         },
+         {
+            ""codBanco"":""233"",
+            ""nomBanco"":""BANCO CIFRA S.A.""
+         },
+         {
+            ""codBanco"":""745"",
+            ""nomBanco"":""BANCO CITIBANK S.A.""
+         },
+         {
+            ""codBanco"":""241"",
+            ""nomBanco"":""BANCO CLASSICO S.A.""
+         },
+         {
+            ""codBanco"":""756"",
+            ""nomBanco"":""BANCO COOPERATIVO SICOOB S.A. - BANCO SICOOB""
+         },
+         {
+            ""codBanco"":""748"",
+            ""nomBanco"":""BANCO COOPERATIVO SICREDI S.A.""
+         },
+         {
+            ""codBanco"":""222"",
+            ""nomBanco"":""BANCO CRÉDIT AGRICOLE BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""505"",
+            ""nomBanco"":""BANCO CREDIT SUISSE (BRASIL) S.A.""
+         },
+         {
+            ""codBanco"":""069"",
+            ""nomBanco"":""BANCO CREFISA S.A.""
+         },
+         {
+            ""codBanco"":""368"",
+            ""nomBanco"":""BANCO CSF S.A.""
+         },
+         {
+            ""codBanco"":""003"",
+            ""nomBanco"":""BANCO DA AMAZONIA S.A.""
+         },
+         {
+            ""codBanco"":""083"",
+            ""nomBanco"":""BANCO DA CHINA BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""707"",
+            ""nomBanco"":""BANCO DAYCOVAL S.A.""
+         },
+         {
+            ""codBanco"":""300"",
+            ""nomBanco"":""BANCO DE LA NACION ARGENTINA""
+         },
+         {
+            ""codBanco"":""495"",
+            ""nomBanco"":""BANCO DE LA PROVINCIA DE BUENOS AIRES""
+         },
+         {
+            ""codBanco"":""494"",
+            ""nomBanco"":""BANCO DE LA REPUBLICA ORIENTAL DEL URUGUAY""
+         },
+         {
+            ""codBanco"":""654"",
+            ""nomBanco"":""BANCO DIGIMAIS S.A.""
+         },
+         {
+            ""codBanco"":""335"",
+            ""nomBanco"":""BANCO DIGIO S.A.""
+         },
+         {
+            ""codBanco"":""001"",
+            ""nomBanco"":""BANCO DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""047"",
+            ""nomBanco"":""BANCO DO ESTADO DE SERGIPE S.A.""
+         },
+         {
+            ""codBanco"":""037"",
+            ""nomBanco"":""BANCO DO ESTADO DO PARÁ S.A.""
+         },
+         {
+            ""codBanco"":""041"",
+            ""nomBanco"":""BANCO DO ESTADO DO RIO GRANDE DO SUL S.A.""
+         },
+         {
+            ""codBanco"":""004"",
+            ""nomBanco"":""BANCO DO NORDESTE DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""265"",
+            ""nomBanco"":""BANCO FATOR S.A.""
+         },
+         {
+            ""codBanco"":""224"",
+            ""nomBanco"":""BANCO FIBRA S.A.""
+         },
+         {
+            ""codBanco"":""094"",
+            ""nomBanco"":""BANCO FINAXIS S.A.""
+         },
+         {
+            ""codBanco"":""125"",
+            ""nomBanco"":""BANCO GENIAL S.A.""
+         },
+         {
+            ""codBanco"":""390"",
+            ""nomBanco"":""BANCO GM S.A.""
+         },
+         {
+            ""codBanco"":""612"",
+            ""nomBanco"":""BANCO GUANABARA S.A.""
+         },
+         {
+            ""codBanco"":""269"",
+            ""nomBanco"":""BANCO HSBC S.A.""
+         },
+         {
+            ""codBanco"":""012"",
+            ""nomBanco"":""BANCO INBURSA S.A.""
+         },
+         {
+            ""codBanco"":""604"",
+            ""nomBanco"":""BANCO INDUSTRIAL DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""077"",
+            ""nomBanco"":""BANCO INTER S.A.""
+         },
+         {
+            ""codBanco"":""249"",
+            ""nomBanco"":""BANCO INVESTCRED UNIBANCO S.A.""
+         },
+         {
+            ""codBanco"":""184"",
+            ""nomBanco"":""BANCO ITAÚ BBA S.A.""
+         },
+         {
+            ""codBanco"":""029"",
+            ""nomBanco"":""BANCO ITAÚ CONSIGNADO S.A.""
+         },
+         {
+            ""codBanco"":""479"",
+            ""nomBanco"":""BANCO ITAUBANK S.A.""
+         },
+         {
+            ""codBanco"":""074"",
+            ""nomBanco"":""BANCO J. SAFRA S.A.""
+         },
+         {
+            ""codBanco"":""376"",
+            ""nomBanco"":""BANCO J.P. MORGAN S.A.""
+         },
+         {
+            ""codBanco"":""217"",
+            ""nomBanco"":""BANCO JOHN DEERE S.A.""
+         },
+         {
+            ""codBanco"":""076"",
+            ""nomBanco"":""BANCO KDB DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""757"",
+            ""nomBanco"":""BANCO KEB HANA DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""630"",
+            ""nomBanco"":""BANCO LETSBANK S.A.""
+         },
+         {
+            ""codBanco"":""600"",
+            ""nomBanco"":""BANCO LUSO BRASILEIRO S.A.""
+         },
+         {
+            ""codBanco"":""141"",
+            ""nomBanco"":""BANCO MASTER DE INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""243"",
+            ""nomBanco"":""BANCO MASTER S/A""
+         },
+         {
+            ""codBanco"":""389"",
+            ""nomBanco"":""BANCO MERCANTIL DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""381"",
+            ""nomBanco"":""BANCO MERCEDES-BENZ DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""370"",
+            ""nomBanco"":""BANCO MIZUHO DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""746"",
+            ""nomBanco"":""BANCO MODAL S.A.""
+         },
+         {
+            ""codBanco"":""066"",
+            ""nomBanco"":""BANCO MORGAN STANLEY S.A.""
+         },
+         {
+            ""codBanco"":""456"",
+            ""nomBanco"":""BANCO MUFG BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""007"",
+            ""nomBanco"":""BANCO NACIONAL DE DESENVOLVIMENTO ECONOMICO E SOCIAL""
+         },
+         {
+            ""codBanco"":""735"",
+            ""nomBanco"":""BANCO NEON S.A.""
+         },
+         {
+            ""codBanco"":""169"",
+            ""nomBanco"":""BANCO OLÉ CONSIGNADO S.A.""
+         },
+         {
+            ""codBanco"":""079"",
+            ""nomBanco"":""BANCO ORIGINAL DO AGRONEGÓCIO S.A.""
+         },
+         {
+            ""codBanco"":""212"",
+            ""nomBanco"":""BANCO ORIGINAL S.A.""
+         },
+         {
+            ""codBanco"":""712"",
+            ""nomBanco"":""BANCO OURINVEST S.A.""
+         },
+         {
+            ""codBanco"":""623"",
+            ""nomBanco"":""BANCO PAN S.A.""
+         },
+         {
+            ""codBanco"":""611"",
+            ""nomBanco"":""BANCO PAULISTA S.A.""
+         },
+         {
+            ""codBanco"":""643"",
+            ""nomBanco"":""BANCO PINE S.A.""
+         },
+         {
+            ""codBanco"":""747"",
+            ""nomBanco"":""BANCO RABOBANK INTERNATIONAL BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""088"",
+            ""nomBanco"":""BANCO RANDON S.A.""
+         },
+         {
+            ""codBanco"":""633"",
+            ""nomBanco"":""BANCO RENDIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""741"",
+            ""nomBanco"":""BANCO RIBEIRAO PRETO S.A.""
+         },
+         {
+            ""codBanco"":""720"",
+            ""nomBanco"":""BANCO RNX S.A.""
+         },
+         {
+            ""codBanco"":""120"",
+            ""nomBanco"":""BANCO RODOBENS S.A.""
+         },
+         {
+            ""codBanco"":""422"",
+            ""nomBanco"":""BANCO SAFRA S.A.""
+         },
+         {
+            ""codBanco"":""033"",
+            ""nomBanco"":""BANCO SANTANDER (BRASIL) S.A.""
+         },
+         {
+            ""codBanco"":""743"",
+            ""nomBanco"":""BANCO SEMEAR S.A.""
+         },
+         {
+            ""codBanco"":""276"",
+            ""nomBanco"":""BANCO SENFF S.A.""
+         },
+         {
+            ""codBanco"":""754"",
+            ""nomBanco"":""BANCO SISTEMA S.A.""
+         },
+         {
+            ""codBanco"":""366"",
+            ""nomBanco"":""BANCO SOCIETE GENERALE BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""637"",
+            ""nomBanco"":""BANCO SOFISA S.A.""
+         },
+         {
+            ""codBanco"":""299"",
+            ""nomBanco"":""BANCO SOROCRED S.A. - BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""464"",
+            ""nomBanco"":""BANCO SUMITOMO MITSUI BRASILEIRO S.A.""
+         },
+         {
+            ""codBanco"":""082"",
+            ""nomBanco"":""BANCO TOPÁZIO S.A.""
+         },
+         {
+            ""codBanco"":""387"",
+            ""nomBanco"":""BANCO TOYOTA DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""634"",
+            ""nomBanco"":""BANCO TRIANGULO S.A.""
+         },
+         {
+            ""codBanco"":""018"",
+            ""nomBanco"":""BANCO TRICURY S.A.""
+         },
+         {
+            ""codBanco"":""653"",
+            ""nomBanco"":""BANCO VOITER S.A.""
+         },
+         {
+            ""codBanco"":""393"",
+            ""nomBanco"":""BANCO VOLKSWAGEN S.A.""
+         },
+         {
+            ""codBanco"":""655"",
+            ""nomBanco"":""BANCO VOTORANTIM S.A.""
+         },
+         {
+            ""codBanco"":""610"",
+            ""nomBanco"":""BANCO VR S.A.""
+         },
+         {
+            ""codBanco"":""119"",
+            ""nomBanco"":""BANCO WESTERN UNION DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""124"",
+            ""nomBanco"":""BANCO WOORI BANK DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""348"",
+            ""nomBanco"":""BANCO XP S.A.""
+         },
+         {
+            ""codBanco"":""475"",
+            ""nomBanco"":""BANCO YAMAHA MOTOR DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""081"",
+            ""nomBanco"":""BANCOSEGURO S.A.""
+         },
+         {
+            ""codBanco"":""021"",
+            ""nomBanco"":""BANESTES S.A. BANCO DO ESTADO DO ESPIRITO SANTO""
+         },
+         {
+            ""codBanco"":""755"",
+            ""nomBanco"":""BANK OF AMERICA MERRILL LYNCH BANCO MÚLTIPLO S.A.""
+         },
+         {
+            ""codBanco"":""268"",
+            ""nomBanco"":""BARI COMPANHIA HIPOTECÁRIA""
+         },
+         {
+            ""codBanco"":""250"",
+            ""nomBanco"":""BCV - BANCO DE CRÉDITO E VAREJO S.A.""
+         },
+         {
+            ""codBanco"":""144"",
+            ""nomBanco"":""BEXS BANCO DE CÂMBIO S/A""
+         },
+         {
+            ""codBanco"":""253"",
+            ""nomBanco"":""BEXS CORRETORA DE CÂMBIO S/A""
+         },
+         {
+            ""codBanco"":""134"",
+            ""nomBanco"":""BGC LIQUIDEZ DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""426"",
+            ""nomBanco"":""BIORC FINANCEIRA - CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""377"",
+            ""nomBanco"":""BMS SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""017"",
+            ""nomBanco"":""BNY MELLON BANCO S.A.""
+         },
+         {
+            ""codBanco"":""408"",
+            ""nomBanco"":""BONUSPAGO SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""301"",
+            ""nomBanco"":""BPP INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""126"",
+            ""nomBanco"":""BR PARTNERS BANCO DE INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""433"",
+            ""nomBanco"":""BR-CAPITAL DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""070"",
+            ""nomBanco"":""BRB - BANCO DE BRASILIA S.A.""
+         },
+         {
+            ""codBanco"":""092"",
+            ""nomBanco"":""BRK S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""173"",
+            ""nomBanco"":""BRL TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""142"",
+            ""nomBanco"":""BROKER BRASIL CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""292"",
+            ""nomBanco"":""BS2 DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""104"",
+            ""nomBanco"":""CAIXA ECONOMICA FEDERAL""
+         },
+         {
+            ""codBanco"":""309"",
+            ""nomBanco"":""CAMBIONET CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""465"",
+            ""nomBanco"":""CAPITAL CONSIG SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""288"",
+            ""nomBanco"":""CAROL DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.""
+         },
+         {
+            ""codBanco"":""324"",
+            ""nomBanco"":""CARTOS SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""130"",
+            ""nomBanco"":""CARUANA S.A. - SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""159"",
+            ""nomBanco"":""CASA DO CRÉDITO S.A. SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR""
+         },
+         {
+            ""codBanco"":""470"",
+            ""nomBanco"":""CDC SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESADE PEQUENO PORTE LTDA.""
+         },
+         {
+            ""codBanco"":""509"",
+            ""nomBanco"":""CELCOIN INSTITUICAO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""114"",
+            ""nomBanco"":""CENTRAL COOPERATIVA DE CRÉDITO NO ESTADO DO ESPÍRITO SANTO - CECOOP""
+         },
+         {
+            ""codBanco"":""091"",
+            ""nomBanco"":""CENTRAL DE COOPERATIVAS DE ECONOMIA E CRÉDITO MÚTUO DO ESTADO DO RIO GRANDE DO S""
+         },
+         {
+            ""codBanco"":""320"",
+            ""nomBanco"":""CHINA CONSTRUCTION BANK (BRASIL) BANCO MÚLTIPLO S/A""
+         },
+         {
+            ""codBanco"":""362"",
+            ""nomBanco"":""CIELO S.A.""
+         },
+         {
+            ""codBanco"":""477"",
+            ""nomBanco"":""CITIBANK N.A.""
+         },
+         {
+            ""codBanco"":""180"",
+            ""nomBanco"":""CM CAPITAL MARKETS CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""402"",
+            ""nomBanco"":""COBUCCIO SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""127"",
+            ""nomBanco"":""CODEPE CORRETORA DE VALORES E CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""423"",
+            ""nomBanco"":""COLUNA S/A DISTRIBUIDORA DE TITULOS E VALORES MOBILIÁRIOS""
+         },
+         {
+            ""codBanco"":""163"",
+            ""nomBanco"":""COMMERZBANK BRASIL S.A. - BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""133"",
+            ""nomBanco"":""CONFEDERAÇÃO NACIONAL DAS COOPERATIVAS CENTRAIS DE CRÉDITO E ECONOMIA FAMILIAR E""
+         },
+         {
+            ""codBanco"":""136"",
+            ""nomBanco"":""CONFEDERAÇÃO NACIONAL DAS COOPERATIVAS CENTRAIS UNICRED LTDA. - UNICRED DO BRASI""
+         },
+         {
+            ""codBanco"":""060"",
+            ""nomBanco"":""CONFIDENCE CORRETORA DE CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""085"",
+            ""nomBanco"":""COOPERATIVA CENTRAL DE CRÉDITO - AILOS""
+         },
+         {
+            ""codBanco"":""427"",
+            ""nomBanco"":""COOPERATIVA DE CREDITO DOS SERVIDORES DA UNIVERSIDADE FEDERAL DO ESPIRITO SANTO""
+         },
+         {
+            ""codBanco"":""459"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO MÚTUO DE SERVIDORES PÚBLICOS DO ESTADO DE SÃO PAULO - CRE""
+         },
+         {
+            ""codBanco"":""016"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO MÚTUO DOS DESPACHANTES DE TRÂNSITO DE SANTA CATARINA E RI""
+         },
+         {
+            ""codBanco"":""281"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO RURAL COOPAVEL""
+         },
+         {
+            ""codBanco"":""322"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO RURAL DE ABELARDO LUZ - SULCREDI/CREDILUZ""
+         },
+         {
+            ""codBanco"":""391"",
+            ""nomBanco"":""COOPERATIVA DE CREDITO RURAL DE IBIAM - SULCREDI/IBIAM""
+         },
+         {
+            ""codBanco"":""350"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO RURAL DE PEQUENOS AGRICULTORES E DA REFORMA AGRÁRIA DO CE""
+         },
+         {
+            ""codBanco"":""273"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO RURAL DE SÃO MIGUEL DO OESTE - SULCREDI/SÃO MIGUEL""
+         },
+         {
+            ""codBanco"":""430"",
+            ""nomBanco"":""COOPERATIVA DE CREDITO RURAL SEARA - CREDISEARA""
+         },
+         {
+            ""codBanco"":""400"",
+            ""nomBanco"":""COOPERATIVA DE CRÉDITO, POUPANÇA E SERVIÇOS FINANCEIROS DO CENTRO OESTE - CREDIT""
+         },
+         {
+            ""codBanco"":""328"",
+            ""nomBanco"":""COOPERATIVA DE ECONOMIA E CRÉDITO MÚTUO DOS FABRICANTES DE CALÇADOS DE SAPIRANGA""
+         },
+         {
+            ""codBanco"":""471"",
+            ""nomBanco"":""COOPERATIVA DE ECONOMIA E CREDITO MUTUO DOS SERVIDORES PUBLICOS DE PINHÃO - CRES""
+         },
+         {
+            ""codBanco"":""385"",
+            ""nomBanco"":""COOPERATIVA DE ECONOMIA E CREDITO MUTUO DOS TRABALHADORES PORTUARIOS DA GRANDE V""
+         },
+         {
+            ""codBanco"":""379"",
+            ""nomBanco"":""COOPERFORTE - COOPERATIVA DE ECONOMIA E CRÉDITO MÚTUO DE FUNCIONÁRIOS DE INSTITU""
+         },
+         {
+            ""codBanco"":""403"",
+            ""nomBanco"":""CORA SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""428"",
+            ""nomBanco"":""CRED-SYSTEM SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""098"",
+            ""nomBanco"":""CREDIALIANÇA COOPERATIVA DE CRÉDITO RURAL""
+         },
+         {
+            ""codBanco"":""429"",
+            ""nomBanco"":""CREDIARE S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""440"",
+            ""nomBanco"":""CREDIBRF - COOPERATIVA DE CRÉDITO""
+         },
+         {
+            ""codBanco"":""010"",
+            ""nomBanco"":""CREDICOAMO CREDITO RURAL COOPERATIVA""
+         },
+         {
+            ""codBanco"":""452"",
+            ""nomBanco"":""CREDIFIT SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""443"",
+            ""nomBanco"":""CREDIHOME SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""089"",
+            ""nomBanco"":""CREDISAN COOPERATIVA DE CRÉDITO""
+         },
+         {
+            ""codBanco"":""097"",
+            ""nomBanco"":""CREDISIS - CENTRAL DE COOPERATIVAS DE CRÉDITO LTDA.""
+         },
+         {
+            ""codBanco"":""011"",
+            ""nomBanco"":""CREDIT SUISSE HEDGING-GRIFFO CORRETORA DE VALORES S.A""
+         },
+         {
+            ""codBanco"":""342"",
+            ""nomBanco"":""CREDITAS SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""321"",
+            ""nomBanco"":""CREFAZ SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E A EMPRESA DE PEQUENO PORTE LT""
+         },
+         {
+            ""codBanco"":""182"",
+            ""nomBanco"":""DACASA FINANCEIRA S/A - SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""435"",
+            ""nomBanco"":""DELCRED SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""487"",
+            ""nomBanco"":""DEUTSCHE BANK S.A. - BANCO ALEMAO""
+         },
+         {
+            ""codBanco"":""449"",
+            ""nomBanco"":""DMCARD SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""311"",
+            ""nomBanco"":""DOURADA CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""532"",
+            ""nomBanco"":""EAGLE SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""383"",
+            ""nomBanco"":""EBANX INSTITUICAO DE PAGAMENTOS LTDA.""
+         },
+         {
+            ""codBanco"":""289"",
+            ""nomBanco"":""EFX CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""534"",
+            ""nomBanco"":""EWALLY INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""395"",
+            ""nomBanco"":""F.D'GOLD - DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""149"",
+            ""nomBanco"":""FACTA FINANCEIRA S.A. - CRÉDITO FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""196"",
+            ""nomBanco"":""FAIR CORRETORA DE CAMBIO S.A.""
+         },
+         {
+            ""codBanco"":""455"",
+            ""nomBanco"":""FÊNIX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""343"",
+            ""nomBanco"":""FFA SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE LTDA.""
+         },
+         {
+            ""codBanco"":""510"",
+            ""nomBanco"":""FFCRED SOCIEDADE DE CRÉDITO DIRETO S.A..""
+         },
+         {
+            ""codBanco"":""382"",
+            ""nomBanco"":""FIDÚCIA SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE L""
+         },
+         {
+            ""codBanco"":""512"",
+            ""nomBanco"":""FINVEST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""450"",
+            ""nomBanco"":""FITBANK PAGAMENTOS ELETRONICOS S.A.""
+         },
+         {
+            ""codBanco"":""331"",
+            ""nomBanco"":""FRAM CAPITAL DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""285"",
+            ""nomBanco"":""FRENTE CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""541"",
+            ""nomBanco"":""FUNDO GARANTIDOR DE CREDITOS - FGC""
+         },
+         {
+            ""codBanco"":""478"",
+            ""nomBanco"":""GAZINCRED S.A. SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""278"",
+            ""nomBanco"":""GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""364"",
+            ""nomBanco"":""GERENCIANET S.A.""
+         },
+         {
+            ""codBanco"":""138"",
+            ""nomBanco"":""GET MONEY CORRETORA DE CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""384"",
+            ""nomBanco"":""GLOBAL FINANÇAS SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO""
+         },
+         {
+            ""codBanco"":""064"",
+            ""nomBanco"":""GOLDMAN SACHS DO BRASIL BANCO MULTIPLO S.A.""
+         },
+         {
+            ""codBanco"":""135"",
+            ""nomBanco"":""GRADUAL CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""177"",
+            ""nomBanco"":""GUIDE INVESTIMENTOS S.A. CORRETORA DE VALORES""
+         },
+         {
+            ""codBanco"":""146"",
+            ""nomBanco"":""GUITTA CORRETORA DE CAMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""078"",
+            ""nomBanco"":""HAITONG BANCO DE INVESTIMENTO DO BRASIL S.A.""
+         },
+         {
+            ""codBanco"":""458"",
+            ""nomBanco"":""HEDGE INVESTMENTS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""448"",
+            ""nomBanco"":""HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""062"",
+            ""nomBanco"":""HIPERCARD BANCO MÚLTIPLO S.A.""
+         },
+         {
+            ""codBanco"":""523"",
+            ""nomBanco"":""HR DIGITAL - SOCIEDADE DE CRÉDITO DIRETO S/A""
+         },
+         {
+            ""codBanco"":""189"",
+            ""nomBanco"":""HS FINANCEIRA S/A CREDITO, FINANCIAMENTO E INVESTIMENTOS""
+         },
+         {
+            ""codBanco"":""312"",
+            ""nomBanco"":""HSCM - SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE LT""
+         },
+         {
+            ""codBanco"":""396"",
+            ""nomBanco"":""HUB PAGAMENTOS S.A""
+         },
+         {
+            ""codBanco"":""271"",
+            ""nomBanco"":""IB CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""157"",
+            ""nomBanco"":""ICAP DO BRASIL CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""132"",
+            ""nomBanco"":""ICBC DO BRASIL BANCO MÚLTIPLO S.A.""
+         },
+         {
+            ""codBanco"":""439"",
+            ""nomBanco"":""ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""398"",
+            ""nomBanco"":""IDEAL CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""407"",
+            ""nomBanco"":""ÍNDIGO INVESTIMENTOS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""492"",
+            ""nomBanco"":""ING BANK N.V.""
+         },
+         {
+            ""codBanco"":""525"",
+            ""nomBanco"":""INTERCAM CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""139"",
+            ""nomBanco"":""INTESA SANPAOLO BRASIL S.A. - BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""652"",
+            ""nomBanco"":""ITAÚ UNIBANCO HOLDING S.A.""
+         },
+         {
+            ""codBanco"":""341"",
+            ""nomBanco"":""ITAÚ UNIBANCO S.A.""
+         },
+         {
+            ""codBanco"":""401"",
+            ""nomBanco"":""IUGU INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""451"",
+            ""nomBanco"":""J17 - SOCIEDADE DE CRÉDITO DIRETO S/A""
+         },
+         {
+            ""codBanco"":""488"",
+            ""nomBanco"":""JPMORGAN CHASE BANK, NATIONAL ASSOCIATION""
+         },
+         {
+            ""codBanco"":""399"",
+            ""nomBanco"":""KIRTON BANK S.A. - BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""416"",
+            ""nomBanco"":""LAMARA SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""421"",
+            ""nomBanco"":""LAR COOPERATIVA DE CRÉDITO - LAR CREDI""
+         },
+         {
+            ""codBanco"":""293"",
+            ""nomBanco"":""LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""105"",
+            ""nomBanco"":""LECCA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A""
+         },
+         {
+            ""codBanco"":""469"",
+            ""nomBanco"":""LECCA DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA""
+         },
+         {
+            ""codBanco"":""145"",
+            ""nomBanco"":""LEVYCAM - CORRETORA DE CAMBIO E VALORES LTDA.""
+         },
+         {
+            ""codBanco"":""519"",
+            ""nomBanco"":""LIONS TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""397"",
+            ""nomBanco"":""LISTO SOCIEDADE DE CREDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""484"",
+            ""nomBanco"":""MAF DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""442"",
+            ""nomBanco"":""MAGNETIS - DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""511"",
+            ""nomBanco"":""MAGNUM SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""535"",
+            ""nomBanco"":""MARÚ SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""467"",
+            ""nomBanco"":""MASTER S/A CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS""
+         },
+         {
+            ""codBanco"":""518"",
+            ""nomBanco"":""MERCADO CRÉDITO SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""323"",
+            ""nomBanco"":""MERCADO PAGO INSTITUIÇÃO DE PAGAMENTO LTDA.""
+         },
+         {
+            ""codBanco"":""454"",
+            ""nomBanco"":""MÉRITO DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""537"",
+            ""nomBanco"":""MICROCASH SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE""
+         },
+         {
+            ""codBanco"":""358"",
+            ""nomBanco"":""MIDWAY S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""447"",
+            ""nomBanco"":""MIRAE ASSET WEALTH MANAGEMENT (BRAZIL) CORRETORA DE CÂMBIO, TÍTULOS E VALORES MO""
+         },
+         {
+            ""codBanco"":""526"",
+            ""nomBanco"":""MONETARIE SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""274"",
+            ""nomBanco"":""MONEY PLUS SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E A EMPRESA DE PEQUENO PORT""
+         },
+         {
+            ""codBanco"":""259"",
+            ""nomBanco"":""MONEYCORP BANCO DE CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""128"",
+            ""nomBanco"":""MS BANK S.A. BANCO DE CÂMBIO""
+         },
+         {
+            ""codBanco"":""137"",
+            ""nomBanco"":""MULTIMONEY CORRETORA DE CÂMBIO LTDA""
+         },
+         {
+            ""codBanco"":""354"",
+            ""nomBanco"":""NECTON INVESTIMENTOS  S.A. CORRETORA DE VALORES MOBILIÁRIOS E COMMODITIES""
+         },
+         {
+            ""codBanco"":""113"",
+            ""nomBanco"":""NEON CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""536"",
+            ""nomBanco"":""NEON PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO""
+         },
+         {
+            ""codBanco"":""191"",
+            ""nomBanco"":""NOVA FUTURA CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""753"",
+            ""nomBanco"":""NOVO BANCO CONTINENTAL S.A. - BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""386"",
+            ""nomBanco"":""NU FINANCEIRA S.A. - SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""140"",
+            ""nomBanco"":""NU INVEST CORRETORA DE VALORES S.A.""
+         },
+         {
+            ""codBanco"":""260"",
+            ""nomBanco"":""NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO""
+         },
+         {
+            ""codBanco"":""419"",
+            ""nomBanco"":""NUMBRS SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""111"",
+            ""nomBanco"":""OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIARIOS S.A.""
+         },
+         {
+            ""codBanco"":""319"",
+            ""nomBanco"":""OM DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""613"",
+            ""nomBanco"":""OMNI BANCO S.A.""
+         },
+         {
+            ""codBanco"":""325"",
+            ""nomBanco"":""ÓRAMA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""355"",
+            ""nomBanco"":""ÓTIMO SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""290"",
+            ""nomBanco"":""PAGSEGURO INTERNET INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""254"",
+            ""nomBanco"":""PARANÁ BANCO S.A.""
+         },
+         {
+            ""codBanco"":""326"",
+            ""nomBanco"":""PARATI - CREDITO, FINANCIAMENTO E INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""194"",
+            ""nomBanco"":""PARMETAL DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""521"",
+            ""nomBanco"":""PEAK SOCIEDADE DE EMPRÉSTIMO ENTRE PESSOAS S.A.""
+         },
+         {
+            ""codBanco"":""174"",
+            ""nomBanco"":""PEFISA S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""315"",
+            ""nomBanco"":""PI DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""380"",
+            ""nomBanco"":""PICPAY INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""529"",
+            ""nomBanco"":""PINBANK BRASIL INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""100"",
+            ""nomBanco"":""PLANNER CORRETORA DE VALORES S.A.""
+         },
+         {
+            ""codBanco"":""410"",
+            ""nomBanco"":""PLANNER SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR S.A.""
+         },
+         {
+            ""codBanco"":""438"",
+            ""nomBanco"":""PLANNER TRUSTEE DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""445"",
+            ""nomBanco"":""PLANTAE S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""093"",
+            ""nomBanco"":""PÓLOCRED   SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORT""
+         },
+         {
+            ""codBanco"":""108"",
+            ""nomBanco"":""PORTOCRED S.A. - CREDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""306"",
+            ""nomBanco"":""PORTOPAR DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.""
+         },
+         {
+            ""codBanco"":""468"",
+            ""nomBanco"":""PORTOSEG S.A. - CREDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""279"",
+            ""nomBanco"":""PRIMACREDI COOPERATIVA DE CRÉDITO DE PRIMAVERA DO LESTE""
+         },
+         {
+            ""codBanco"":""329"",
+            ""nomBanco"":""QI SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""516"",
+            ""nomBanco"":""QISTA S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""283"",
+            ""nomBanco"":""RB INVESTIMENTOS DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LIMITADA""
+         },
+         {
+            ""codBanco"":""528"",
+            ""nomBanco"":""REAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""374"",
+            ""nomBanco"":""REALIZE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""522"",
+            ""nomBanco"":""RED SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""101"",
+            ""nomBanco"":""RENASCENCA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA""
+         },
+         {
+            ""codBanco"":""147"",
+            ""nomBanco"":""RICO CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.""
+         },
+         {
+            ""codBanco"":""506"",
+            ""nomBanco"":""RJI CORRETORA DE TITULOS E VALORES MOBILIARIOS LTDA""
+         },
+         {
+            ""codBanco"":""270"",
+            ""nomBanco"":""SAGITUR CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""539"",
+            ""nomBanco"":""SANTINVEST S.A. - CREDITO, FINANCIAMENTO E INVESTIMENTOS""
+         },
+         {
+            ""codBanco"":""482"",
+            ""nomBanco"":""SBCASH SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""751"",
+            ""nomBanco"":""SCOTIABANK BRASIL S.A. BANCO MÚLTIPLO""
+         },
+         {
+            ""codBanco"":""545"",
+            ""nomBanco"":""SENSO CORRETORA DE CAMBIO E VALORES MOBILIARIOS S.A""
+         },
+         {
+            ""codBanco"":""530"",
+            ""nomBanco"":""SER FINANCE SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""190"",
+            ""nomBanco"":""SERVICOOP - COOPERATIVA DE CRÉDITO DOS SERVIDORES PÚBLICOS ESTADUAIS E MUNICIPAI""
+         },
+         {
+            ""codBanco"":""365"",
+            ""nomBanco"":""SIMPAUL CORRETORA DE CAMBIO E VALORES MOBILIARIOS  S.A.""
+         },
+         {
+            ""codBanco"":""363"",
+            ""nomBanco"":""SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""084"",
+            ""nomBanco"":""SISPRIME DO BRASIL - COOPERATIVA DE CRÉDITO""
+         },
+         {
+            ""codBanco"":""412"",
+            ""nomBanco"":""SOCIAL BANK BANCO MÚLTIPLO S/A""
+         },
+         {
+            ""codBanco"":""507"",
+            ""nomBanco"":""SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO EFÍ S.A.""
+         },
+         {
+            ""codBanco"":""425"",
+            ""nomBanco"":""SOCINAL S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""183"",
+            ""nomBanco"":""SOCRED S.A. - SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO P""
+         },
+         {
+            ""codBanco"":""118"",
+            ""nomBanco"":""STANDARD CHARTERED BANK (BRASIL) S.A. - BANCO DE INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""462"",
+            ""nomBanco"":""STARK SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""014"",
+            ""nomBanco"":""STATE STREET BRASIL S.A. - BANCO COMERCIAL""
+         },
+         {
+            ""codBanco"":""197"",
+            ""nomBanco"":""STONE INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""404"",
+            ""nomBanco"":""SUMUP SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""340"",
+            ""nomBanco"":""SUPER PAGAMENTOS E ADMINISTRAÇÃO DE MEIOS ELETRÔNICOS S.A.""
+         },
+         {
+            ""codBanco"":""481"",
+            ""nomBanco"":""SUPERLÓGICA SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""307"",
+            ""nomBanco"":""TERRA INVESTIMENTOS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.""
+         },
+         {
+            ""codBanco"":""352"",
+            ""nomBanco"":""TORO CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""095"",
+            ""nomBanco"":""TRAVELEX BANCO DE CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""143"",
+            ""nomBanco"":""TREVISO CORRETORA DE CÂMBIO S.A.""
+         },
+         {
+            ""codBanco"":""360"",
+            ""nomBanco"":""TRINUS CAPITAL DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""444"",
+            ""nomBanco"":""TRINUS SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""131"",
+            ""nomBanco"":""TULLETT PREBON BRASIL CORRETORA DE VALORES E CÂMBIO LTDA""
+         },
+         {
+            ""codBanco"":""546"",
+            ""nomBanco"":""U4C INSTITUIÇÃO DE PAGAMENTO S.A.""
+         },
+         {
+            ""codBanco"":""129"",
+            ""nomBanco"":""UBS BRASIL BANCO DE INVESTIMENTO S.A.""
+         },
+         {
+            ""codBanco"":""015"",
+            ""nomBanco"":""UBS BRASIL CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""460"",
+            ""nomBanco"":""UNAVANTI SOCIEDADE DE CRÉDITO DIRETO S/A""
+         },
+         {
+            ""codBanco"":""099"",
+            ""nomBanco"":""UNIPRIME CENTRAL NACIONAL - CENTRAL NACIONAL DE COOPERATIVA DE CREDITO""
+         },
+         {
+            ""codBanco"":""286"",
+            ""nomBanco"":""UNIPRIME OURO - COOPERATIVA DE CRÉDITO DE OURO""
+         },
+         {
+            ""codBanco"":""373"",
+            ""nomBanco"":""UP.P SOCIEDADE DE EMPRÉSTIMO ENTRE PESSOAS S.A.""
+         },
+         {
+            ""codBanco"":""457"",
+            ""nomBanco"":""UY3 SOCIEDADE DE CRÉDITO DIRETO S/A""
+         },
+         {
+            ""codBanco"":""195"",
+            ""nomBanco"":""VALOR SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""411"",
+            ""nomBanco"":""VIA CERTA FINANCIADORA S.A. - CRÉDITO, FINANCIAMENTO E INVESTIMENTOS""
+         },
+         {
+            ""codBanco"":""298"",
+            ""nomBanco"":""VIP'S CORRETORA DE CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""296"",
+            ""nomBanco"":""VISION S.A. CORRETORA DE CAMBIO""
+         },
+         {
+            ""codBanco"":""367"",
+            ""nomBanco"":""VITREO DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""310"",
+            ""nomBanco"":""VORTX DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.""
+         },
+         {
+            ""codBanco"":""371"",
+            ""nomBanco"":""WARREN CORRETORA DE VALORES MOBILIÁRIOS E CÂMBIO LTDA.""
+         },
+         {
+            ""codBanco"":""280"",
+            ""nomBanco"":""WILL FINANCEIRA S.A. CRÉDITO, FINANCIAMENTO E INVESTIMENTO""
+         },
+         {
+            ""codBanco"":""524"",
+            ""nomBanco"":""WNT CAPITAL DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.""
+         },
+         {
+            ""codBanco"":""414"",
+            ""nomBanco"":""WORK SOCIEDADE DE CRÉDITO DIRETO S.A.""
+         },
+         {
+            ""codBanco"":""102"",
+            ""nomBanco"":""XP INVESTIMENTOS CORRETORA DE CÂMBIO,TÍTULOS E VALORES MOBILIÁRIOS S/A""
+         },
+         {
+            ""codBanco"":""359"",
+            ""nomBanco"":""ZEMA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A""
+         },
+         {
+            ""codBanco"":""418"",
+            ""nomBanco"":""ZIPDIN SOLUÇÕES DIGITAIS SOCIEDADE DE CRÉDITO DIRETO S/A""
+         }
+      ]
+   }
+}
+            ";
+        }
+    }
+}

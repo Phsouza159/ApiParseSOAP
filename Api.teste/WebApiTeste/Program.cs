@@ -16,12 +16,16 @@ app.MapPost("/NumberToWords", ([FromBody] NumberToWordsData NumberToWordsData) =
     return response;
 });
 
-
-
 app.MapPost("/NumberToDollars", ([FromBody] NumberToDollarsData NumberToWordsData) =>
 {
     var response = new NumberToDollarsResponse(NumberToWordsData.dNum);
     return response;
+});
+
+app.MapPost("/GEWSV0006_Banco", ([FromBody] ListarBancosData data) =>
+{
+    string json = WebApiTeste.Registros.ListarBancosResponse.RecuperarLista();
+    return Results.Content(json, "application/json");
 });
 
 app.Run();

@@ -40,7 +40,8 @@ namespace Api.Domain.Conversor
             ns.AddNamespace("xs", "http://www.w3.org/2001/XMLSchema");
 
             JObject obj = JObject.Parse(json);
-            var node = schema.Contrato.SelectNodes($"//xs:element[@name='{schema.NomeServico}Response']", ns);
+            // var node = schema.Contrato.SelectNodes($"//xs:element[@name='{schema.NomeServico}Response']", ns);
+            var node = schema.Contrato.SelectNodes($"//*[local-name()='output' and @name='{schema.NomeServico}Response']");
 
             if (node is null || node.Count < 1) return elements;
 

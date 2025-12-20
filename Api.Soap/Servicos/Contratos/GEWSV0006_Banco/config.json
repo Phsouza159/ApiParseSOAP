@@ -5,7 +5,7 @@
     "Contratos": [
         {
             "Servico": "listarBancos",
-            "Api": "http://localhost:5090/listarBancos",
+            "Api": "https://localhost:7108/GEWSV0006_Banco",
             "Tipo": "POST",
             "Autenticacao": ""
         }

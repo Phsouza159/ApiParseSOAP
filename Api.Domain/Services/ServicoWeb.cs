@@ -46,8 +46,10 @@ namespace Api.Domain.Services
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(contrato.Api, content);
-
             schema.Resultado = await response.Content.ReadAsStringAsync();
+
+            await servicoLog.CriarLog(schema.Servico.Nome, schema.Resultado, TipoLog.RETORNO_JSON);
+
             schema.Status = response.StatusCode;
         }
     }
