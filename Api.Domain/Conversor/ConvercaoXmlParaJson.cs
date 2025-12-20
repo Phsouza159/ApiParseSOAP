@@ -27,8 +27,6 @@ namespace Api.Domain.Conversor
             List<Element> elementosCorpo = this.TratarLista(lista);
             JsonObject data = this.ProcessarElementos(elementosCorpo);
             return data.ToJsonString();
-            // TESTE
-            //return JsonConvert.SerializeObject(elementosCorpo);
         }
 
         private List<Element> TratarLista(List<Element> lista)

@@ -46,9 +46,10 @@ namespace ApiParseSOAP.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post(
-
-                [FromServices] IProcessarChamadaSoapFacede processardorChamada
-                , [FromServices] IConvercaoXmlParaJson conversao
+                  [FromHeader] string? queryParametro 
+                , [FromServices] IProcessarChamadaSoapFacede processardorChamada
+                , [FromServices] IConvercaoXmlParaJson conversaoJson
+                , [FromServices] IConvercaoJsonParaXml conversaoXml
             )
         {
             string servico = this.Request.Path;
@@ -57,17 +58,22 @@ namespace ApiParseSOAP.Controllers
             var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
             if(!schema.IsVazio)
             {
+                if(queryParametro == "DEBUG")
+                {
+                    // DEBUG 
+                    return Content(conversaoJson.ConverterParaJson(schema), "application/json");
+                }
 
-               // var json = this.ConvercaoXmlParaJson.ConverterParaJson(schema);
-               // await processardorChamada.EnviarProcessamento(schema);
+
+                var json = conversaoJson.ConverterParaJson(schema);
+                await processardorChamada.EnviarProcessamento(schema);
 
                 // TESTE 
-                return Content(conversao.ConverterParaJson(schema), "application/json");
+                // return Content(conversao.ConverterParaJson(schema), "application/json");
+                //var objeto = conversaoXml.Converter(schema);
 
-                // var objeto = convercaoJsonParaXml.Converter(schema);
-
-                //string xmlResposta = convercaoJsonParaXml.ConverterParaXml(schema);
-                //return Content(xmlResposta, "text/xml");
+                string xmlResposta = conversaoXml.ConverterParaXml(schema);
+                return Content(xmlResposta, "text/xml");
             }
 
 
