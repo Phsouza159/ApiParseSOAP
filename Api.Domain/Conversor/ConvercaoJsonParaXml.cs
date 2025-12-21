@@ -1,24 +1,29 @@
 ﻿using Api.Domain.Conversor.Extensions;
 using Api.Domain.Enum;
 using Api.Domain.Interfaces;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
+using System.Web.Helpers;
 using System.Xml;
 using System.Xml.Linq;
 
 namespace Api.Domain.Conversor
 {
-    public class ConvercaoJsonParaXml : IConvercaoJsonParaXml
+    public class ConvercaoJsonParaXml : Base.Conversor, IConvercaoJsonParaXml
     {
 
         public string ConverterParaXml(Schema schema)
         {
-            List<Element> lista = this.Converter(schema);
-            XmlDocument data = this.ProcessarElementos(schema, lista);
-            return data.OuterXml;
+            List<Element> lista = this.ConverterContrato(schema);
+            var listaTratada = this.TratarLista(lista);
+            return JsonConvert.SerializeObject(listaTratada);
+
+            //XmlDocument data = this.ProcessarElementos(schema, lista);
+            //return data.OuterXml;
         }
 
-        public List<Element> Converter(Schema schema)
+        public List<Element> ConverterContrato(Schema schema)
         {
             string json = schema.Resultado;
             return this.ProcessarJson(schema, json);
@@ -34,28 +39,53 @@ namespace Api.Domain.Conversor
         private List<Element> ProcessarJson(Schema schema, string json)
         {
             List<Element> elements = new List<Element>();
-
-            // Criar o namespace manager
-            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
-            ns.AddNamespace("xs", "http://www.w3.org/2001/XMLSchema");
-
+            XmlNode? nodeRetorno = this.RecuperarNodePrinciaplRetorno(schema);
             JObject obj = JObject.Parse(json);
-            // var node = schema.Contrato.SelectNodes($"//xs:element[@name='{schema.NomeServico}Response']", ns);
-            var node = schema.Contrato.SelectNodes($"//*[local-name()='output' and @name='{schema.NomeServico}Response']");
 
-            if (node is null || node.Count < 1) return elements;
+            //TODO: VALIDAR DADO RETORNO
+            // nodeRetorno
 
-            var noResponse = node[0];
+            Element element = this.ProcessarElemento(schema, nodeRetorno);
+            elements.Add(element);
 
-            if (noResponse is null) return elements;
 
-            foreach (var item in obj)
-            {
-                Element element = this.ProcessarElementoJson(item, noResponse, ns);
-                elements.Add(element);
-            }
+
+            //// TRATAR ITEM OUTPUT
+            //if (base.IsItemOutput(noResponse))
+            //{
+
+            //}
+
+            //if (noResponse is null) return elements;
+
+            //foreach (var item in obj)
+            //{
+            //    Element element = this.ProcessarElementoJson(item, noResponse, ns);
+            //    elements.Add(element);
+            //}
 
             return elements;
+        }
+
+        private XmlNode? RecuperarNodePrinciaplRetorno(Schema schema)
+        {
+            // Criar o namespace manager
+            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
+            ns.AddNamespace(schema.Servico.Prefixo, "http://www.w3.org/2001/XMLSchema");
+
+            string path = $"//{schema.Servico.Prefixo}:element[@name='{schema.NomeServico}Response']";
+            var node = schema.Contrato.SelectNodes(path, ns);
+
+            // CASO NULO - PEGAR EM ITENS IMPORTADOS
+            if (node is null || node.Count < 1)
+            {
+                node = base.RecuperarElementoImportacaoServico(schema, path);
+            }
+
+            if (node is null || node.Count < 1) return null;
+            var noResponse = node[0];
+
+            return noResponse;
         }
 
         internal Element ProcessarElementoJson(KeyValuePair<string, JToken> item, XmlNode noResponse, XmlNamespaceManager ns)
@@ -65,7 +95,8 @@ namespace Api.Domain.Conversor
             string tipagemContrato = this.ProcessarXmlTipoPropriedade(item, noResponse, ns);
             TiposProcessadores tipoProcessador = this.RecuperarTipoProcessador(item.Value);
 
-            this.ValidarTipoContrato(item, tipoProcessador, tipagemContrato);
+            //TODO: VALIDACAO
+            //this.ValidarTipoContrato(item, tipoProcessador, tipagemContrato);
 
             element.Nome = this.TratarNomePropriedade(item.Key);
             element.Valor = item.Value.ToString();
@@ -108,13 +139,19 @@ namespace Api.Domain.Conversor
             string key = item.Key;
             var propXml = noResponse.SelectNodes($"//xs:element[{this.TratarCaseSensitive("@name")}='{key.ToLower()}']", ns);
 
-            if (propXml is null || propXml.Count == 0) 
-                throw new ArgumentException($"Propriedade não localizada no contrato '{key}'");
+            if (propXml is null || propXml.Count == 0)
+            {
+                return string.Empty;
+                // throw new ArgumentException($"Propriedade não localizada no contrato '{key}'");
+            }
 
             var prop = propXml.Item(0);
 
-            if (prop is null || prop.Attributes is null || prop.Attributes.Count == 0) 
-                throw new ArgumentException($"Atributos da propriedade não localizada no contrato '{key}'");
+            if (prop is null || prop.Attributes is null || prop.Attributes.Count == 0)
+            {
+                return string.Empty;
+               // throw new ArgumentException($"Atributos da propriedade não localizada no contrato '{key}'");
+            }
 
             var atributo = prop.Attributes.Cast<XmlAttribute>().FirstOrDefault(e => e.Name == "type");
             

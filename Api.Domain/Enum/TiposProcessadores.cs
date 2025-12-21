@@ -12,6 +12,7 @@ namespace Api.Domain.Enum
         // OBJETOS COMPLEXOS
         OBJETO,
         OBJETO_IMPORTADO,
+        OBJETO_ARRAY,
         EXTENSION,
     }
 }

@@ -1,7 +1,7 @@
 {
     "UrlHost": "https://datapower.caixaseguros.intranet:443/GEWSV0006_Banco/",
     "UrlLocation": "GEWSV0006_Banco",
-    "Prefixo": "",
+    "Prefixo": "xsd",
     "Contratos": [
         {
             "Servico": "listarBancos",

@@ -11,4 +11,8 @@
     <PackageReference Include="Newtonsoft.JsonResult" Version="1.0.5778.10762" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum\NovaPasta\" />
+  </ItemGroup>
+
 </Project>

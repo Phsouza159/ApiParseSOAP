@@ -8,6 +8,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IConvercao
     {
-        List<Element> Converter(Schema schema);
+        List<Element> ConverterContrato(Schema schema);
     }
 }
