@@ -44,7 +44,7 @@ namespace Api.Domain.Services
             string targetnamespace = servicos.UrlHost;  //servicos.ConcatenarUrl(servicos.UrlHost, servicos.Nome);
             string targetnamespaceValue = PathHost; // servicos.ConcatenarUrl(PathHost, servicos.Nome);
 
-            string location = servicos.GetLocation();
+            string location = servicos.UrlHost; //servicos.GetLocation();
             string locationValue = StringHelper.ConcatenarUrl(PathHost, servicos.UrlLocation); 
 
             for (int i = 0; i < lines.Length; i += 1)
