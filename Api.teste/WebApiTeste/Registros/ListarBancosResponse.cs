@@ -7,8 +7,8 @@ namespace WebApiTeste.Registros
     {
         internal static string RecuperarLista()
         {
-            return @"
-{
+            return @"{ ""listarBancosResponse"" : 
+{ ""retorno"" : {
    ""codRetorno"":""0"",
    ""objBancoArray"":{
       ""objBanco"":[
@@ -1487,7 +1487,7 @@ namespace WebApiTeste.Registros
       ]
    }
 }
-            ";
+        }    }";
         }
     }
 }

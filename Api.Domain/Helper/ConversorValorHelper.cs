@@ -62,5 +62,13 @@ namespace Api.Domain.Helper
             // TDOO: VALIDAR EXECEPTIONS PARA CAST DE VALOR
             throw new ArgumentException();
         }
+
+        internal static string PRC_STRING(string valor)
+        {
+            if(valor is null)
+                return null;
+
+            return valor.ToString();
+        }
     }
 }

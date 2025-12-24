@@ -75,7 +75,7 @@ namespace ApiParseSOAP.Controllers
                     await processardorChamada.EnviarProcessamento(schema, servicoLog);
                     string xmlResposta = conversaoXml.ConverterParaXml(schema);
                     // TESTE
-                    return Content(xmlResposta, "application/json");
+                    //return Content(xmlResposta, "application/json");
 
                     await servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
 

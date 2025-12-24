@@ -1,8 +1,10 @@
 ﻿using Api.Domain.Conversor.Extensions;
 using Api.Domain.Enum;
+using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection.Metadata;
 using System.Text.Json.Nodes;
 using System.Web.Helpers;
 using System.Xml;
@@ -16,12 +18,202 @@ namespace Api.Domain.Conversor
         public string ConverterParaXml(Schema schema)
         {
             List<Element> lista = this.ConverterContrato(schema);
-            var listaTratada = this.TratarLista(lista);
-            return JsonConvert.SerializeObject(listaTratada);
+            var contratoRetorno = this.TratarLista(lista);
+
+            XmlDocument documento = this.CriarDocumentoXml(schema, contratoRetorno);
+
+           // return JsonConvert.SerializeObject(contratoRetorno);
 
             //XmlDocument data = this.ProcessarElementos(schema, lista);
-            //return data.OuterXml;
+            return documento.OuterXml;
         }
+
+
+        #region CRIAR DOCUMENTO XML
+
+
+        internal XmlDocument CriarDocumentoXml(Schema schema, List<Element> listaContrato)
+        {
+            XmlDocument document = new XmlDocument();
+            string prefixo = schema.Servico.Prefixo;
+
+            // Criar Envelope com namespace SOAP
+            XmlElement envelope = document.CreateElement("soap", "Envelope", "http://schemas.xmlsoap.org/soap/envelope/");
+            document.AppendChild(envelope);
+
+            // Criar Body
+            XmlElement body = document.CreateElement("soap", "Body", "http://schemas.xmlsoap.org/soap/envelope/");
+            envelope.AppendChild(body);
+
+            JToken token = JToken.Parse(schema.Resultado);
+
+            foreach (var elemento in listaContrato)
+            {
+                string caminhoItem = "";
+                this.ProcessarListaElement(schema, document, body, elemento, token, caminhoItem);
+            }
+
+            return document;
+        }
+
+
+        internal void ProcessarListaElement(Schema schema, XmlDocument document, XmlElement documentoAppend, Element elemento, JToken token, string caminhoItem)
+        {
+            XmlElement item = document.CreateElement($"{elemento.Nome}");
+
+            //item.InnerText =
+            caminhoItem = string.IsNullOrEmpty(caminhoItem) ? elemento.Nome : $"{caminhoItem}.{elemento.Nome}";
+
+            var valorToken = token.SelectToken(caminhoItem);
+            this.CarregarPropriedadeEValidacoes(item, valorToken, elemento, caminhoItem);
+
+            // PROCESSAR OBJETO ARRAY
+            if (elemento.Processador.TiposProcessador == TiposProcessadores.OBJETO_ARRAY)
+            {
+                this.ProcessarListaElementArray(schema, document, item, documentoAppend, elemento, token, valorToken, caminhoItem);
+            }
+            // PROCESSAR ITEM SIMPLES
+            else
+            {
+                this.ProcessarListaElementSimples(schema, document, item, documentoAppend, elemento, token, caminhoItem);
+            }
+        }
+
+        #region PROCESSAR ITEM ARRAY
+
+        internal void ProcessarListaElementArray(Schema schema
+            , XmlDocument document
+            , XmlElement item
+            , XmlElement documentoAppend
+            , Element elemento
+            , JToken token
+            , JToken valorToken
+            , string caminhoItem)
+        {
+            int contador = 0;
+            List<Element> elementosContratoArray = elemento.No;
+            var tokens = token.SelectTokens(caminhoItem);
+
+            foreach (var tokenItemArray in valorToken)
+            {
+                XmlElement itemArray = document.CreateElement($"{elemento.Nome}");
+
+                foreach (var itemContratoArray in elementosContratoArray)
+                {
+                    string subCaminhoArray = string.Empty;
+                    this.ProcessarListaElement(schema, document, itemArray, itemContratoArray, tokenItemArray, subCaminhoArray);
+                }
+
+                documentoAppend.AppendChild(itemArray);
+
+                contador += 1;
+            }
+        }
+
+        #endregion
+
+        #region PROCESSAR ITEM SIMPLES
+
+        internal void ProcessarListaElementSimples(
+              Schema schema
+            , XmlDocument document
+            , XmlElement item
+            , XmlElement documentoAppend
+            , Element elemento
+            , JToken token
+            , string caminhoItem)
+        {
+            // ADICIONAR ITEM AO DOM DO XML
+            documentoAppend.AppendChild(item);
+
+            foreach (var no in elemento.No)
+            {
+                this.ProcessarListaElement(schema, document, item, no, token, caminhoItem);
+            }
+
+            if(item.IsEmpty)
+            {
+                documentoAppend.RemoveChild(item);
+            }
+        }
+
+        #endregion
+
+        #region PROCESSAR VALOR DO TIPO JSON
+
+        private void CarregarPropriedadeEValidacoes(XmlElement item, JToken valorToken, Element elemento, string caminhoItem)
+        {
+            if (valorToken is null)
+                return;
+
+
+            switch (valorToken.Type)
+            {
+                case JTokenType.None:
+                    break;
+                case JTokenType.Object:
+                    break;
+                case JTokenType.Array:
+
+                    if (elemento.Processador.TiposProcessador != TiposProcessadores.OBJETO_ARRAY)
+                        throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem}");
+
+                    break;
+                case JTokenType.Constructor:
+                case JTokenType.Property:
+                case JTokenType.Comment:
+                case JTokenType.Integer:
+                case JTokenType.Float:
+                case JTokenType.String:
+                case JTokenType.Boolean:
+                case JTokenType.Date:
+                case JTokenType.Raw:
+                case JTokenType.Bytes:
+                case JTokenType.Guid:
+                case JTokenType.Uri:
+                case JTokenType.TimeSpan:
+
+                    //if (elemento.Processador.TiposProcessador != TiposProcessadores.STRING)
+                    //    throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem}");
+
+                    var valor = ProcessadoresHelper.CarregarValorFormatado(elemento, valorToken.ToString());
+                    item.InnerText = valor.ToString();
+
+                    break;
+
+                case JTokenType.Null:
+
+                    item.InnerText = null;
+
+                    break;
+                case JTokenType.Undefined:
+                    break;
+            }
+
+          //  item.InnerText = caminhoItem;
+        }
+
+        #endregion
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public List<Element> ConverterContrato(Schema schema)
         {
@@ -47,22 +239,6 @@ namespace Api.Domain.Conversor
 
             Element element = this.ProcessarElemento(schema, nodeRetorno);
             elements.Add(element);
-
-
-
-            //// TRATAR ITEM OUTPUT
-            //if (base.IsItemOutput(noResponse))
-            //{
-
-            //}
-
-            //if (noResponse is null) return elements;
-
-            //foreach (var item in obj)
-            //{
-            //    Element element = this.ProcessarElementoJson(item, noResponse, ns);
-            //    elements.Add(element);
-            //}
 
             return elements;
         }
