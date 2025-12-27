@@ -43,6 +43,7 @@ namespace ApiParseSOAP.Controllers.Base
             templete = templete.Replace("{{MENSAGEM}}", ex.Message);
             this.Response.StatusCode = 500;
 
+            servicoLog.CriarLog(servico, templete, Api.Domain.Enum.TipoLog.ERRO);
             await servicoLog.Save();
 
             return Content(templete, "text/xml");

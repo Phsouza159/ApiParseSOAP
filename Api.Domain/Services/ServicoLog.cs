@@ -33,10 +33,6 @@ namespace Api.Domain.Services
                 Conteudo = conteudo,
                 Data = DateTime.Now,
             });
-
-            //string name = $"ID-{Ticket}-{Regex.Replace(servico, "[^A-Za-z0-9]", "")}-{tipo}.txt";
-            //string path = Path.Combine(this.PathCaminhoPastaLog, name);
-            //await File.WriteAllTextAsync(path, conteudo);
         }
 
         #region DISPONSE
