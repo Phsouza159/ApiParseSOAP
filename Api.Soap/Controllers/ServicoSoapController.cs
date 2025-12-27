@@ -13,15 +13,17 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using ApiParseSOAP.Controllers.Base;
 using Api.Domain.Enum;
 using System.Web.Helpers;
+using Api.Domain.Conversor;
+using Api.Domain;
 
 namespace ApiParseSOAP.Controllers
 {
     [ApiController]
     [Route("{servico}")]
-    public class ServicoSoapController : BaseController 
+    public class ServicoSoapController : BaseController
     {
         public ServicoSoapController(IConfiguration config)
-            : base(config) 
+            : base(config)
         {
         }
 
@@ -35,7 +37,7 @@ namespace ApiParseSOAP.Controllers
             {
                 string nomeTratado = ServicoArquivosWsdl.ResoverNomeArquivo(servico);
 
-                if(servicoConfiguracao.ConteudoArquivos.ContainsKey(nomeTratado))
+                if (servicoConfiguracao.ConteudoArquivos.ContainsKey(nomeTratado))
                 {
                     byte[] data = servicoConfiguracao.ConteudoArquivos[nomeTratado];
                     return File(data, "text/xml");
@@ -47,7 +49,7 @@ namespace ApiParseSOAP.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post(
-                  [FromHeader] string? queryParametro 
+                  [FromHeader] string? queryParametro
                 , [FromServices] IProcessarChamadaSoapFacede processardorChamada
                 , [FromServices] IConvercaoXmlParaJson conversaoJson
                 , [FromServices] IConvercaoJsonParaXml conversaoXml
@@ -55,14 +57,17 @@ namespace ApiParseSOAP.Controllers
             )
         {
             try
-            {  
+            {
                 string servico = this.Request.Path;
                 string xmlConteudo = base.RecuperarCorpoChamada();
 
-                var schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
-                if (!schema.IsVazio)
+                using (Schema schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo))
                 {
-                   await servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
+                    // DEFAULT 404
+                    if (schema.IsVazio)
+                        return NotFound();
+
+                    await servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
 
                     if (queryParametro == "DEBUG")
                     {
@@ -88,7 +93,7 @@ namespace ApiParseSOAP.Controllers
             }
 
             // DEFAULT 404
-            return NotFound();
+            //return NotFound();
         }
     }
 }

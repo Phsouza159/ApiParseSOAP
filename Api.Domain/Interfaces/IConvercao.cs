@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IConvercao
+    public interface IConvercao : IDisposable
     {
         List<Element> ConverterContrato(Schema schema);
     }

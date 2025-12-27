@@ -2,13 +2,8 @@
 using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Reflection.Metadata;
-using System.Text.Json.Nodes;
-using System.Web.Helpers;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Api.Domain.Conversor
 {
@@ -20,9 +15,10 @@ namespace Api.Domain.Conversor
             List<Element> lista = this.ConverterContrato(schema);
             var contratoRetorno = this.TratarLista(lista);
 
-            XmlDocument documento = this.CriarDocumentoXml(schema, contratoRetorno);
+            // DEBUG
+            // return JsonConvert.SerializeObject(contratoRetorno);
 
-           // return JsonConvert.SerializeObject(contratoRetorno);
+            XmlDocument documento = this.CriarDocumentoXml(schema, contratoRetorno);
 
             //XmlDocument data = this.ProcessarElementos(schema, lista);
             return documento.OuterXml;
@@ -102,7 +98,6 @@ namespace Api.Domain.Conversor
                 foreach (var itemContratoArray in elementosContratoArray)
                 {
                     string subCaminhoArray = string.Empty;
-                    //string subCaminhoArray = $"{caminhoItem}[{contador}]";
                     this.ProcessarListaElement(schema, document, itemArray, itemContratoArray, tokenItemArray, subCaminhoArray);
                 }
 

@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Api.Domain.Conversor.Base
 {
-    public abstract class Conversor
+    public abstract class Conversor : IDisposable
     {
         #region VALIDAR TIPOS
 
@@ -39,7 +39,6 @@ namespace Api.Domain.Conversor.Base
         }
 
         #endregion
-
 
         #region PROCESSAR ELEMENTO
 
@@ -480,5 +479,16 @@ namespace Api.Domain.Conversor.Base
         }
 
         #endregion
+
+        internal bool IsDisponse { get; set; }
+
+        public void Dispose()
+        {
+            if(!this.IsDisponse)
+            {
+                this.IsDisponse = true;
+                GC.SuppressFinalize(this);
+            }
+        }
     }
 }

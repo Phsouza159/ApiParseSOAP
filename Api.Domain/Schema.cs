@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Api.Domain
 {
-    public class Schema
+    public class Schema : IDisposable
     {
         public XmlDocument Documento { get; internal set; }
 
@@ -51,85 +51,15 @@ namespace Api.Domain
             this.NomeServico = servico.LocalName;
         }
 
-        //internal List<Element> ProcessarElementos()
-        //{
-        //    List<Element> lista = new();
+        internal bool IsDisponse { get; set; }
 
-        //    foreach (var item in this.XmlNodes)
-        //    {
-        //        if (item != null)
-        //        {
-        //            Element element = this.ProcessarElemento(item);
-        //            lista.Add(element);
-        //        }
-        //    }
-
-        //    return lista;
-        //}
-
-        //internal Element ProcessarElemento(XmlNode item)
-        //{
-        //    string processador = this.RecuperarProcessadorNode(item);
-        //    System.Enum.TryParse(processador, out Enum.TiposProcessadores tipoProcessador);
-           
-        //    Element element = new()
-        //    {
-        //        Nome = item.LocalName,
-        //        Prefixo = item.Prefix,
-        //        Valor = item.Value,
-        //        Tipo = item.NodeType,
-        //        Processador = tipoProcessador,
-        //    };
-
-        //    if (item.ChildNodes.Count > 0)
-        //        element.No = item.ChildNodes.Cast<XmlNode>().Select(e => this.ProcessarElemento(e)).ToList();
-
-        //    return element;
-        //}
-
-        //internal string RecuperarProcessadorNode(XmlNode item)
-        //{
-        //    if (item.NodeType == XmlNodeType.Element)
-        //    {
-        //        // Criar o namespace manager
-        //        XmlNamespaceManager ns = new XmlNamespaceManager(this.Contrato.NameTable);
-        //        ns.AddNamespace("xs", "http://www.w3.org/2001/XMLSchema");
-
-        //        var node = this.Contrato.SelectNodes($"//xs:element[@name='{this.NomeServico}']//xs:element[@name='{item.LocalName}']", ns);
-        //        if (node != null && node.Count > 0)
-        //        {
-        //            var p = node.Item(0)?.Attributes?.GetNamedItem("type");
-        //            if (p != null && p.Value != null)
-        //                return p.Value.Replace("xs:", "");
-        //        }
-        //    }
-
-        //    return string.Empty;
-        //}
-
-        //internal string ConverterParaJson()
-        //{
-        //    List<Element> lista = this.ProcessarElementos();
-        //    JsonObject data = this.ProcessarElementos(lista);
-        //    return data.ToJsonString();
-        //}
-
-        //internal JsonObject ProcessarElementos(List<Element> elementos)
-        //{
-        //    JsonObject json = new JsonObject();
-
-        //    for (int i = 0; i < elementos.Count; i += 1)
-        //    {
-        //        Element elemento = elementos[i];
-        //        this.ProcessarElementos(json, elemento);
-        //    }
-
-        //    return json;
-        //}
-
-        //internal void ProcessarElementos(JsonObject json, Element elemento)
-        //{
-        //    json[elemento.Nome] = JsonValue.Create(elemento.Converter());
-        //}
+        public void Dispose()
+        {
+            if(!this.IsDisponse)
+            {
+                this.IsDisponse = true;
+                GC.SuppressFinalize(this);
+            }
+        }
     }
 }
