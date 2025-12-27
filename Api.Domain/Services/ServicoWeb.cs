@@ -41,14 +41,14 @@ namespace Api.Domain.Services
             
             var json = this.ConvercaoXmlParaJson.ConverterParaJson(schema);
 
-            await servicoLog.CriarLog(schema.Servico.Nome, json, TipoLog.CHAMADA_JSON);
+            servicoLog.CriarLog(schema.Servico.Nome, json, TipoLog.CHAMADA_JSON);
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(contrato.Api, content);
             schema.Resultado = await response.Content.ReadAsStringAsync();
 
-            await servicoLog.CriarLog(schema.Servico.Nome, schema.Resultado, TipoLog.RETORNO_JSON);
+            servicoLog.CriarLog(schema.Servico.Nome, schema.Resultado, TipoLog.RETORNO_JSON);
 
             schema.Status = response.StatusCode;
         }

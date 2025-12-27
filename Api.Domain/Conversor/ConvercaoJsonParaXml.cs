@@ -3,6 +3,7 @@ using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Newtonsoft.Json.Linq;
+using System.Text;
 using System.Xml;
 
 namespace Api.Domain.Conversor
@@ -18,11 +19,31 @@ namespace Api.Domain.Conversor
             // DEBUG
             // return JsonConvert.SerializeObject(contratoRetorno);
 
-            XmlDocument documento = this.CriarDocumentoXml(schema, contratoRetorno);
+            XmlDocument documento =this.CriarDocumentoXml(schema, contratoRetorno);
 
             //XmlDocument data = this.ProcessarElementos(schema, lista);
-            return documento.OuterXml;
+            return this.FormatarTextoXML(documento);
         }
+
+        internal string FormatarTextoXML(XmlDocument doc)
+        {
+            StringBuilder sb = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,              // ativa indentação
+                IndentChars = "  ",         // usa dois espaços
+                NewLineChars = "\r\n",      // quebra de linha padrão
+                NewLineHandling = NewLineHandling.Replace
+            };
+
+            using (XmlWriter writer = XmlWriter.Create(sb, settings))
+            {
+                doc.Save(writer);
+            }
+
+            return sb.ToString();
+        }
+
 
 
         #region CRIAR DOCUMENTO XML

@@ -44,7 +44,7 @@ namespace ApiParseSOAP.Controllers
                 }
             }
 
-            return NotFound();
+            return NotFound(); 
         }
 
         [HttpPost]
@@ -59,41 +59,36 @@ namespace ApiParseSOAP.Controllers
             try
             {
                 string servico = this.Request.Path;
-                string xmlConteudo = base.RecuperarCorpoChamada();
+                string xmlConteudo = await base.RecuperarCorpoChamada();
 
-                using (Schema schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo))
+                using Schema schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
+
+                // DEFAULT 404
+                if (schema.IsVazio)
+                    return await base.ProcessarResposta(NotFound(), servicoLog);
+
+                servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
+
+                if (queryParametro == "DEBUG")
                 {
-                    // DEFAULT 404
-                    if (schema.IsVazio)
-                        return NotFound();
-
-                    await servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
-
-                    if (queryParametro == "DEBUG")
-                    {
-                        // DEBUG 
-                        var json = conversaoJson.ConverterParaJson(schema, isDadosEntrada: true);
-                        await servicoLog.CriarLog(servico, json, TipoLog.DEBUG);
-                        return Content(json, "application/json");
-                    }
-
-                    await processardorChamada.EnviarProcessamento(schema, servicoLog);
-                    string xmlResposta = conversaoXml.ConverterParaXml(schema);
-                    // TESTE
-                    //return Content(xmlResposta, "application/json");
-
-                    await servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
-
-                    return Content(xmlResposta, "text/xml");
+                    // DEBUG 
+                    var json = conversaoJson.ConverterParaJson(schema, isDadosEntrada: true);
+                    servicoLog.CriarLog(servico, json, TipoLog.DEBUG);
+                    return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
                 }
+
+                await processardorChamada.EnviarProcessamento(schema, servicoLog);
+                string xmlResposta = conversaoXml.ConverterParaXml(schema);
+                // TESTE
+                //return Content(xmlResposta, "application/json");
+
+                servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
+                return await base.ProcessarResposta(Content(xmlResposta, "text/xml"), servicoLog);
             }
             catch (Exception ex)
             {
-                return await base.TratamentoErroFatal(ex);
+                return await base.TratamentoErroFatal(ex, servicoLog);
             }
-
-            // DEFAULT 404
-            //return NotFound();
         }
     }
 }

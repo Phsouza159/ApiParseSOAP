@@ -3,6 +3,7 @@ using Api.Domain.Configuracao;
 using Api.Domain.Services;
 using Api.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Api.Domain.Interfaces;
 
 namespace ApiParseSOAP.Controllers.Base
 {
@@ -16,13 +17,13 @@ namespace ApiParseSOAP.Controllers.Base
             Config = config;
         }
 
-        internal string RecuperarCorpoChamada()
+        internal async Task<string> RecuperarCorpoChamada()
         {
             using var reader = new StreamReader(Request.Body);
-            return reader.ReadToEnd();
+            return await reader.ReadToEndAsync();
         }
 
-        internal async Task<IActionResult> TratamentoErroFatal(Exception ex)
+        internal async Task<IActionResult> TratamentoErroFatal(Exception ex, IServicoLog servicoLog)
         {
             string templete = string.Empty;
             string servico = this.Request.Path;
@@ -41,7 +42,17 @@ namespace ApiParseSOAP.Controllers.Base
 
             templete = templete.Replace("{{MENSAGEM}}", ex.Message);
             this.Response.StatusCode = 500;
+
+            await servicoLog.Save();
+
             return Content(templete, "text/xml");
+        }
+
+
+        internal async Task<IActionResult> ProcessarResposta(IActionResult actionresult, IServicoLog servicoLog)
+        {
+            await servicoLog.Save();
+            return actionresult;
         }
     }
 }

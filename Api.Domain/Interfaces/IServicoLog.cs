@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IServicoLog
+    public interface IServicoLog : IDisposable
     {
-        Task CriarLog(string servico, string data, TipoLog tipo);
+        void CriarLog(string servico, string data, TipoLog tipo);
+        Task Save();
     }
 }
