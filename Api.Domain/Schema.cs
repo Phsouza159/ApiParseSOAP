@@ -27,6 +27,8 @@ namespace Api.Domain
 
         public bool IsVazio { get; internal set; }
 
+        public bool IsElementoEntrada { get; internal set; }
+
         internal void Carregar()
         {
             var doc = this.Documento;

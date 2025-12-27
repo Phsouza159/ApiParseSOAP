@@ -5,6 +5,10 @@ namespace Api.Domain.Configuracao
 {
     public class Servicos
     {
+        public Servicos()
+        {
+        }
+
         public string Nome { get; set; }
 
         public string UrlHost { get; set; }
@@ -12,6 +16,8 @@ namespace Api.Domain.Configuracao
         public string UrlLocation { get; set; }
         
         public string Prefixo { get; set; }
+
+        public string PrefixoImportacaoRegex { get; set; }
 
         public List<Contrato> Contratos { get; set; }
         

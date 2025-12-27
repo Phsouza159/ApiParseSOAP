@@ -28,5 +28,11 @@ app.MapPost("/GEWSV0006_Banco", ([FromBody] ListarBancosData data) =>
     return Results.Content(json, "application/json");
 });
 
+app.MapPost("/SXWSV0030_ContratoSistema", ([FromBody] ListarContratosLinhaProdudo data) =>
+{
+    string json = WebApiTeste.Registros.listarContratosLinhaProdudoResponse.RecuperarLista();
+    return Results.Content(json, "application/json");
+});
+
 app.Run();
 

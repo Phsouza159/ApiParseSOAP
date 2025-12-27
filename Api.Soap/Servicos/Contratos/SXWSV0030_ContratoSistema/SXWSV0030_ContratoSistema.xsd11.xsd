@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://sx.site.com.br/Produto/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/Produto/v1">
+      
+<xsd:complexType name="Produto">
+		
+<xsd:annotation>
+			
+<xsd:documentation>
+				Objeto que representa produto
+			</xsd:documentation>
+		</xsd:annotation>
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codProduto" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo que identifica o produto. PARA UM
+						DETERMINADO CONTRATO (APOLICE). SENDO QUE PODE
+						EXISTIR MAIS DE UM PRODUTO POR APOLICE, NESTE
+						CASO TEREMOS MAIS
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numLinha" type="xsd:int">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da linha de produto.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

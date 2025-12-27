@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://sx.site.com.br/ContratoTerceiro/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/ContratoTerceiro/v1">
+      
+<xsd:complexType name="ContratoTerceiro">
+		
+<xsd:annotation>
+			
+<xsd:documentation>
+				Objeto que representa o contrato de terceiros
+			</xsd:documentation>
+		</xsd:annotation>
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numContrato" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero de Contrato Terceiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numDigito" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Digito Verificador do Contrato Terceiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthIniVigencia" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data in&#237;cio de vig&#234;ncia do contrato de
+						Terceiros.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthFimVigencia" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data Fim de vig&#234;ncia do contrato de Terceiros.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="staContrato" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Situa&#231;&#227;o em que se encontra o contrato.
+						(A-Ativo, E-encerrado, I-Inativo, S-suspenso).
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

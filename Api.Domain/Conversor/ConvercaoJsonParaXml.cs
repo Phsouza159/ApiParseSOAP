@@ -60,6 +60,7 @@ namespace Api.Domain.Conversor
         internal void ProcessarListaElement(Schema schema, XmlDocument document, XmlElement documentoAppend, Element elemento, JToken token, string caminhoItem)
         {
             XmlElement item = document.CreateElement($"{elemento.Nome}");
+            //JProperty jsonPropriedade = (JProperty)token;
 
             //item.InnerText =
             caminhoItem = string.IsNullOrEmpty(caminhoItem) ? elemento.Nome : $"{caminhoItem}.{elemento.Nome}";
@@ -90,9 +91,9 @@ namespace Api.Domain.Conversor
             , JToken valorToken
             , string caminhoItem)
         {
-            int contador = 0;
             List<Element> elementosContratoArray = elemento.No;
             var tokens = token.SelectTokens(caminhoItem);
+            int contador = 0;
 
             foreach (var tokenItemArray in valorToken)
             {
@@ -101,11 +102,11 @@ namespace Api.Domain.Conversor
                 foreach (var itemContratoArray in elementosContratoArray)
                 {
                     string subCaminhoArray = string.Empty;
+                    //string subCaminhoArray = $"{caminhoItem}[{contador}]";
                     this.ProcessarListaElement(schema, document, itemArray, itemContratoArray, tokenItemArray, subCaminhoArray);
                 }
 
                 documentoAppend.AppendChild(itemArray);
-
                 contador += 1;
             }
         }
@@ -152,13 +153,17 @@ namespace Api.Domain.Conversor
                 case JTokenType.None:
                     break;
                 case JTokenType.Object:
+
+                    if (elemento.Processador.TiposProcessador == TiposProcessadores.OBJETO_ARRAY)
+                        throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem} [OBJETO] - Tipo Registrado [OBJETO_ARRAY]");
                     break;
+
                 case JTokenType.Array:
 
                     if (elemento.Processador.TiposProcessador != TiposProcessadores.OBJETO_ARRAY)
-                        throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem}");
-
+                        throw new ArgumentException($"Tipo não compativel entre elementos: '{caminhoItem}' [OBJETO_ARRAY] - Tipo Registrado [OBJETO]");
                     break;
+
                 case JTokenType.Constructor:
                 case JTokenType.Property:
                 case JTokenType.Comment:

@@ -49,6 +49,35 @@ namespace Api.Domain.Helper
             throw new ArgumentException();
         }
 
+        internal static object PRC_INTEGER(string valor)
+        {
+            if (valor is null)
+                return null;
+
+            if(int.TryParse(valor, out int _int))
+            {
+                return _int;
+            }
+
+            // CONVERTER PARA TIPO SUPERIOR
+            return PRC_LONG(valor);
+           //throw ProcessarExecption(valor);
+        }
+
+        internal static object PRC_LONG(string valor)
+        {
+            if (valor is null)
+                return null;
+
+            if (long.TryParse(valor, out long _int))
+            {
+                return _int;
+            }
+
+            throw ProcessarExecption(valor);
+        }
+
+
         internal static object PRC_USINGNEDLONG(string valor)
         {
             if (string.IsNullOrEmpty(valor))
@@ -70,5 +99,15 @@ namespace Api.Domain.Helper
 
             return valor.ToString();
         }
+
+        #region EXCEPTION
+
+        internal static Exception ProcessarExecption(object valor)
+        {
+            return new ArgumentException($"Tipo não suportado para Conversão: {valor}");
+        }
+
+        #endregion
+
     }
 }

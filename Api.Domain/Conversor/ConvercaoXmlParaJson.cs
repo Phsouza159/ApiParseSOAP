@@ -18,7 +18,7 @@ namespace Api.Domain.Conversor
 {
     public class ConvercaoXmlParaJson : Base.Conversor, IConvercaoXmlParaJson
     {
-        public string ConverterParaJson(Schema schema)
+        public string ConverterParaJson(Schema schema, bool isDadosEntrada = false)
         {
             // RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
             List<Element> lista = this.ConverterContrato(schema);
@@ -26,8 +26,17 @@ namespace Api.Domain.Conversor
             //TODO - VALIDAR
             // CRIAR FUNCAO PARA VALIDAR ELEMENTOS
 
+            if(isDadosEntrada)
+            {
+                JsonObject listaEntrada = this.ProcessarElementos(lista);
+                return listaEntrada.ToJsonString();
+            }
+
             // RECUPERAR LISTA TRATADA - APENAS ELEMENTOS 
             List<Element> elementosCorpo = this.TratarLista(lista);
+
+            //TESTE
+            //return JsonConvert.SerializeObject(new { elementosCorpo, lista});
 
             // CONVERTER LIST<ELEMENTOS> PARA OBJETO JSON
             JsonObject data = this.ProcessarElementos(elementosCorpo);
@@ -49,6 +58,8 @@ namespace Api.Domain.Conversor
         /// </returns>
         public List<Element> ConverterContrato(Schema schema)
         {
+            schema.IsElementoEntrada = true;
+
             List<Element> lista = new();
             // TODO: VALIDAR xs e xsd e CONFIGURAR PREFIXO
             string prefixoBusca = "xsd";
@@ -62,6 +73,8 @@ namespace Api.Domain.Conversor
                     lista.Add(element);
                 }
             }
+
+            schema.IsElementoEntrada = false;
 
             return lista;
         }
@@ -80,7 +93,8 @@ namespace Api.Domain.Conversor
             for (int i = 0; i < elementos.Count; i += 1)
             {
                 Element elemento = elementos[i];
-                this.ProcessarElementoParaJson(json, elemento);
+                if (elemento.Tipo == XmlNodeType.Element)
+                    this.ProcessarElementoParaJson(json, elemento);
             }
 
             return json;
@@ -123,34 +137,6 @@ namespace Api.Domain.Conversor
                 default:
                     return elemento.CarregarValorFormatado(elemento.Valor);
             }
-
-            //// RECUPERAVAR VALOR #TEXT DO NO
-            //if(this.Tipo == XmlNodeType.Element 
-            //    && this.No.Count == 1
-            //    && this.No.Any(e => e.Tipo == XmlNodeType.Text))
-            //{
-            //    var no = this.No.First();
-
-            //    if (no.Valor is null)
-            //        return defaultNull;
-
-            //    return this.CarregarValorFormatado(no.Valor);
-            //}
-            //// TODO: AJUSTAR ARRAY LIST E OBJECT 
-            //// RETORNANDO ARRAY LIST
-            //else if (this.Tipo == XmlNodeType.Element
-            //    && this.No.Count >= 1)
-            //{
-            //    List<object> lista = new List<object>();
-
-            //    for (int i = 0; i < this.No.Count; i += 1)
-            //    {
-            //        Element element = this.No[i];
-            //        lista.Add(element.Converter());
-            //    }
-
-            //    return lista;
-            //}
         }
 
         /// <summary>

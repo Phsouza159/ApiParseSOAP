@@ -5,9 +5,11 @@ namespace Api.Domain.Enum
     public enum TiposProcessadores
     {
         DEFAULT = 0,
-        unsignedLong,
+        UNSIGNEDLONG,
         STRING,
         SHORT,
+        INTEGER,
+        LONG,
 
         // OBJETOS COMPLEXOS
         OBJETO,

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:Q1="http://sx.site.com.br/Dominio/v1" xmlns:Q2="http://sx.site.com.br/Endereco/v1" xmlns:Q3="http://sx.site.com.br/Telefones/v1" xmlns:this="http://sx.site.com.br/Pessoa/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/Pessoa/v1">
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd17.xsd" namespace="http://sx.site.com.br/Telefones/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd16.xsd" namespace="http://sx.site.com.br/Endereco/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd15.xsd" namespace="http://sx.site.com.br/Dominio/v1"/>
+      
+<xsd:complexType name="Pessoa">
+		
+<xsd:annotation>
+			
+<xsd:documentation>Objeto pessoal</xsd:documentation>
+		</xsd:annotation>
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numPessoa" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da pessoa segurada do contrato
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="nomPessoa" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Nome do segurado do contrato.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="nomRazaoSocial" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Nome ou raz&#227;o social do segurado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numCPFCNPJ" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do CPF/CNPJ do segurado do contrato.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objStatus" type="Q1:Status">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Situa&#231;&#227;o em que se encontra a pessoa do
+						contrato. (A-Ativo, I-Inativo).
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objStatusTitular" type="Q1:Status">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Indica se a pessoa &#233; ou n&#227;o a titular do
+						contrato. S-SIM e N-N&#195;O
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indTpPessoa" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Indica o tipo de pessoa: F = F&#237;sica,J =
+						Jur&#237;dica,O = Org&#227;o P&#250;blico
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="pctPactuacao" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Percentual de pactua&#231;&#227;o do segurado do contrato.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objEndereco" type="Q2:Endereco">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto de endere&#231;o
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objDadosContato" type="Q3:DadosContato">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Dados de contato
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthNascimento" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data de nascimento do segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indSexo" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Indica o sexo do segurado do contrato.
+						M-masculino, F-feminino.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

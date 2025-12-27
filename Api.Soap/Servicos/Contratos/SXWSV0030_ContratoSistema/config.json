@@ -1,0 +1,46 @@
+{
+    "UrlHost": "https://site:443/SXWSV0030_ContratoSistema",
+    "UrlLocation": "SXWSV0030_ContratoSistema",
+    "Prefixo": "xsd",
+    "PrefixoImportacaoRegex": "^(bons\\d+|Q\\d+)$",
+    "Contratos": [
+        {
+            "Servico": "listarContratosLinhaProdudo",
+            "Api": "https://localhost:7108/SXWSV0030_ContratoSistema",
+            "Tipo": "POST",
+            "Autenticacao": ""
+        }
+    ],
+    "ArquivosWsdl": [
+        "SXWSV0030_ContratoSistema.xml",
+        "SXWSV0030_ContratoSistema.xsd1.xsd",
+        "SXWSV0030_ContratoSistema.xsd10.xsd",
+        "SXWSV0030_ContratoSistema.xsd11.xsd",
+        "SXWSV0030_ContratoSistema.xsd12.xsd",
+        "SXWSV0030_ContratoSistema.xsd13.xsd",
+        "SXWSV0030_ContratoSistema.xsd14.xsd",
+        "SXWSV0030_ContratoSistema.xsd15.xsd",
+        "SXWSV0030_ContratoSistema.xsd16.xsd",
+        "SXWSV0030_ContratoSistema.xsd17.xsd",
+        "SXWSV0030_ContratoSistema.xsd18.xsd",
+        "SXWSV0030_ContratoSistema.xsd19.xsd",
+        "SXWSV0030_ContratoSistema.xsd2.xsd",
+        "SXWSV0030_ContratoSistema.xsd20.xsd",
+        "SXWSV0030_ContratoSistema.xsd21.xsd",
+        "SXWSV0030_ContratoSistema.xsd22.xsd",
+        "SXWSV0030_ContratoSistema.xsd23.xsd",
+        "SXWSV0030_ContratoSistema.xsd24.xsd",
+        "SXWSV0030_ContratoSistema.xsd25.xsd",
+        "SXWSV0030_ContratoSistema.xsd26.xsd",
+        "SXWSV0030_ContratoSistema.xsd27.xsd",
+        "SXWSV0030_ContratoSistema.xsd28.xsd",
+        "SXWSV0030_ContratoSistema.xsd3.xsd",
+        "SXWSV0030_ContratoSistema.xsd4.xsd",
+        "SXWSV0030_ContratoSistema.xsd5.xsd",
+        "SXWSV0030_ContratoSistema.xsd6.xsd",
+        "SXWSV0030_ContratoSistema.xsd7.xsd",
+        "SXWSV0030_ContratoSistema.xsd8.xsd",
+        "SXWSV0030_ContratoSistema.xsd9.xsd"
+    ]
+}
+ 

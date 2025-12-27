@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:ns0="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" targetNamespace="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1">
+<wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema>
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd1.xsd" namespace="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></xsd:schema></wsdl:types>
+<wsdl:message name="detalharContratoPrestamistaRequestMsg">
+<wsdl:part name="detalharContratoPrestamistaParameters" element="xsns:detalharContratoPrestamista" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="detalharContratoPrestamistaResponseMsg">
+<wsdl:part name="detalharContratoPrestamistaResult" element="xsns:detalharContratoPrestamistaResponse" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="listarBeneficiariosDeclaradosRequestMsg">
+<wsdl:part name="listarBeneficiariosDeclaradosParameters" element="xsns:listarBeneficiariosDeclarados" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="listarBeneficiariosDeclaradosResponseMsg">
+<wsdl:part name="listarBeneficiariosDeclaradosResult" element="xsns:listarBeneficiariosDeclaradosResponse" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="listarContratosLinhaProdudoRequestMsg">
+<wsdl:part name="listarContratosLinhaProdudoParameters" element="xsns:listarContratosLinhaProdudo" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="listarContratosLinhaProdudoResponseMsg">
+<wsdl:part name="listarContratosLinhaProdudoResult" element="xsns:listarContratosLinhaProdudoResponse" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="validarExistenciaSinistroRequestMsg">
+<wsdl:part name="validarExistenciaSinistroParameters" element="xsns:validarExistenciaSinistro" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:message name="validarExistenciaSinistroResponseMsg">
+<wsdl:part name="validarExistenciaSinistroResult" element="xsns:validarExistenciaSinistroResponse" xmlns:xsns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1"/></wsdl:message>
+<wsdl:portType name="SXWSV0030_ContratoSistema">
+<wsdl:operation name="detalharContratoPrestamista">
+<wsdl:input name="detalharContratoPrestamistaRequest" message="ns0:detalharContratoPrestamistaRequestMsg"/>
+<wsdl:output name="detalharContratoPrestamistaResponse" message="ns0:detalharContratoPrestamistaResponseMsg"/></wsdl:operation>
+<wsdl:operation name="listarBeneficiariosDeclarados">
+<wsdl:input name="listarBeneficiariosDeclaradosRequest" message="ns0:listarBeneficiariosDeclaradosRequestMsg"/>
+<wsdl:output name="listarBeneficiariosDeclaradosResponse" message="ns0:listarBeneficiariosDeclaradosResponseMsg"/></wsdl:operation>
+<wsdl:operation name="listarContratosLinhaProdudo">
+<wsdl:input name="listarContratosLinhaProdudoRequest" message="ns0:listarContratosLinhaProdudoRequestMsg"/>
+<wsdl:output name="listarContratosLinhaProdudoResponse" message="ns0:listarContratosLinhaProdudoResponseMsg"/></wsdl:operation>
+<wsdl:operation name="validarExistenciaSinistro">
+<wsdl:input name="validarExistenciaSinistroRequest" message="ns0:validarExistenciaSinistroRequestMsg"/>
+<wsdl:output name="validarExistenciaSinistroResponse" message="ns0:validarExistenciaSinistroResponseMsg"/></wsdl:operation></wsdl:portType>
+<wsdl:binding name="SXWSV0030_ContratoSistemaBinding" type="ns0:SXWSV0030_ContratoSistema">
+<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="detalharContratoPrestamista">
+<soap11:operation soapAction="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1/detalharContratoPrestamista" style="document"/>
+<wsdl:input name="detalharContratoPrestamistaRequest">
+<soap11:body use="literal"/></wsdl:input>
+<wsdl:output name="detalharContratoPrestamistaResponse">
+<soap11:body use="literal"/></wsdl:output></wsdl:operation>
+<wsdl:operation name="listarBeneficiariosDeclarados">
+<soap11:operation soapAction="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1/listarBeneficiariosDeclarados" style="document"/>
+<wsdl:input name="listarBeneficiariosDeclaradosRequest">
+<soap11:body use="literal"/></wsdl:input>
+<wsdl:output name="listarBeneficiariosDeclaradosResponse">
+<soap11:body use="literal"/></wsdl:output></wsdl:operation>
+<wsdl:operation name="listarContratosLinhaProdudo">
+<soap11:operation soapAction="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1/listarContratosLinhaProdudo" style="document"/>
+<wsdl:input name="listarContratosLinhaProdudoRequest">
+<soap11:body use="literal"/></wsdl:input>
+<wsdl:output name="listarContratosLinhaProdudoResponse">
+<soap11:body use="literal"/></wsdl:output></wsdl:operation>
+<wsdl:operation name="validarExistenciaSinistro">
+<soap11:operation soapAction="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1/validarExistenciaSinistro" style="document"/>
+<wsdl:input name="validarExistenciaSinistroRequest">
+<soap11:body use="literal"/></wsdl:input>
+<wsdl:output name="validarExistenciaSinistroResponse">
+<soap11:body use="literal"/></wsdl:output></wsdl:operation></wsdl:binding>
+<wsdl:service name="SXWSV0030_ContratoSistemaService">
+<wsdl:port name="SXWSV0030_ContratoSistemaPort" binding="ns0:SXWSV0030_ContratoSistemaBinding">
+<soap11:address location="https://site:443/SXWSV0030_ContratoSistema"/></wsdl:port></wsdl:service></wsdl:definitions>

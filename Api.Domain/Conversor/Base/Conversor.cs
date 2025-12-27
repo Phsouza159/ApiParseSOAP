@@ -53,7 +53,8 @@ namespace Api.Domain.Conversor.Base
                 Nome = this.RecuperarNomeElemento(item),
                 Prefixo = item.Prefix,
                 Tipo = item.NodeType,
-                IsPropriedade = item.LocalName == "element",
+                IsPropriedade = this.DefinirPropriedadeElemento(item, schema),
+            
             };
 
             if (string.IsNullOrEmpty(prefixoBusca))
@@ -80,6 +81,16 @@ namespace Api.Domain.Conversor.Base
             }
 
             return element;
+        }
+
+        private bool DefinirPropriedadeElemento(XmlNode item, Schema schema)
+        {
+            if(item.NodeType == XmlNodeType.Element)
+            {
+                return item.LocalName == "element"; 
+            }
+
+            return false;
         }
 
         #endregion
@@ -201,7 +212,7 @@ namespace Api.Domain.Conversor.Base
             if (!itemProcessado)
             {
                 // RESOLVER ITEM COMPLEXO
-                this.RecuperarProcessadorNodeComplexo(element, schema, item, prefixoBusca);
+                this.RecuperarProcessadorNodeComplexo(schema,element, item, prefixoBusca);
             }
         }
 
@@ -212,7 +223,7 @@ namespace Api.Domain.Conversor.Base
         {
             var p = item?.Attributes?.GetNamedItem("type");
 
-            if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1), out Enum.TiposProcessadores tipoNode))
+            if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1).ToUpper(), out Enum.TiposProcessadores tipoNode))
             {
                 element.Processador.TiposProcessador = tipoNode;
                 return true;
@@ -236,7 +247,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ITENS COMPLEXO
         /// </summary>
-        private void RecuperarProcessadorNodeComplexo(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        private void RecuperarProcessadorNodeComplexo(Schema schema, Element element, XmlNode item, string prefixoBusca)
         {
             // Criar o namespace manager
             XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
@@ -249,17 +260,17 @@ namespace Api.Domain.Conversor.Base
             if (dados != null && dados.Count > 0)
             {
                 // RECUPERAR ITEM DA LISTA DE DADOS
-                var node = this.RecuperarNodeElemento(item, dados);
-                this.CarregarTipoDoNoComplexo(element, node);
+                var node = this.RecuperarNodeElemento(schema, item, dados);
+                this.CarregarTipoDoNoComplexo(schema, element, node);
             }
             // CARREGAR DO ITEM DIRETO
             else
             {
-                this.CarregarTipoDoNoComplexo(element, item);
+                this.CarregarTipoDoNoComplexo(schema, element, item);
             }
         }
             
-        internal void CarregarTipoDoNoComplexo(Element element, XmlNode? node)
+        internal void CarregarTipoDoNoComplexo(Schema schema, Element element, XmlNode? node)
         {
             if (node != null && node?.Attributes?.GetNamedItem("type") is XmlNode typeNode && typeNode != null && typeNode.Value != null)
             {
@@ -268,7 +279,7 @@ namespace Api.Domain.Conversor.Base
                     element.Processador.ElementoImportado = typeNode.Value.RecuperarParametro(":", 1); ;
                     element.Processador.TiposProcessador = Enum.TiposProcessadores.OBJETO_ARRAY;
                 }
-                else if (this.IsElementoNodeEntity(typeNode))
+                else if (this.IsElementoNodeEntity(schema, typeNode))
                 {
                     element.Processador.ElementoImportado = typeNode.Value.RecuperarParametro(":", 1); ;
                     element.Processador.TiposProcessador = Enum.TiposProcessadores.OBJETO_IMPORTADO;
@@ -291,17 +302,18 @@ namespace Api.Domain.Conversor.Base
             return typeNode != null && typeNode.Name == $"{prefixoExtends}:extension";
         }
 
-        internal bool IsElementoNodeEntity(XmlNode typeNode)
+        internal bool IsElementoNodeEntity(Schema schema, XmlNode typeNode)
         {
             if (typeNode is null || typeNode.Value is null) 
                 return false;
 
-            string type = typeNode.Value.RecuperarParametro(":", 0);
-            return Regex.IsMatch(type, @"^bons[0-9]$");
+            string pattern = schema.Servico.PrefixoImportacaoRegex;
 
-            //REFATOR PARA BONS 
-            //string prefixoExtends = "bons1";
-            //return typeNode != null && typeNode.Value != null && typeNode.Value.Contains(":") && typeNode.Value.Split(":")[0] == prefixoExtends;
+            if (string.IsNullOrEmpty(pattern))
+                pattern = @"^bons\d+$";
+
+            string type = typeNode.Value.RecuperarParametro(":", 0);
+            return Regex.IsMatch(type, pattern);
         }
 
         internal bool IsElementoArrayList(XmlNode typeNode)
@@ -321,16 +333,30 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// RECUPERAR ELEMENTO DA LISTA COM BASE NO LOCAL NAME 
         /// </summary>
-        private XmlNode? RecuperarNodeElemento(XmlNode xmlNode, XmlNodeList xmlList)
+        private XmlNode? RecuperarNodeElemento(Schema schema, XmlNode xmlNode, XmlNodeList xmlList)
         {
-            foreach (XmlNode item in xmlList)
+            if (xmlList != null && xmlList.Count > 0)
             {
-                var p = item?.Attributes?.GetNamedItem("name");
-                if (p != null && p.Value != null && p.Value.Contains(xmlNode.LocalName))
-                    return item;
-
-                return RecuperarNodeElemento(xmlNode, item.ChildNodes);
+                // CORRIGIR ITEM
+                for (int i = 0; i < xmlList.Count; i++)
+                {
+                    var dado = xmlList[i];
+                    // LOCALIZAR ITEM DO SERVICO
+                    if (this.GetNoPaiAttributo(schema, dado))
+                    {
+                        return dado;
+                    }
+                }
             }
+
+            //foreach (XmlNode item in xmlList)
+            //{
+            //    var p = item?.Attributes?.GetNamedItem("name");
+            //    if (p != null && p.Value != null && p.Value.Contains(xmlNode.LocalName))
+            //        return item;
+
+            //    return RecuperarNodeElemento(xmlNode, item.ChildNodes);
+            //}
 
             return null;
         }
@@ -350,6 +376,33 @@ namespace Api.Domain.Conversor.Base
             }
 
             return dados;
+        }
+
+
+        internal bool GetNoPaiAttributo(Schema schema, XmlNode xmlNode)
+        {
+            if (this.IsAttributosServico(xmlNode, schema))
+                return true;
+
+            if (xmlNode.ParentNode != null)
+                return this.GetNoPaiAttributo(schema, xmlNode.ParentNode);
+
+            return false;
+        }
+
+        internal bool IsAttributosServico(XmlNode xmlNode, Schema schema)
+        {
+            if (xmlNode is null)
+                return false;
+
+            var attr = xmlNode.Attributes?.GetNamedItem("name");
+            if (attr != null)
+            {
+                if (attr.Value == schema.NomeServico)
+                    return true;
+            }
+
+            return false;
         }
 
         #endregion

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://sx.site.com.br/DadosCertificado/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/DadosCertificado/v1">
+      
+<xsd:complexType name="DadosCertificado">
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="seqCertificado" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Sequ&#234;ncia do objeto certificado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numCertificado" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do certificado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthAssinatura" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data de assinatura do contrato de terceiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codSorteio" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo do sorteio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="staCertificado" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Situa&#231;&#227;o em que se encontra o certificado.
+						(A-Ativo, I-Inativo, P-Pendente de Ativa&#231;&#227;o,
+						outro-N&#227;o Definido).
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

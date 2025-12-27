@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/BeneficiariosDeclarados/v1">
+    
+<xsd:complexType name="SXWSV0030_BeneficiariosDeclarados">
+		
+<xsd:sequence>
+			
+<xsd:element minOccurs="0" name="numCpfCnpj" type="xsd:long">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero de CPF ou do CNPJ.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element minOccurs="0" name="nomBeneficiario" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Nome do Benefici&#225;rio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element minOccurs="0" name="desGrauParentesco" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Descri&#231;&#227;o do grau de parentesco.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element minOccurs="0" name="pctParticipacao" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do Percentual de Participa&#231;&#227;o.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

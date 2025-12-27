@@ -24,10 +24,11 @@ namespace Api.Domain.Helper
 
             #region PROCS 
 
-            ProcessadoresHelper.Processadores[(short)TiposProcessadores.unsignedLong] = ConversorValorHelper.PRC_USINGNEDLONG;
-            ProcessadoresHelper.Processadores[(short)TiposProcessadores.SHORT]        = ConversorValorHelper.PRC_SHORT;
-            ProcessadoresHelper.Processadores[(short)TiposProcessadores.STRING]       = ConversorValorHelper.PRC_STRING;
-
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.UNSIGNEDLONG]   = ConversorValorHelper.PRC_USINGNEDLONG;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.SHORT]          = ConversorValorHelper.PRC_SHORT;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.STRING]         = ConversorValorHelper.PRC_STRING;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.INTEGER]        = ConversorValorHelper.PRC_INTEGER;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.LONG]           = ConversorValorHelper.PRC_LONG;
 
             #endregion
         }

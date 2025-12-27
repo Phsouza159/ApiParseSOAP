@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:Q1="http://ge.site.com.br/Parcela/v1" xmlns:Q2="http://ge.site.com.br/Premio/v1" xmlns:this="http://sx.site.com.br/DadosFinanceiro/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/DadosFinanceiro/v1">
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd24.xsd" namespace="http://ge.site.com.br/Premio/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd23.xsd" namespace="http://ge.site.com.br/Parcela/v1"/>
+      
+<xsd:complexType name="DadosFinanceiro">
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrImpSegurado" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codUnidOperacional" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo da unidade operacional
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codBanco" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Codigo do banco da unidade operacional
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="nomAgencia" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Nome da ag&#234;ncia operacional
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codMoeda" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo da moeda _ Referencia SEGUROS.MOEDAS
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codFonte" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo da Fonte da Emiss&#227;o (Refer&#234;ncia na tabela
+						corporativa FONTES)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codAgenciaRelac" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Codigo da ag&#234;ncia de relacionamento
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codAgenciaIden" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Codigo da ag&#234;ncia de indeniza&#231;&#227;o
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codAgenciaCentral" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Codigo da ag&#234;ncia centralizadora
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indFaseFina" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Indica a fase do im&#243;vel financiado. Em
+						constru&#231;&#227;o, constru&#237;do, na planta
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrSeguroMip" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor da import&#226;ncia segurada MIP registrada na
+						contrata&#231;&#227;o do seguro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indTpPagamento" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Tipo de pagamento: Ainda n&#227;o definido o dom&#237;nio
+						pela X cons&#243;rcios. Consta no leiaute de
+						entrada.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthIniRef" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data de in&#237;cio da cobertura
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthFimRef" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data de in&#237;cio da cobertura
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrIsMip" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor da Importancia Segurada de MIP
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrIS" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor da Importancia Segurada de MIP
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objParcela" type="Q1:Parcela">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Este objeto representa a parcela
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objPremio" type="Q2:Premio">
+				
+<xsd:annotation>
+					
+<xsd:documentation>Objeto premio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codEvento" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo do evento
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

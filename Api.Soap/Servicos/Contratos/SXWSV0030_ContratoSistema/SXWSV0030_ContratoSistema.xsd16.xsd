@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://sx.site.com.br/Endereco/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/Endereco/v1">
+      
+<xsd:complexType name="Endereco">
+		
+<xsd:annotation>
+			
+<xsd:documentation>Objeto endere&#231;o</xsd:documentation>
+		</xsd:annotation>
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indTipo" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						1. Im&#243;vel, 9. Correspondencia. (Os demais a
+						serem definidos). A constraint ser&#225; implementada
+						ap&#243;s essa defini&#231;&#227;o.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="desTipo" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Descri&#231;&#227;o do tipo de endere&#231;o
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="indTipoImovel" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Tipo do im&#243;vel. 1 - RESIDENCIAL URBANO; 2 -
+						COMERCIAL; 3 - Terreno; 4 - RESID./COMERCIAL OU
+						APOIO A PRODUCAO PMCMV; 6 - IMOVEL RURAL; 7 -
+						DESTINACAO ESPECIFICA PARA CREDITO HABITACIONAL
+						- EM; 8 - SEM DESTINACAO ESPECIFICA; 9 - PARA
+						ENQUADRAMENTO CPC - BANCO TERCEIROS
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="desTipoImovel" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Tipo do im&#243;vel. 1 - RESIDENCIAL URBANO; 2 -
+						COMERCIAL; 3 - Terreno; 4 - RESID./COMERCIAL OU
+						APOIO A PRODUCAO PMCMV; 6 - IMOVEL RURAL; 7 -
+						DESTINACAO ESPECIFICA PARA CREDITO HABITACIONAL
+						- EM; 8 - SEM DESTINACAO ESPECIFICA; 9 - PARA
+						ENQUADRAMENTO CPC - BANCO TERCEIROS
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numCEP" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do CEP do im&#243;vel do contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="desLogradouro" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Nome do logradouro do do im&#243;vel do
+						contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numEndereco" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do endere&#231;o do im&#243;vel do
+						contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="desComplemento" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Descri&#231;&#227;o do complemento do im&#243;vel do
+						contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="nomBairro" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Bairro do endere&#231;o do im&#243;vel do
+						contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="nomCidade" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Cidade do im&#243;vel do contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codUF" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						UF do im&#243;vel do contrato/segurado
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

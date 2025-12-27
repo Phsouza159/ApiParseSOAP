@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+xmlns:Q1="http://sx.site.com.br/Pessoa/v1" xmlns:Q10="http://sx.site.com.br/Modalidade/v1" xmlns:Q2="http://sx.site.com.br/Produto/v1" xmlns:Q3="http://sx.site.com.br/ContratoTerceiro/v1" xmlns:Q4="http://sx.site.com.br/Cobertura/v1" xmlns:Q5="http://sx.site.com.br/DadosCertificado/v1" xmlns:Q6="http://sx.site.com.br/Ramo/v1" xmlns:Q7="http://sx.site.com.br/Estipulante/v1" xmlns:Q8="http://sx.site.com.br/DadosFinanceiro/v1" xmlns:Q9="http://sx.site.com.br/Consorcio/v1" xmlns:this="http://sx.site.com.br/Contrato/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/Contrato/v1">
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd10.xsd" namespace="http://sx.site.com.br/Modalidade/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd25.xsd" namespace="http://sx.site.com.br/Consorcio/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd22.xsd" namespace="http://sx.site.com.br/DadosFinanceiro/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd9.xsd" namespace="http://sx.site.com.br/Estipulante/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd21.xsd" namespace="http://sx.site.com.br/Ramo/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd20.xsd" namespace="http://sx.site.com.br/DadosCertificado/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd19.xsd" namespace="http://sx.site.com.br/Cobertura/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd18.xsd" namespace="http://sx.site.com.br/ContratoTerceiro/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd11.xsd" namespace="http://sx.site.com.br/Produto/v1"/>
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd14.xsd" namespace="http://sx.site.com.br/Pessoa/v1"/>
+      
+<xsd:complexType name="ArrayContrato">
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="objContrato" type="this:Contrato">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto que representa a repeti&#231;&#227;o de contrato
+						nos casos em que a consulta apresenta a
+						necessidade de um array de contrato
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+      
+<xsd:complexType name="Contrato">
+		
+<xsd:annotation>
+			
+<xsd:documentation>Objeto contrato</xsd:documentation>
+		</xsd:annotation>
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numContrato" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do Contrato de Seguros - N&#250;mero gerado
+						artificialmente.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numApolice" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero identificador da Ap&#243;lice. Alterado pois
+						inicialmente, quando cadatrado no sistema n&#227;o
+						existir&#225; apolice e sim somente o numero de
+						identifica&#231;&#227;o da proposta, ap&#243;s confirma&#231;&#227;o a
+						apolice ser&#225; preenchida.**ATEN&#199;&#195;O: pode haver
+						erro/incosit&#234;ncia caso o progrma n&#227;o tenha
+						controle de garava&#231;&#227;o da SEQUENCIA e da APOLICE.
+						A solu&#231;&#227;o seria REPLICA&#199;&#195;O (vis&#227;o
+						proposta/apolice).
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numEndosso" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do endosso de cobran&#231;a da fatura dos
+						pr&#234;mio recebido do respectivo contrato
+						sinistrado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numOriContrato" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da pessoa segurada do contrato.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numOperador" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero identificador da pessoa, que Opera
+						Contrato TERC, exemplo: X Econ&#244;mica Federal.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numMatriculaAgente" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da matr&#237;cula do agente do canal de venda
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numApoliceConc" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da ap&#243;lice concorrente. Ap&#243;lice do
+						cossegurador ou ressegurador
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objPessoa" type="Q1:Pessoa">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto respons&#225;vel por representar a pessoa do
+						contrato no caso o segurado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objProduto" type="Q2:Produto">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto produto
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objContratoTerceiro" type="Q3:ContratoTerceiro">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto respons&#225;cel por representar os dados de
+						contratos do terceiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objCobertura" type="Q4:Cobertura">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto cobertura.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objCertificado" type="Q5:DadosCertificado">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Dados do certificado.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objRamo" type="Q6:Ramo">
+				
+<xsd:annotation>
+					
+<xsd:documentation>Objeto Ramo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objEstipulante" type="Q7:Estipulante">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto do estipulante.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objdadosFinanceiro" type="Q8:DadosFinanceiro">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Respons&#225;vel pelos dados Financeiro.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthAverbacao" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data da averba&#231;&#227;o do contrato na seguradora.
+						Data que o contrato entrou efetivamente na base
+						de dados da seguradora.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objConsorcio" type="Q9:Consorcio">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto que representa o cons&#243;rcio
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthAtualizacao" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data da &#250;ltima atualiza&#231;&#227;o
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numSinistro" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do sinistro registrado para o contrato
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="objModalidade" type="Q10:Modalidade">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Objeto que representa modalidade do contrato
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>

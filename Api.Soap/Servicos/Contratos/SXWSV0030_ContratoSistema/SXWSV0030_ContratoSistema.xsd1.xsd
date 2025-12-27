@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:Q1="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoEntrada/v1" xmlns:Q2="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoRetorno/v1" xmlns:Q3="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaEntrada/v1" xmlns:Q4="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1">
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd3.xsd" namespace="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd2.xsd" namespace="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd27.xsd" namespace="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoRetorno/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd8.xsd" namespace="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd26.xsd" namespace="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaEntrada/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd12.xsd" namespace="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd7.xsd" namespace="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1"/>
+            
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd28.xsd" namespace="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoEntrada/v1"/>
+    
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="listarBeneficiariosDeclaradosResponse">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="retorno" nillable="true" type="bons2:SXWSV0030_ListarBeneficiariosDeclaradosRetorno"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="detalharContratoPrestamista">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="dadosEntrada" nillable="true" type="Q3:SXWSV0030_DetalharContratoPrestamistaEntrada"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="detalharContratoPrestamistaResponse">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="retorno" nillable="true" type="Q4:SXWSV0030_DetalharContratoPrestamistaRetorno"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="listarBeneficiariosDeclarados">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="dadosEntrada" nillable="true" type="bons1:SXWSV0030_ListarBeneficiariosDeclaradosEntrada"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="listarContratosLinhaProdudoResponse">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="retorno" nillable="true" type="Q2:SXWSV0030_ListarContratosLinhaProdudoRetorno"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="validarExistenciaSinistro">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="dadosEntrada" nillable="true" type="bons3:SXWSV0030_ValidarExistenciaSinistroEntrada"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="validarExistenciaSinistroResponse">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="retorno" nillable="true" type="bons4:SXWSV0030_ValidarExistenciaSinistroRetorno"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+      
+<xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="listarContratosLinhaProdudo">
+		
+<xsd:complexType>
+			
+<xsd:sequence>
+				
+<xsd:element name="dadosEntrada" nillable="true" type="Q1:SXWSV0030_ListarContratosLinhaProdudoEntrada"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+    </xsd:schema>

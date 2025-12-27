@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://sx.site.com.br/Consorcio/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/Consorcio/v1">
+      
+<xsd:complexType name="Consorcio">
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numGrupo" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero do grupo do cons&#243;rcio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numCota" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da cota do cons&#243;rcio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="numVersao" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						N&#250;mero da vers&#227;o do contrato no cons&#243;rcio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthAdesao" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data da ades&#227;o.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="qtdPrazoCota" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Prazo do grupo de cons&#243;rcio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="pctTxAdm" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Taxa de administra&#231;&#227;o do cons&#243;rcio.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="pctTxFunReser" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor da Taxa do fundo de reserva.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="dthPriAssembleia" type="xsd:date">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Data da primeira assembl&#233;ia.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="codCanal" type="xsd:string">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						C&#243;digo do canal de venda.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+
+	</xsd:complexType>
+    </xsd:schema>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:Q1="http://ge.site.com.br/EntradaPadrao/v1" xmlns:this="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoEntrada/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sx.site.com.br/SXWSV0030_ListarContratosLinhaProdudoEntrada/v1">
+      
+<xsd:import schemaLocation="SXWSV0030_ContratoSistema.xsd5.xsd" namespace="http://ge.site.com.br/EntradaPadrao/v1"/>
+      
+<xsd:complexType name="SXWSV0030_ListarContratosLinhaProdudoEntrada">
+		
+<xsd:complexContent>
+			
+<xsd:extension base="Q1:MsgEntradaPadrao">
+				
+<xsd:sequence>
+					
+<xsd:element maxOccurs="1" minOccurs="0" name="numCPFCNPJ" type="xsd:integer">
+						
+<xsd:annotation>
+							
+<xsd:documentation>
+								N&#250;mero do CPF ou CNPJ
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+<xsd:element maxOccurs="1" minOccurs="0" name="numCobertura" type="xsd:integer">
+						
+<xsd:annotation>
+							
+<xsd:documentation>
+								N&#250;mero da cobertura
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+<xsd:element maxOccurs="1" minOccurs="0" name="dthOcorrencia" type="xsd:date">
+						
+<xsd:annotation>
+							
+<xsd:documentation>
+								Data da ocorr&#234;ncia
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+<xsd:element maxOccurs="1" minOccurs="0" name="codEmpresa" type="xsd:int">
+						
+<xsd:annotation>
+							
+<xsd:documentation>
+								C&#243;dido da empresa
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+<xsd:element maxOccurs="1" minOccurs="0" name="numContratoTerceiro" type="xsd:long"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+    </xsd:schema>

@@ -20,7 +20,7 @@ namespace Api.Domain.Services
 
         public static string PathHost { get; set; }
 
-        internal static List<Servicos> Configuracacoes { get; set; } = [];
+        public static List<Servicos> Configuracacoes { get; set; } = [];
 
         #region TRATAR ARQUIVOS WSDL
 
@@ -126,21 +126,34 @@ namespace Api.Domain.Services
 
             foreach (var diretorio in diretorios)
             {
-                DirectoryInfo directoryInfo = new DirectoryInfo(diretorio);
-                string caminhoArquivoConfig = Path.Combine(diretorio, "config.json");
-                if (directoryInfo.Exists && File.Exists(caminhoArquivoConfig))
+                Servicos? servicos = CriarRegistroServico(diretorio);
+                
+                if(servicos != null)
                 {
-                    Servicos? servico = JsonConvert.DeserializeObject<Servicos>(File.ReadAllText(caminhoArquivoConfig));
-
-                    if(servico != null 
-                        && !Configuracacoes.Any(e => e.Nome == directoryInfo.Name)
-                        && servico.CarregarDados(diretorio))
-                    {
-                        servico.Nome = directoryInfo.Name;
-                        Configuracacoes.Add(servico);
-                    }
+                    Configuracacoes.Add(servicos);
                 }
             }
+        }
+
+        public static Servicos? CriarRegistroServico(string diretorio)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(diretorio);
+            string caminhoArquivoConfig = Path.Combine(diretorio, "config.json");
+            if (directoryInfo.Exists && File.Exists(caminhoArquivoConfig))
+            {
+                Servicos? servico = JsonConvert.DeserializeObject<Servicos>(File.ReadAllText(caminhoArquivoConfig));
+
+                if (servico != null
+                    && !Configuracacoes.Any(e => e.Nome == directoryInfo.Name)
+                    && servico.CarregarDados(diretorio))
+                {
+                    servico.Nome = directoryInfo.Name;
+
+                    return servico;
+                }
+            }
+
+            return null;
         }
 
         public static Servicos? RecuperarServico(string servico)

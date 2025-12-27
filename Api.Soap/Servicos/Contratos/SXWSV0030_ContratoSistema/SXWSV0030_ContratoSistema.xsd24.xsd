@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:this="http://ge.site.com.br/Premio/v1" xmlns:bons1="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosEntrada/v1" xmlns:bons2="http://sx.site.com.br/SXWSV0030_ListarBeneficiariosDeclaradosRetorno/v1" xmlns:bons3="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroEntrada/v1" xmlns:bons4="http://sx.site.com.br/SXWSV0030_ValidarExistenciaSinistroRetorno/v1" xmlns:bons5="http://sx.site.com.br/SXWSV0030_DetalharContratoPrestamistaRetorno/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sx.site.com.br/SXWSV0030_ContratoSistema/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ge.site.com.br/Premio/v1">
+      
+<xsd:complexType name="Premio">
+		
+<xsd:sequence>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="seqPremio" type="xsd:integer">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Sendo o sequencial do pr&#234;mio igual a nulo o
+						premio est&#225; Inativo, tendo algum valor o pr&#234;mio
+						est&#225; Ativo.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrPremio" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor do premio
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+<xsd:element maxOccurs="1" minOccurs="0" name="vlrPremioMip" type="xsd:decimal">
+				
+<xsd:annotation>
+					
+<xsd:documentation>
+						Valor do premio de MIP
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    </xsd:schema>
