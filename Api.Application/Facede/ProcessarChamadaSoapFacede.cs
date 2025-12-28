@@ -1,16 +1,10 @@
-﻿using Api.Domain.Configuracao;
+﻿using Api.Domain;
+using Api.Domain.Configuracao;
 using Api.Domain.Interfaces;
 using Api.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Schema;
 
-namespace Api.Domain.Facede
+namespace Api.Application.Facede
 {
     public class ProcessarChamadaSoapFacede : IProcessarChamadaSoapFacede
     {
@@ -49,11 +43,6 @@ namespace Api.Domain.Facede
             }
 
             return new Schema() { IsVazio = true };
-        }
-
-        public async Task EnviarProcessamento(Schema schema, IServicoLog servicoLog)
-        {
-            await this.ServicoWeb.Enviar(schema, servicoLog);
         }
     }
 }

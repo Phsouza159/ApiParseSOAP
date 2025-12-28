@@ -17,5 +17,6 @@
 
         DEBUG,
         TRACE_ERRO,
+        INFO,
     }
 }

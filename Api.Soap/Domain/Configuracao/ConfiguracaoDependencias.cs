@@ -1,5 +1,6 @@
-﻿using Api.Domain.Conversor;
-using Api.Domain.Facede;
+﻿using Api.Application;
+using Api.Application.Facede;
+using Api.Domain.Conversor;
 using Api.Domain.Interfaces;
 using Api.Domain.Services;
 
@@ -16,6 +17,7 @@ namespace ApiParseSOAP.Domain.Configuracao
             
 
             services.AddScoped<IProcessarChamadaSoapFacede, ProcessarChamadaSoapFacede>();
+            services.AddScoped<IServicoWebFacede, ServicoWebFacede>();
 
             services.AddScoped<IServicoWeb, ServicoWeb>();
             

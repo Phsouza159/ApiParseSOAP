@@ -26,14 +26,16 @@ namespace Api.Domain.Conversor
             return this.FormatarTextoXML(documento);
         }
 
+        #region FORMTAR TEXTO 
+
         internal string FormatarTextoXML(XmlDocument doc)
         {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings settings = new XmlWriterSettings
             {
-                Indent = true,              // ativa indentação
-                IndentChars = "  ",         // usa dois espaços
-                NewLineChars = "\r\n",      // quebra de linha padrão
+                Indent = true,            
+                IndentChars = "  ",                     
+                NewLineChars = Environment.NewLine,     
                 NewLineHandling = NewLineHandling.Replace
             };
 
@@ -45,10 +47,9 @@ namespace Api.Domain.Conversor
             return sb.ToString();
         }
 
-
+        #endregion
 
         #region CRIAR DOCUMENTO XML
-
 
         internal XmlDocument CriarDocumentoXml(Schema schema, List<Element> listaContrato)
         {
@@ -227,16 +228,24 @@ namespace Api.Domain.Conversor
 
         #endregion
 
+        #region CONVERTER CONTRATO
+
         public List<Element> ConverterContrato(Schema schema)
         {
             string json = schema.Resultado;
             return this.ProcessarJson(schema, json);
         }
 
+        #endregion
+
+        #region AUXILIAR
+
         public string RecuperarPrefixo(Schema schema)
         {
             return string.IsNullOrEmpty(schema.Servico.Prefixo) ? string.Empty : $"{schema.Servico.Prefixo}:";
         }
+
+        #endregion
 
         #region PROCESSAR ELEMENTO JSON
 
@@ -431,7 +440,6 @@ namespace Api.Domain.Conversor
         }
 
         #endregion
-
 
         #region PROCESSAR ELEMENTOS PARA XML
 

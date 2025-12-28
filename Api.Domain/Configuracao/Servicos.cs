@@ -1,4 +1,5 @@
-﻿using Api.Domain.Helper;
+﻿using Api.Domain.Enum;
+using Api.Domain.Helper;
 using Api.Domain.Services;
 
 namespace Api.Domain.Configuracao
@@ -27,11 +28,11 @@ namespace Api.Domain.Configuracao
 
         public bool IsImportacao { get => this.ConteudoArquivos.Any(e => e.Key.Contains(".xsd")); }
 
-        private string RaizPasta { get; set; }
+        public string PastaRaizServico { get; set; }
 
         internal bool CarregarDados(string raizPasta)
         {
-            this.RaizPasta = raizPasta;
+            this.PastaRaizServico = raizPasta;
             this.ConteudoArquivos = new Dictionary<string, byte[]>();
             bool isArquivosWsdl = this.CarregarArquivosWsdl(raizPasta);
             return isArquivosWsdl;
@@ -55,21 +56,6 @@ namespace Api.Domain.Configuracao
             }
 
             return true;
-        }
-
-        #endregion
-
-        #region CARREGAR ARQUIVOS TEMPLETES PADRAO
-
-        public async Task<string> RecuperarArquvioTempleteErro()
-        {
-            string path = Path.Combine(this.RaizPasta, "ERRO_500.txt");
-            
-            // ERRO 500
-            if (File.Exists(path))
-                return await File.ReadAllTextAsync(path);
-
-            return string.Empty;
         }
 
         #endregion

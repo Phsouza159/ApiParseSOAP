@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IProcessarChamadaSoapFacede
+    public interface IServicoWebFacede
     {
-        Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo);
+
+        Task EnviarProcessamento(Schema schema, IServicoLog servicoLog);
+
     }
 }

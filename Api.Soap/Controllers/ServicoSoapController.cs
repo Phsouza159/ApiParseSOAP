@@ -1,20 +1,10 @@
-﻿using ApiParseSOAP.Domain;
-using Api.Domain.Services;
-using Api.Domain.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Drawing;
-using System.Text;
-using System.Xml;
+﻿using Api.Domain;
 using Api.Domain.Configuracao;
-using Api.Domain.Interfaces;
-using Api.Domain.Facede;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using ApiParseSOAP.Controllers.Base;
 using Api.Domain.Enum;
-using System.Web.Helpers;
-using Api.Domain.Conversor;
-using Api.Domain;
+using Api.Domain.Interfaces;
+using Api.Domain.Services;
+using ApiParseSOAP.Controllers.Base;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiParseSOAP.Controllers
 {
@@ -49,11 +39,12 @@ namespace ApiParseSOAP.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post(
-                  [FromHeader] string? queryParametro
-                , [FromServices] IProcessarChamadaSoapFacede processardorChamada
+                  [FromServices] IProcessarChamadaSoapFacede processardorChamadaFacede
+                , [FromServices] IServicoWebFacede servicoWebFacede
                 , [FromServices] IConvercaoXmlParaJson conversaoJson
                 , [FromServices] IConvercaoJsonParaXml conversaoXml
                 , [FromServices] IServicoLog servicoLog
+                , [FromHeader] string? queryParametro
             )
         {
             try
@@ -62,8 +53,7 @@ namespace ApiParseSOAP.Controllers
                 string xmlConteudo = await base.RecuperarCorpoChamada();
 
                 servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
-
-                using Schema schema = processardorChamada.CarregarDadosChamadaSoap(servico, xmlConteudo);
+                using Schema schema = processardorChamadaFacede.CarregarDadosChamadaSoap(servico, xmlConteudo);
 
                 // DEFAULT 404
                 if (schema.IsVazio)
@@ -77,10 +67,8 @@ namespace ApiParseSOAP.Controllers
                     return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
                 }
 
-                await processardorChamada.EnviarProcessamento(schema, servicoLog);
+                await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
                 string xmlResposta = conversaoXml.ConverterParaXml(schema);
-                // TESTE
-                //return Content(xmlResposta, "application/json");
 
                 servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
                 return await base.ProcessarResposta(Content(xmlResposta, "text/xml"), servicoLog);

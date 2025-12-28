@@ -7,11 +7,11 @@ namespace Api.Domain
 {
     public class Schema : IDisposable
     {
-        public XmlDocument Documento { get; internal set; }
+        public XmlDocument Documento { get; set; }
 
         public XmlNode Corpo { get; private set; }
 
-        public XmlDocument Contrato { get; internal set; }
+        public XmlDocument Contrato { get; set; }
 
         public List<XmlNode> XmlNodes { get; set; }
         
@@ -19,15 +19,15 @@ namespace Api.Domain
 
         public IEnumerable<Element> Element { get; set; }
 
-        public string Resultado { get; internal set; }
+        public string Resultado { get; set; }
         
-        public HttpStatusCode Status { get; internal set; }
+        public HttpStatusCode Status { get; set; }
         
-        public Servicos Servico { get; internal set; }
+        public Servicos Servico { get; set; }
 
-        public bool IsVazio { get; internal set; }
+        public bool IsVazio { get; set; }
 
-        public bool IsElementoEntrada { get; internal set; }
+        public bool IsElementoEntrada { get; set; }
 
         internal void Carregar()
         {
