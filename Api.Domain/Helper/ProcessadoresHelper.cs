@@ -29,6 +29,8 @@ namespace Api.Domain.Helper
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.STRING]         = ConversorValorHelper.PRC_STRING;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.INTEGER]        = ConversorValorHelper.PRC_INTEGER;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.LONG]           = ConversorValorHelper.PRC_LONG;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.DATE]           = ConversorValorHelper.PRC_DATE;
+
 
             #endregion
         }

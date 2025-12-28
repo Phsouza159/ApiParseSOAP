@@ -195,10 +195,17 @@ namespace Api.Domain.Conversor
                 case JTokenType.Uri:
                 case JTokenType.TimeSpan:
 
+                    object? valor = ProcessadoresHelper.CarregarValorFormatado(elemento, valorToken.ToString());
+
                     //if (elemento.Processador.TiposProcessador != TiposProcessadores.STRING)
                     //    throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem}");
 
-                    var valor = ProcessadoresHelper.CarregarValorFormatado(elemento, valorToken.ToString());
+                    // CORRIGIR TIPO DATA
+                    if (elemento.Processador.TiposProcessador == TiposProcessadores.DATE && valor is DateTime _date) 
+                    {
+                        valor = _date.ToString("yyyy-MM-dd");
+                    }
+
                     item.InnerText = valor?.ToString();
 
                     break;

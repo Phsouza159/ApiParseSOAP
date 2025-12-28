@@ -14,6 +14,7 @@ namespace Api.Domain.Enum
         SHORT,
         INTEGER,
         LONG,
+        DATE,
 
         // OBJETOS COMPLEXOS
         OBJETO,

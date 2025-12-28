@@ -82,6 +82,18 @@ namespace Api.Domain.Helper
             throw ProcessarExecption(valor);
         }
 
+        internal static object PRC_DATE(object valor)
+        {
+            if (valor is null)
+                return null;
+
+            if (DateTime.TryParse(valor.ToString(), out DateTime _date))
+            {
+                return _date.Date;
+            }
+
+            throw ProcessarExecption(valor);
+        }
 
         internal static object PRC_USINGNEDLONG(object valor)
         {
