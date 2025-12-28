@@ -16,6 +16,6 @@
         RESPOSTA_XML,
 
         DEBUG,
-        ERRO,
+        TRACE_ERRO,
     }
 }

@@ -4,6 +4,7 @@ using Api.Domain.Services;
 using Api.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Api.Domain.Interfaces;
+using Api.Domain.Exceptions;
 
 namespace ApiParseSOAP.Controllers.Base
 {
@@ -43,12 +44,12 @@ namespace ApiParseSOAP.Controllers.Base
             templete = templete.Replace("{{MENSAGEM}}", ex.Message);
             this.Response.StatusCode = 500;
 
-            servicoLog.CriarLog(servico, templete, Api.Domain.Enum.TipoLog.ERRO);
+            servicoLog.CriarLog(servico, ex.RecuperarTraceErroTratado(), Api.Domain.Enum.TipoLog.TRACE_ERRO);
+            servicoLog.CriarLog(servico, templete, Api.Domain.Enum.TipoLog.RETORNO_XML);
             await servicoLog.Save();
 
             return Content(templete, "text/xml");
         }
-
 
         internal async Task<IActionResult> ProcessarResposta(IActionResult actionresult, IServicoLog servicoLog)
         {
