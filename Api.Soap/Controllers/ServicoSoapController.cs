@@ -72,7 +72,7 @@ namespace ApiParseSOAP.Controllers
                 if (queryParametro == "DEBUG")
                 {
                     // DEBUG 
-                    var json = conversaoJson.ConverterParaJson(schema, isDadosEntrada: true);
+                    var json = conversaoJson.ConverterParaJson(schema);
                     servicoLog.CriarLog(servico, json, TipoLog.DEBUG);
                     return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
                 }

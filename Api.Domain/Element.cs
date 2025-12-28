@@ -32,6 +32,7 @@ namespace Api.Domain
             item.Valor = this.Valor;
             item.Processador = this.Processador;
             item.IsPropriedade = this.IsPropriedade;
+            item.Tipo = this.Tipo;
         }
     }
 }

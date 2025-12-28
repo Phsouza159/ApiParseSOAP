@@ -18,19 +18,13 @@ namespace Api.Domain.Conversor
 {
     public class ConvercaoXmlParaJson : Base.Conversor, IConvercaoXmlParaJson
     {
-        public string ConverterParaJson(Schema schema, bool isDadosEntrada = false)
+        public string ConverterParaJson(Schema schema)
         {
             // RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
             List<Element> lista = this.ConverterContrato(schema);
 
             //TODO - VALIDAR
             // CRIAR FUNCAO PARA VALIDAR ELEMENTOS
-
-            if(isDadosEntrada)
-            {
-                JsonObject listaEntrada = this.ProcessarElementos(lista);
-                return listaEntrada.ToJsonString();
-            }
 
             // RECUPERAR LISTA TRATADA - APENAS ELEMENTOS 
             List<Element> elementosCorpo = this.TratarLista(lista);

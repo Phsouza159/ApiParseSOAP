@@ -8,6 +8,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IConvercaoXmlParaJson : IConvercao
     {
-        string ConverterParaJson(Schema schema, bool isDadosEntrada = false);
+        string ConverterParaJson(Schema schema);
     }
 }
