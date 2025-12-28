@@ -1,0 +1,18 @@
+﻿{
+    "UrlHost": "",
+    "UrlLocation": "",
+    "Prefixo": "xsd",
+    "PrefixoImportacaoRegex": "",
+    "Contratos": [
+        {
+            "Servico": "",
+            "Api": "",
+            "Tipo": "POST",
+            "Autenticacao": ""
+        }
+    ],
+    "ArquivosWsdl": [
+      {ARQUIVOS}
+    ]
+}
+ 
