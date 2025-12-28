@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Api.Domain.ObjectValues;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Api.Domain.Interfaces
     public interface IServicoWebFacede
     {
 
-        Task EnviarProcessamento(Schema schema, IServicoLog servicoLog);
+        Task<EnvelopeEnvio> EnviarProcessamento(Schema schema, IServicoLog servicoLog);
 
     }
 }

@@ -21,8 +21,6 @@ namespace Api.Domain
 
         public string Resultado { get; set; }
         
-        public HttpStatusCode Status { get; set; }
-        
         public Servicos Servico { get; set; }
 
         public bool IsVazio { get; set; }

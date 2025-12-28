@@ -30,17 +30,43 @@ namespace ApiParseSOAP.Controllers.Base
 
         #region TRATAR ERRO
 
-        internal async Task<IActionResult> TratamentoErroFatal(Exception ex, IServicoLog servicoLog)
+        #region TRATAR ERRO FATAL
+
+        internal async Task<IActionResult> TratamentoErro(Exception ex, IServicoLog servicoLog)
+        {
+            return await this.TratamentoSemAutorizacao(ex, servicoLog, TipoArquivoTemplete.ERRO
+                , TipoLog.TRACE_ERRO, StatusCodes.Status500InternalServerError);
+        }
+
+        #endregion
+
+        #region TRATAR SEM AUTORIZACAO
+
+        internal async Task<IActionResult> TratamentoSemAutorizacao(AutorizacaoException ex, IServicoLog servicoLog)
+        {
+            return await this.TratamentoSemAutorizacao(ex, servicoLog, TipoArquivoTemplete.SEM_AUTORIZACAO
+                , TipoLog.TRACE_ERRO, StatusCodes.Status401Unauthorized);
+        }
+
+        #endregion
+
+        internal async Task<IActionResult> TratamentoSemAutorizacao(
+              Exception ex
+            , IServicoLog servicoLog
+            , TipoArquivoTemplete tipoArquivo
+            , TipoLog tipoLog
+            , int statusCode
+            )
         {
             string servico = this.Request.Path;
             Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
 
-            string templete = await this.RecuperarArquvioTemplete(servicoConfiguracao, TipoArquivoTemplete.ERRO);
+            string templete = await this.RecuperarArquvioTemplete(servicoConfiguracao, tipoArquivo);
 
             templete = templete.Replace("{{MENSAGEM}}", ex.Message);
-            this.Response.StatusCode = 500;
+            this.Response.StatusCode = statusCode;
 
-            servicoLog.CriarLog(servico, ex.RecuperarTraceErroTratado(), TipoLog.TRACE_ERRO);
+            servicoLog.CriarLog(servico, ex.RecuperarTraceErroTratado(), tipoLog);
             servicoLog.CriarLog(servico, templete, TipoLog.RETORNO_XML);
             await servicoLog.Save();
 
@@ -48,6 +74,7 @@ namespace ApiParseSOAP.Controllers.Base
         }
 
         #endregion
+
 
         #region PROCESSAR RESPOSTAS
 
@@ -85,6 +112,8 @@ namespace ApiParseSOAP.Controllers.Base
 
             return "{{MENSAGEM}}";
         }
+
+
 
         #endregion
     }

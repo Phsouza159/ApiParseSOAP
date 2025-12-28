@@ -1,6 +1,7 @@
 ﻿using Api.Domain;
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
+using Api.Domain.Exceptions;
 using Api.Domain.Interfaces;
 using Api.Domain.Services;
 using ApiParseSOAP.Controllers.Base;
@@ -67,15 +68,21 @@ namespace ApiParseSOAP.Controllers
                     return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
                 }
 
-                await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
+                var envelope = await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
+                schema.Resultado = envelope.ConteudoRetorno;
+
                 string xmlResposta = conversaoXml.ConverterParaXml(schema);
 
                 servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
                 return await base.ProcessarResposta(Content(xmlResposta, "text/xml"), servicoLog);
             }
+            catch (AutorizacaoException ex)
+            {
+                return await base.TratamentoSemAutorizacao(ex, servicoLog);
+            }
             catch (Exception ex)
             {
-                return await base.TratamentoErroFatal(ex, servicoLog);
+                return await base.TratamentoErro(ex, servicoLog);
             }
         }
     }

@@ -8,6 +8,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IServicoWeb
     {
-        Task Enviar(Schema schema, IServicoLog servicoLog);
+        Task Enviar(Schema schema, ObjectValues.EnvelopeEnvio envelope, IServicoLog servicoLog);
     }
 }
