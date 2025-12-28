@@ -199,7 +199,7 @@ namespace Api.Domain.Conversor
                     //    throw new ArgumentException($"Tipo não compativel entre elementos: {caminhoItem}");
 
                     var valor = ProcessadoresHelper.CarregarValorFormatado(elemento, valorToken.ToString());
-                    item.InnerText = valor.ToString();
+                    item.InnerText = valor?.ToString();
 
                     break;
 
@@ -219,23 +219,6 @@ namespace Api.Domain.Conversor
 
 
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public List<Element> ConverterContrato(Schema schema)
         {
@@ -476,7 +459,8 @@ namespace Api.Domain.Conversor
         {
             XmlElement item = document.CreateElement(schema.Servico.Prefixo, $"{elemento.Nome}", schema.Servico.UrlHost);
             // item.SetAttribute(this.Nome, this.Valor);
-            item.InnerText = elemento.Valor;
+            if(elemento.Valor != null)
+                item.InnerText = elemento.Valor.ToString();
 
             return item;
         }

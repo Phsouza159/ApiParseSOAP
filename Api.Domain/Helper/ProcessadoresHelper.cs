@@ -6,7 +6,7 @@ namespace Api.Domain.Helper
     public static class ProcessadoresHelper
     {
 
-        private delegate object PROC_VALUE(string valor);
+        private delegate object PROC_VALUE(object valor);
 
         private static PROC_VALUE[] Processadores { get; set; }
 
@@ -35,7 +35,7 @@ namespace Api.Domain.Helper
 
         #endregion
 
-        public static object? CarregarValorFormatado(this Element elemento, string valor)
+        public static object? CarregarValorFormatado(this Element elemento, object valor)
         {
             try
             {

@@ -1,9 +1,11 @@
-﻿using Api.Domain.Extensions;
+﻿using Api.Domain.Enum;
+using Api.Domain.Extensions;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -69,7 +71,20 @@ namespace Api.Domain.Conversor.Base
             if (string.IsNullOrEmpty(prefixoBusca))
                 prefixoBusca = schema.Servico.Prefixo;
 
+            // CARREGAR PROCESSADOR + ITENS FILHOS
+            this.CarregarProcessadoresEItensFilhos(schema, item, element, prefixoBusca);
+
+            // CARREGAR VALOR ITEM
             this.RecuperarValorPropriedade(element, schema);
+
+            return element;
+        }
+
+        #region PROCESSAR TIPOS E NOS FILHOS
+
+        private void CarregarProcessadoresEItensFilhos(Schema schema, XmlNode item, Element element, string prefixoBusca)
+        {
+            //RECUPERAR TIPO PROCESSAR DO NO
             this.RecuperarProcessadorNode(element, schema, item, prefixoBusca);
 
             // MODO : complexType
@@ -88,9 +103,10 @@ namespace Api.Domain.Conversor.Base
             {
                 this.CarregarDadosElementoSimples(element, schema, item, prefixoBusca);
             }
-
-            return element;
         }
+
+
+        #endregion
 
         private bool DefinirPropriedadeElemento(XmlNode item, Schema schema)
         {
@@ -123,8 +139,22 @@ namespace Api.Domain.Conversor.Base
 
             if (p != null && p.Count == 1)
             {
-                element.Valor = p[0].InnerText;
-                return;
+                string valor = p[0].InnerText;
+                short codigoProcessaro = (short)element.Processador.TiposProcessador;
+                
+                // VALOR PRIMITIVO
+                if (   codigoProcessaro > (short)TiposProcessadores.STRING
+                    && codigoProcessaro < (short)TiposProcessadores.OBJETO)
+                {
+                    // TRATAR VALOR '' VAZIO PARA NULL 
+                    // DEVOLVER NULL PARA NAO TER ERRO NO CAST DE STRING '' PARA TIPOS PRIMITIVOS
+                    element.Valor = string.IsNullOrEmpty(valor) ? null : valor;
+                }
+                // VALOR TEXTO
+                else if (codigoProcessaro <= (short)TiposProcessadores.STRING)
+                {
+                    element.Valor = valor;
+                }
             }
         }
 

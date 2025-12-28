@@ -30,17 +30,22 @@ namespace Api.Domain.Helper
             }
         }
 
-        internal static object PRC_DEFAULT(string valor)
-        {
-            return !string.IsNullOrEmpty(valor) ? valor.ToString() : string.Empty;
-        }
+        #region PROC
 
-        internal static object PRC_SHORT(string valor)
+        internal static object PRC_DEFAULT(object valor)
         {
-            if (string.IsNullOrEmpty(valor))
+            if (valor is null)
                 return null;
 
-            if(short.TryParse(valor, out short _short))
+            return valor.ToString();
+        }
+
+        internal static object PRC_SHORT(object valor)
+        {
+            if (valor is null)
+                return null;
+
+            if(short.TryParse(valor.ToString(), out short _short))
             {
                 return _short;
             }
@@ -49,12 +54,12 @@ namespace Api.Domain.Helper
             throw new ArgumentException();
         }
 
-        internal static object PRC_INTEGER(string valor)
+        internal static object PRC_INTEGER(object valor)
         {
             if (valor is null)
                 return null;
 
-            if(int.TryParse(valor, out int _int))
+            if(int.TryParse(valor.ToString(), out int _int))
             {
                 return _int;
             }
@@ -64,12 +69,12 @@ namespace Api.Domain.Helper
            //throw ProcessarExecption(valor);
         }
 
-        internal static object PRC_LONG(string valor)
+        internal static object PRC_LONG(object valor)
         {
             if (valor is null)
                 return null;
 
-            if (long.TryParse(valor, out long _int))
+            if (long.TryParse(valor.ToString(), out long _int))
             {
                 return _int;
             }
@@ -78,12 +83,12 @@ namespace Api.Domain.Helper
         }
 
 
-        internal static object PRC_USINGNEDLONG(string valor)
+        internal static object PRC_USINGNEDLONG(object valor)
         {
-            if (string.IsNullOrEmpty(valor))
+            if (valor is null)
                 return null;
 
-            if (ulong.TryParse(valor, out ulong _unlog))
+            if (ulong.TryParse(valor.ToString(), out ulong _unlog))
             {
                 return _unlog;
             }
@@ -92,13 +97,15 @@ namespace Api.Domain.Helper
             throw new ArgumentException();
         }
 
-        internal static string PRC_STRING(string valor)
+        internal static string PRC_STRING(object valor)
         {
             if(valor is null)
                 return null;
 
             return valor.ToString();
         }
+
+        #endregion
 
         #region EXCEPTION
 

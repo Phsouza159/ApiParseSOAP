@@ -4,9 +4,13 @@ namespace Api.Domain.Enum
 {
     public enum TiposProcessadores
     {
+        // OBJETOS SIMPLES
+        // VALOR TEXTO
         DEFAULT = 0,
-        UNSIGNEDLONG,
         STRING,
+
+        // VALORES PRIMITIVOS
+        UNSIGNEDLONG,
         SHORT,
         INTEGER,
         LONG,

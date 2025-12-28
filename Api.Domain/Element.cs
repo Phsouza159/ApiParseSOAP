@@ -25,7 +25,7 @@ namespace Api.Domain
 
         public string Prefixo { get; set; }
 
-        public string Valor { get; set; }
+        public object? Valor { get; set; }
 
         public XmlNodeType Tipo { get; set; }
 
