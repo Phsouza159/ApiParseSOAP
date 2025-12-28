@@ -24,6 +24,22 @@ namespace Api.Domain.Conversor.Base
 
         public Notificacoes Notificacoes { get; }
 
+        #region PROPRIEDADES 
+
+        internal XmlNamespaceManager NamespaceManager { get; set; }
+
+        internal XmlNamespaceManager RecuperarNameSpace(Schema schema, string prefixoBusca = "")
+        {
+            if(this.NamespaceManager is null)
+            {
+                this.NamespaceManager = new XmlNamespaceManager(schema.Contrato.NameTable);
+                this.NamespaceManager.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
+            }
+
+            return this.NamespaceManager;
+        }
+
+        #endregion
 
         #region VALIDAR TIPOS
 
@@ -129,13 +145,9 @@ namespace Api.Domain.Conversor.Base
         {
             if (!element.IsPropriedade)
                 return;
-
-            string prefixoBusca = string.Empty;
-            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
-            ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
-
+            
             string path = $"//{element.Nome}";
-            var p = schema.Corpo.SelectNodes(path, ns);
+            var p = schema.Corpo.SelectNodes(path, this.RecuperarNameSpace(schema));
 
             if (p != null && p.Count == 1)
             {
@@ -182,10 +194,6 @@ namespace Api.Domain.Conversor.Base
         /// </summary>
         private void CarregarDodosElementosComplexo(Element element, Schema schema, XmlNode item, string prefixoBusca)
         {
-            // Criar o namespace manager
-            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
-            ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
-
             string path = $"//{prefixoBusca}:complexType[@name='{element.Processador.ElementoImportado}']";
             var dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
 
@@ -288,12 +296,8 @@ namespace Api.Domain.Conversor.Base
         /// </summary>
         private void RecuperarProcessadorNodeComplexo(Schema schema, Element element, XmlNode item, string prefixoBusca)
         {
-            // Criar o namespace manager
-            XmlNamespaceManager ns = new XmlNamespaceManager(schema.Contrato.NameTable);
-            ns.AddNamespace(prefixoBusca, "http://www.w3.org/2001/XMLSchema");
-
             // TODO: VALIDAR QUANDO NECESSARIO RECUPERAR DO NOME DO SERVICO
-            var dados = this.RecuperarElementoServico(schema, item, ns, prefixoBusca);
+            var dados = this.RecuperarElementoServico(schema, item, this.RecuperarNameSpace(schema, prefixoBusca), prefixoBusca);
 
             // DADO DO SERVICO CARREGADO
             if (dados != null && dados.Count > 0)
