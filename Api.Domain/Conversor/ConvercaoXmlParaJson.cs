@@ -29,11 +29,10 @@ namespace Api.Domain.Conversor
             // RECUPERAR LISTA TRATADA - APENAS ELEMENTOS 
             List<Element> elementosCorpo = this.TratarLista(lista);
 
-            //TESTE
-            //return JsonConvert.SerializeObject(new { elementosCorpo, lista});
-
             // CONVERTER LIST<ELEMENTOS> PARA OBJETO JSON
             JsonObject data = this.ProcessarElementos(elementosCorpo);
+
+            base.ValidarNotifcacoes();
 
             // RECUPERAR JSON EM FORMA DE STRING
             return data.ToJsonString();
@@ -89,6 +88,9 @@ namespace Api.Domain.Conversor
                 Element elemento = elementos[i];
                 if (elemento.Tipo == XmlNodeType.Element)
                     this.ProcessarElementoParaJson(json, elemento);
+
+                //Carregar Notificacoes
+                this.Notificacoes.AdicionarMensagem(elemento.RecuperarNotificacoesItensFilhos());
             }
 
             return json;
@@ -118,9 +120,9 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CONVERTER ELEMENTO PARA OBJETO
         /// </summary>
-        internal object ConverterElementoParaObjeto(Element elemento)
+        internal object? ConverterElementoParaObjeto(Element elemento)
         {
-            string defaultNull = "null";
+            //string defaultNull = "null";
 
             switch (elemento.Processador.TiposProcessador)
             {

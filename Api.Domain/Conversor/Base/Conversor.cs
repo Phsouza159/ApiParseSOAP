@@ -1,5 +1,7 @@
 ﻿using Api.Domain.Extensions;
 using Api.Domain.Helper;
+using Api.Domain.Interfaces;
+using Api.Domain.ObjectValues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +13,16 @@ using System.Xml.Linq;
 
 namespace Api.Domain.Conversor.Base
 {
-    public abstract class Conversor : IDisposable
+    public abstract class Conversor : INotificacoes, IDisposable
     {
+        protected Conversor()
+        {
+            this.Notificacoes = new Notificacoes();
+        }
+
+        public Notificacoes Notificacoes { get; }
+
+
         #region VALIDAR TIPOS
 
         internal bool IsItemOutput(XmlNode xmlNode) => xmlNode != null && xmlNode.LocalName.Equals("output");
@@ -480,6 +490,20 @@ namespace Api.Domain.Conversor.Base
 
         #endregion
 
+        #region PROCESSAR NOTIFICACOES
+
+        internal void ValidarNotifcacoes()
+        {
+            if (!this.Notificacoes.IsValido)
+            { 
+                throw Exceptions.NotificacaoException.Criar(this, "Erro ao processar dados para conversão XML/JSON.");
+            }
+        }
+
+        #endregion
+
+        #region DISPONSE
+
         internal bool IsDisponse { get; set; }
 
         public void Dispose()
@@ -490,5 +514,8 @@ namespace Api.Domain.Conversor.Base
                 GC.SuppressFinalize(this);
             }
         }
+
+        #endregion
+
     }
 }

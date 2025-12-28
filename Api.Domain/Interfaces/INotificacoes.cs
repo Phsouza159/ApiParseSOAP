@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IConvercao : INotificacoes, IDisposable
+    public interface INotificacoes
     {
-        List<Element> ConverterContrato(Schema schema);
+        Notificacoes Notificacoes { get; }
     }
 }

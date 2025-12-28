@@ -35,7 +35,7 @@ namespace Api.Domain.Helper
 
         #endregion
 
-        public static object CarregarValorFormatado(this Element elemento, string valor)
+        public static object? CarregarValorFormatado(this Element elemento, string valor)
         {
             try
             {
@@ -44,9 +44,7 @@ namespace Api.Domain.Helper
                 PROC_VALUE processador = ProcessadoresHelper.Processadores[(short)elemento.Processador.TiposProcessador];
 
                 if (processador == null)
-                {
                     processador = ConversorValorHelper.PRC_DEFAULT;
-                }
 
                 if (valor is null)
                     return null;
@@ -55,8 +53,11 @@ namespace Api.Domain.Helper
             }
             catch (Exception ex)
             {
-                string mensagem = $"Erro elemento: {elemento.Nome}. Valor: {valor}. Mensagem: {ex.Message}";
-                throw new ConversaoException(mensagem);
+                string mensagem = $"Erro elemento: {elemento.Nome}. Valor: {valor}. Mensagem: '{ex.Message}'";
+                elemento.Notificacoes.AdicionarMensagem(mensagem);
+
+                // VALOR DEFAULT PARA ERRO
+                return null;
             }
         }
     }
