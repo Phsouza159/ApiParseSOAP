@@ -1,56 +1,81 @@
 ﻿using Api.Domain;
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
+using Api.Domain.Exceptions;
 using Api.Domain.Interfaces;
+using Api.Domain.ObjectValues;
 using System.Text;
+using System.Web.Helpers;
 
 namespace Api.Domain.Services
 {
     public class ServicoWeb : IServicoWeb
     {
-        //  public static IConvercaoJsonParaXml ConvercaoJsonParaXml { get; set; }
-
-        public ServicoWeb(IConvercaoXmlParaJson convercaoXmlParaJson)
+        public ServicoWeb()
         {
-            ConvercaoXmlParaJson = convercaoXmlParaJson;
         }
 
-        public IConvercaoXmlParaJson ConvercaoXmlParaJson { get; }
-
-        public async Task Enviar(Schema schema, IServicoLog servicoLog)
+        public async Task Enviar(Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
-            var contrato = schema.Servico.Contratos.FirstOrDefault(e => e.Servico.ToLower().Equals(schema.NomeServico.ToLower()));
+            var contrato = schema.GetContrato();
 
             if (contrato != null)
             {
                 switch (contrato.Tipo)
                 {
                     case "POST":
-                         await this.Post(contrato, schema, servicoLog);
+                         await this.Post(contrato, schema, envelope, servicoLog);
                         return;
 
                     default:
-                        break;
+                        throw new ArgumentException($"Sem tratamento para envio: {contrato.Tipo}");
                 }
             }
         }
 
-        internal async Task Post(Configuracao.Contrato contrato, Schema schema, IServicoLog servicoLog)
+        #region REQUEST POST
+
+        internal async Task Post(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
             using var client = new HttpClient();
-            
-            var json = this.ConvercaoXmlParaJson.ConverterParaJson(schema);
 
-            servicoLog.CriarLog(schema.Servico.Nome, json, TipoLog.CHAMADA_JSON);
+            this.CarregarAutenticacao(client, schema, servicoLog);
 
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            servicoLog.CriarLog(schema.Servico.Nome, $"REQUEST POST PARA: '{contrato.Api}'", TipoLog.INFO);
 
+            var content = new StringContent(envelope.ConteudoEnvio, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(contrato.Api, content);
-            schema.Resultado = await response.Content.ReadAsStringAsync();
 
-            servicoLog.CriarLog(schema.Servico.Nome, schema.Resultado, TipoLog.RETORNO_JSON);
+            servicoLog.CriarLog(schema.Servico.Nome, $"RETORNO POST PARA: '{contrato.Api}' - STATUS: '{response.StatusCode}' ", TipoLog.INFO);
 
-            schema.Status = response.StatusCode;
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                throw new AutorizacaoException($"Sem autorização para chamada em '{schema.Servico.Nome}'.");
+            }
+
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                envelope.ConteudoRetorno = await response.Content.ReadAsStringAsync();
+                servicoLog.CriarLog(schema.Servico.Nome, envelope.ConteudoRetorno, TipoLog.RETORNO_JSON);
+                return;
+            }
+
+            throw new ArgumentException($"Sem tratamento para retorno: {response.StatusCode}");
         }
+
+        #endregion
+
+        #region CARREGAR DADOS PARA AUTENTICACAO
+
+        internal void CarregarAutenticacao(HttpClient client, Schema schema, IServicoLog servicoLog)
+        {
+            if(schema.Autenticacao != null)
+            {
+                schema.Autenticacao.CarregarAutenticacao(client, servicoLog);
+            }
+        }
+
+
+        #endregion
     }
 }

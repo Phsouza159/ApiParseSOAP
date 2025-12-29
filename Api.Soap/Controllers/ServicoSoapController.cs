@@ -1,6 +1,7 @@
 ﻿using Api.Domain;
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
+using Api.Domain.Exceptions;
 using Api.Domain.Interfaces;
 using Api.Domain.Services;
 using ApiParseSOAP.Controllers.Base;
@@ -53,12 +54,14 @@ namespace ApiParseSOAP.Controllers
                 string xmlConteudo = await base.RecuperarCorpoChamada();
 
                 servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
-                using Schema schema = processardorChamadaFacede.CarregarDadosChamadaSoap(servico, xmlConteudo);
+
+                string autenticacao = this.Request.Headers.Authorization.ToString() ?? string.Empty;
+                using Schema schema = processardorChamadaFacede.CarregarDadosChamadaSoap(servico, xmlConteudo, autenticacao);
 
                 // DEFAULT 404
                 if (schema.IsVazio)
                     return await base.ProcessarResposta(NotFound(), servicoLog);
-
+              
                 if (queryParametro == "DEBUG")
                 {
                     // DEBUG 
@@ -67,15 +70,21 @@ namespace ApiParseSOAP.Controllers
                     return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
                 }
 
-                await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
+                var envelope = await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
+                schema.Resultado = envelope.ConteudoRetorno;
+
                 string xmlResposta = conversaoXml.ConverterParaXml(schema);
 
                 servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
                 return await base.ProcessarResposta(Content(xmlResposta, "text/xml"), servicoLog);
             }
+            catch (AutorizacaoException ex)
+            {
+                return await base.TratamentoSemAutorizacao(ex, servicoLog);
+            }
             catch (Exception ex)
             {
-                return await base.TratamentoErroFatal(ex, servicoLog);
+                return await base.TratamentoErro(ex, servicoLog);
             }
         }
     }

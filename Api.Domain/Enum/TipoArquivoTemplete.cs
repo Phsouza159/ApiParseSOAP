@@ -8,6 +8,7 @@ namespace Api.Domain.Enum
 {
     public enum TipoArquivoTemplete
     {
+        SEM_AUTORIZACAO = 401,
         ERRO = 500
     }
 }

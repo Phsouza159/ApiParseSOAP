@@ -1,0 +1,14 @@
+﻿<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <soap:Fault>
+         <faultcode>soap:Client</faultcode>
+         <faultstring>Unauthorized - Credenciais inválidas</faultstring>
+         <detail>
+            <error xmlns="http://exemplo.com/erros">
+               <code>401</code>
+               <message>{{MENSAGEM}}</message>
+            </error>
+         </detail>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>
