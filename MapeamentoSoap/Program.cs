@@ -85,6 +85,7 @@ async Task CriarArquivos()
     string path = string.Empty;
 
     arquivos.Add("config.json", MapeamentoSoap.Arquivos.Resource.MODELO_CONFIG
+                .Replace("{NOME}", nomeServico)
                 .Replace("{ARQUIVOS}", string.Join(",", arquivos.Select(e => $"\t\"{e.Key}\"{Environment.NewLine}"))));
     
     do
