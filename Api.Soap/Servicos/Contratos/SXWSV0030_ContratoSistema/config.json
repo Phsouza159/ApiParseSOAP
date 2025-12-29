@@ -8,7 +8,7 @@
             "Servico": "listarContratosLinhaProdudo",
             "Api": "https://localhost:7108/SXWSV0030_ContratoSistema",
             "Tipo": "POST",
-            "Autenticacao": ""
+            "Autenticacao": "REDIRECIONAR_AUTENTICACAO"
         }
     ],
     "ArquivosWsdl": [

@@ -11,8 +11,8 @@ namespace WebApiTeste.Autenticacao
                 return false;
 
             auth = auth.Contains("Basic") ? auth.Replace("Basic", string.Empty).Trim() : auth;
-            
-            string[] parametros = Convert.ToBase64String(Encoding.UTF8.GetBytes(auth)).Split(":");
+
+            string[] parametros = Encoding.UTF8.GetString(Convert.FromBase64String(auth)).Split(":");
 
             if (parametros.Length != 2)
                 return false;

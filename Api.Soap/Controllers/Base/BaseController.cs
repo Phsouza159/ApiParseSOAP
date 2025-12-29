@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Api.Domain.Interfaces;
 using Api.Domain.Exceptions;
 using Api.Domain.Enum;
+using Api.Domain;
+using Api.Domain.Api.Domain.Autenticacao;
 
 namespace ApiParseSOAP.Controllers.Base
 {
@@ -113,8 +115,22 @@ namespace ApiParseSOAP.Controllers.Base
             return "{{MENSAGEM}}";
         }
 
+        #endregion
 
+        #region CARREGAR DADOS AUTENTICACAO
+        internal void CarregarDadosAutenticacao(Schema schema, IHeaderDictionary headers)
+        {
+            switch (schema.Servico.Contratos[0].Autenticacao)
+            {
+                default:
+                    break;
+            }
+
+
+            schema.Autenticacao = new RedirecionamentoAutenticacao(headers["Authorization"]);
+        }
 
         #endregion
+
     }
 }

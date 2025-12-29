@@ -17,7 +17,7 @@ namespace Api.Domain.Services
 
         public async Task Enviar(Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
-            var contrato = schema.Servico.Contratos.FirstOrDefault(e => e.Servico.ToLower().Equals(schema.NomeServico.ToLower()));
+            var contrato = schema.GetContrato();
 
             if (contrato != null)
             {
@@ -38,6 +38,8 @@ namespace Api.Domain.Services
         internal async Task Post(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
             using var client = new HttpClient();
+
+            this.CarregarAutenticacao(client, schema, servicoLog);
 
             servicoLog.CriarLog(schema.Servico.Nome, $"REQUEST POST PARA: '{contrato.Api}'", TipoLog.INFO);
 
@@ -60,6 +62,19 @@ namespace Api.Domain.Services
 
             throw new ArgumentException($"Sem tratamento para retorno: {response.StatusCode}");
         }
+
+        #endregion
+
+        #region CARREGAR DADOS PARA AUTENTICACAO
+
+        internal void CarregarAutenticacao(HttpClient client, Schema schema, IServicoLog servicoLog)
+        {
+            if(schema.Autenticacao != null)
+            {
+                schema.Autenticacao.CarregarAutenticacao(client, servicoLog);
+            }
+        }
+
 
         #endregion
     }

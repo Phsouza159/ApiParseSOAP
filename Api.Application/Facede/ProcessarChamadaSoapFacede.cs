@@ -1,4 +1,5 @@
 ﻿using Api.Domain;
+using Api.Domain.Api.Domain.Autenticacao;
 using Api.Domain.Configuracao;
 using Api.Domain.Interfaces;
 using Api.Domain.Services;
@@ -15,7 +16,7 @@ namespace Api.Application.Facede
 
         public IServicoWeb ServicoWeb { get; }
 
-        public Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo)
+        public Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo, string autenticacao)
         {
             Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
 
@@ -38,11 +39,29 @@ namespace Api.Application.Facede
                         throw new ArgumentException($"Serviço não registrado: '{schema.NomeServico}'");
 
                     schema.Servico = servicoConfiguracao;
+                    
+                    this.CarregarDadosAutenticacao(schema, autenticacao);
+
                     return schema;
                 }
             }
 
             return new Schema() { IsVazio = true };
+        }
+
+        private void CarregarDadosAutenticacao(Schema schema, string autenticacao)
+        {
+            var contrato = schema.GetContrato();
+
+            if(contrato != null && !string.IsNullOrEmpty(autenticacao) && !string.IsNullOrEmpty(contrato.Autenticacao))
+            {
+                schema.Autenticacao = contrato.Autenticacao switch
+                {
+                    "REDIRECIONAR_AUTENTICACAO" => new RedirecionamentoAutenticacao(autenticacao),
+                    // DEFAULT
+                    _ => throw new ArgumentException($"Tipo autenticação não suportado: {contrato.Autenticacao}"),
+                };
+            }
         }
     }
 }

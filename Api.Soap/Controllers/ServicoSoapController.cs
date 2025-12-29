@@ -54,12 +54,14 @@ namespace ApiParseSOAP.Controllers
                 string xmlConteudo = await base.RecuperarCorpoChamada();
 
                 servicoLog.CriarLog(servico, xmlConteudo, TipoLog.ENTRADA_XML);
-                using Schema schema = processardorChamadaFacede.CarregarDadosChamadaSoap(servico, xmlConteudo);
+
+                string autenticacao = this.Request.Headers.Authorization.ToString() ?? string.Empty;
+                using Schema schema = processardorChamadaFacede.CarregarDadosChamadaSoap(servico, xmlConteudo, autenticacao);
 
                 // DEFAULT 404
                 if (schema.IsVazio)
                     return await base.ProcessarResposta(NotFound(), servicoLog);
-
+              
                 if (queryParametro == "DEBUG")
                 {
                     // DEBUG 

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IProcessarChamadaSoapFacede
+    public interface IAutenticacao
     {
-        Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo, string autenticacao);
+        void CarregarAutenticacao(HttpClient client, IServicoLog servicoLog);
     }
 }

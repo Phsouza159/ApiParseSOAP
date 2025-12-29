@@ -1,4 +1,6 @@
-﻿using Api.Domain.Configuracao;
+﻿using Api.Domain.Api.Domain.Autenticacao;
+using Api.Domain.Configuracao;
+using Api.Domain.Interfaces;
 using System.Net;
 using System.Text.Json.Nodes;
 using System.Xml;
@@ -27,6 +29,8 @@ namespace Api.Domain
 
         public bool IsElementoEntrada { get; set; }
 
+        public IAutenticacao Autenticacao { get; set; }
+
         internal void Carregar()
         {
             var doc = this.Documento;
@@ -49,6 +53,8 @@ namespace Api.Domain
             this.NomeServico = servico.LocalName;
         }
 
+        #region DISPONSE
+
         internal bool IsDisponse { get; set; }
 
         public void Dispose()
@@ -59,5 +65,16 @@ namespace Api.Domain
                 GC.SuppressFinalize(this);
             }
         }
+
+        #endregion
+
+        #region GET CONTRATO
+
+        public Contrato GetContrato()
+        {
+            return this.Servico.Contratos.First(e => e.Servico.ToLower().Equals(this.NomeServico.ToLower()));
+        }
+
+        #endregion
     }
 }
