@@ -2,6 +2,7 @@
 
 using Api.Domain.Configuracao;
 using Api.Domain.Helper;
+using Api.Domain.Interfaces;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -118,19 +119,43 @@ namespace Api.Domain.Services
             return schema;
         }
 
+        #region RECARREGAR CONFIGURACAO
+
+        /// <summary>
+        /// RECRIAR ARQUIVOS DE CONFIGURACAO
+        /// </summary>
+        public static void RecarregarArquivosConfiguracao(IServicoLog servicoLog)
+        {
+            ServicoArquivosWsdl.Configuracacoes.Clear();
+            ServicoArquivosWsdl.CarregarArquivosConfiguracao(servicoLog);
+        }
+
+        #endregion
+
         #region CARREGAR CONFIGURACAO
 
-        public static void CarregarArquivosConfiguracao()
+        /// <summary>
+        /// CRIAR ARQUIVOS DE CONFIGURACAO NA MEMORIA
+        /// </summary>
+        public static void CarregarArquivosConfiguracao(IServicoLog servicoLog)
         {
             string[] diretorios = Directory.GetDirectories(PastaWsdl);
 
             foreach (var diretorio in diretorios)
             {
-                Servicos? servicos = CriarRegistroServico(diretorio);
-                
-                if(servicos != null)
+                try
                 {
-                    Configuracacoes.Add(servicos);
+                    Servicos? servicos = CriarRegistroServico(diretorio);
+
+                    if (servicos != null)
+                    {
+                        servicoLog.CriarLog(servicos.Nome, "Serviço crido com sucesso", Enum.TipoLog.INFO);
+                        Configuracacoes.Add(servicos);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    servicoLog.CriarLog(ex, "Erro ao criar serviço.");
                 }
             }
         }

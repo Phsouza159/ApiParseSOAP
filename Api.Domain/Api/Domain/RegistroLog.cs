@@ -7,9 +7,12 @@ namespace Api.Domain.Api.Domain
         public RegistroLog()
         {
             this.Conteudo = string.Empty;
+            this.Servico = string.Empty;
         }
 
         public Guid ID { get; set; }
+
+        public string Servico { get; set; }
 
         public TipoLog TipoLog { get; set; }
 
@@ -19,13 +22,14 @@ namespace Api.Domain.Api.Domain
 
         public override string ToString()
         {
-            return 
-@$"[{this.Data:yyyy-MM-dd HH:mm:ss}] - ID: {this.ID}
-TIPO: {this.TipoLog}
------ CONTEUDO - Tamanho {this.Conteudo.Length}:
-{this.Conteudo}
----
-";
+            string data = Api.Ressources.Arquivos.TEMPLETE_DATA_LOG;
+
+            data = string.Join(this.ID.ToString(), data.Split("@ID"));
+            data = string.Join(this.Servico, data.Split("@SERVICO"));
+            data = string.Join(this.Data.ToString("yyyy-MM-dd HH:mm:ss"), data.Split("@DATA"));
+            data = string.Join(this.Conteudo, data.Split("@CONTEUDO"));
+
+            return data;
         }
     }
 }

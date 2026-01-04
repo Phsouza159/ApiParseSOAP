@@ -9,7 +9,12 @@ namespace Api.Domain.Interfaces
 {
     public interface IServicoLog : IDisposable
     {
+        bool IsDebug { get; set; }
+
         void CriarLog(string servico, string data, TipoLog tipo);
+        
+        void CriarLog(Exception ex, string mensagem);
+
         Task Save();
     }
 }

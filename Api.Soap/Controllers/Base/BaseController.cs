@@ -36,6 +36,9 @@ namespace ApiParseSOAP.Controllers.Base
 
         internal async Task<IActionResult> TratamentoErro(Exception ex, IServicoLog servicoLog)
         {
+            if(ex is AutorizacaoException autorizacaoException)
+                return await this.TratamentoSemAutorizacao(autorizacaoException, servicoLog);
+
             return await this.TratamentoSemAutorizacao(ex, servicoLog, TipoArquivoTemplete.ERRO
                 , TipoLog.TRACE_ERRO, StatusCodes.Status500InternalServerError);
         }

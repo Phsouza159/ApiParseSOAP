@@ -4,6 +4,7 @@ using Api.Domain.Services;
 using Api.Domain.Extensions;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using Api.Domain.Interfaces;
 
 namespace ApiParseSOAP
 {
@@ -42,11 +43,14 @@ namespace ApiParseSOAP
             var provider = builder.Services.BuildServiceProvider();
             var config = provider.GetRequiredService<IConfiguration>();
 
+            var log = provider.GetRequiredService<IServicoLog>();
+
             ServicoArquivosWsdl.PastaWsdl = Path.Combine(config.GetPathServicos(), "Contratos");
-            ServicoArquivosWsdl.PathHost = config.GetHost();
+            ServicoArquivosWsdl.PathHost  = config.RecuperarHostServico();
 
-            ServicoArquivosWsdl.CarregarArquivosConfiguracao();
+            ServicoArquivosWsdl.CarregarArquivosConfiguracao(log);
 
+            log.Save();
 
             // Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())

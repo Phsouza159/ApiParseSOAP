@@ -30,7 +30,25 @@ namespace Api.Domain.Services
             { 
                 ID = this.Ticket,
                 TipoLog = tipo,
+                Servico = servico,
                 Conteudo = conteudo,
+                Data = DateTime.Now,
+            });
+        }
+
+        public void CriarLog(Exception ex, string mensagem)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(string.Format("Erro: {0} - Trace: {1}", ex.Message, ex.StackTrace));
+
+            if(ex.InnerException != null)
+                stringBuilder.Append(string.Format("{0} InnerException - Erro: {1} - Trace: {2}", Environment.NewLine, ex.InnerException.Message, ex.InnerException.StackTrace));
+
+            this.Registros.Add(new RegistroLog()
+            {
+                ID = this.Ticket,
+                TipoLog = TipoLog.TRACE_ERRO,
+                Conteudo = stringBuilder.ToString(),
                 Data = DateTime.Now,
             });
         }
@@ -50,6 +68,8 @@ namespace Api.Domain.Services
         }
 
         internal bool IsSave { get; set; }
+
+        public bool IsDebug { get; set; }
 
         public async Task Save()
         {

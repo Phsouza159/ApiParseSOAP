@@ -1,0 +1,12 @@
+﻿
+</-----# ID @ID
+#----- DATA:
+@DATA
+#----- :DATA
+#----- SERVICO:
+@SERVICO
+#----- :SERVICO
+#----- CONTEUDO:
+@CONTEUDO
+#----- :CONTEUDO 
+#-----/>

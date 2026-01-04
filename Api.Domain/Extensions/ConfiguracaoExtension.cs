@@ -4,10 +4,10 @@ namespace Api.Domain.Extensions
 {
     public static class ConfiguracaoExtension
     {
-        public static string GetHost(this IConfiguration configuration)
+        public static string RecuperarHostServico(this IConfiguration configuration)
         {
             string par = "URL_HOST";
-            return configuration.GetItem(par);
+            return string.Format("{0}/api/Servico", configuration.GetItem(par));
         }
 
         public static string GetPathServicos(this IConfiguration configuration)
