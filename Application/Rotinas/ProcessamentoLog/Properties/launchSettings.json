@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProcessamentoLog": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\_git\\ApiParseSOAP\\Application\\Servicos\\LOG\"\r\n\"C:\\_git\\ApiParseSOAP\\Application\\Data\\database\""
+    }
+  }
+}

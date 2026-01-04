@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Logs Dashboard</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .card {
+            border-radius: 6px;
+        }
+
+        .hits {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .log-row {
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .log-time {
+            color: #6c757d;
+            width: 180px;
+        }
+
+        .log-message {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid mt-3">
+
+        <!-- Header -->
+        <div class="row mb-3">
+            <div class="col">
+                <h4>49,632 hits</h4>
+                <small>Aug 9, 2022 @ 11:18:50.811 - Aug 9, 2022 @ 11:33:50.811</small>
+
+
+                <div class="mt-2">
+                    Data Inicio / Fim
+
+                    <form class="form-inline">
+                        <div class="form-group mb-2">
+                            <input type="date" class="form-control form-control-sm" id="staticEmail2"
+                                value="">
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="date" class="form-control form-control-sm" id="inputPassword2">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#logs">Logs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#patterns">Patterns <span
+                        class="badge badge-primary">42</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#exceptions">Exceptions <span
+                        class="badge badge-danger">1</span></a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+            <!-- Logs -->
+            <div class="tab-pane fade show active" id="logs">
+                <div class="card">
+                    <div class="card-body p-0">
+
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th width="200">Time</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="log-row">
+                                    <td class="log-time">Aug 9, 2022 11:18:50.189</td>
+                                    <td class="log-message">Attempting to delete cart for user</td>
+                                </tr>
+                                <tr class="log-row">
+                                    <td class="log-time">Aug 9, 2022 11:18:50.196</td>
+                                    <td class="log-message">User cart deleted with status: 202</td>
+                                </tr>
+                                <tr class="log-row">
+                                    <td class="log-time">Aug 9, 2022 11:18:50.197</td>
+                                    <td class="log-message">DELETE /cart | 202 | 8ms</td>
+                                </tr>
+                                <tr class="log-row">
+                                    <td class="log-time">Aug 9, 2022 11:18:50.203</td>
+                                    <td class="log-message">Attempting to add to cart: { "id": "...", "quantity": 1 }
+                                    </td>
+                                </tr>
+                                <tr class="log-row">
+                                    <td class="log-time">Aug 9, 2022 11:18:50.205</td>
+                                    <td class="log-message">POST /items | body: { "itemId": "...", "unitPrice": 18 }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patterns -->
+            <div class="tab-pane fade" id="patterns">
+                <div class="alert alert-info">
+                    Lista de padrões detectados nos logs.
+                </div>
+            </div>
+
+            <!-- Exceptions -->
+            <div class="tab-pane fade" id="exceptions">
+                <div class="alert alert-danger">
+                    1 exceção encontrada no período selecionado.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        
+    </script>
+
+</body>
+
+</html>
