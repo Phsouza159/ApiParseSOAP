@@ -61,6 +61,33 @@ namespace Api.Domain.Api.Ressources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;pt-BR&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;title&gt;Serviços WSDL&lt;/title&gt;
+        ///
+        ///    &lt;!-- Bootstrap 4 --&gt;
+        ///    &lt;link rel=&quot;stylesheet&quot;
+        ///          href=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css&quot;&gt;
+        ///
+        ///&lt;/head&gt;
+        ///&lt;body class=&quot;bg-light&quot;&gt;
+        ///
+        ///    &lt;div class=&quot;container mt-5&quot;&gt;
+        ///        &lt;div class=&quot;row justify-content-center&quot;&gt;
+        ///            &lt;div class=&quot;col-md-8&quot;&gt;
+        ///
+        ///                &lt;div class=&quot;card shadow-sm&quot;&gt;
+        ///                    &lt;div class=&quot;card-header bg-pri [o restante da cadeia de caracteres foi truncado]&quot;;.
+        /// </summary>
+        internal static string Lista_servicos {
+            get {
+                return ResourceManager.GetString("Lista_servicos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a 
         ///&lt;/-----# ID @ID
         ///#----- DATA:

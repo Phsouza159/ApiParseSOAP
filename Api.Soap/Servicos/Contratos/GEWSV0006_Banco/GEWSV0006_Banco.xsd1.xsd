@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:bons1="http://ge.caixaseguros.com.br/wsv0006/bo"
+	xmlns:bons1="http://site.com.br/wsv0006/bo"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://ge.caixaseguros.com.br/wsv0006"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ge.caixaseguros.com.br/wsv0006">
-	<xsd:import schemaLocation="GEWSV0006_Banco.xsd2.xsd" namespace="http://ge.caixaseguros.com.br/wsv0006/bo"/>
+	xmlns:tns="http://site.com.br/wsv0006"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://site.com.br/wsv0006">
+	<xsd:import schemaLocation="GEWSV0006_Banco.xsd2.xsd" namespace="http://site.com.br/wsv0006/bo"/>
 	<xsd:element name="listarBancos">
 		<xsd:complexType>
 			<xsd:sequence>

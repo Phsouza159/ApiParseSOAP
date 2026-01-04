@@ -8,20 +8,20 @@
 	xmlns:wsp="http://www.w3.org/ns/ws-policy"
 	xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy"
-	xmlns:ns0="http://ge.caixaseguros.com.br/wsv0006" targetNamespace="http://ge.caixaseguros.com.br/wsv0006">
+	xmlns:ns0="http://site.com.br/wsv0006" targetNamespace="http://site.com.br/wsv0006">
 	<wsdl:types
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 		<xsd:schema>
-			<xsd:import schemaLocation="GEWSV0006_Banco.xsd1.xsd" namespace="http://ge.caixaseguros.com.br/wsv0006"/>
+			<xsd:import schemaLocation="GEWSV0006_Banco.xsd1.xsd" namespace="http://site.com.br/wsv0006"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="listarBancosRequestMsg">
 		<wsdl:part name="listarBancosParameters" element="xsns:listarBancos"
-			xmlns:xsns="http://ge.caixaseguros.com.br/wsv0006"/>
+			xmlns:xsns="http://site.com.br/wsv0006"/>
 		</wsdl:message>
 		<wsdl:message name="listarBancosResponseMsg">
 			<wsdl:part name="listarBancosResult" element="xsns:listarBancosResponse"
-				xmlns:xsns="http://ge.caixaseguros.com.br/wsv0006"/>
+				xmlns:xsns="http://site.com.br/wsv0006"/>
 			</wsdl:message>
 			<wsdl:portType name="GEWSV0006_BancoInterface">
 				<wsdl:operation name="listarBancos">
@@ -43,7 +43,7 @@
 			</wsdl:binding>
 			<wsdl:service name="GEWSV0006_BancoHttpService">
 				<wsdl:port name="GEWSV0006_BancoHttpPort" binding="ns0:GEWSV0006_BancoHttpBinding">
-					<soap11:address location="https://datapower.caixaseguros.intranet:443/GEWSV0006_Banco"/>
+					<soap11:address location="https://site/GEWSV0006_Banco"/>
 				</wsdl:port>
 			</wsdl:service>
 		</wsdl:definitions>

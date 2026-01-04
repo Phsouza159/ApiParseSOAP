@@ -22,7 +22,7 @@ namespace Api.Domain.Api.Domain
 
         public override string ToString()
         {
-            string data = Api.Ressources.Arquivos.TEMPLETE_DATA_LOG;
+            string data = Ressources.Arquivos.TEMPLETE_DATA_LOG;
 
             data = string.Join(this.ID.ToString(), data.Split("@ID"));
             data = string.Join(this.Servico, data.Split("@SERVICO"));

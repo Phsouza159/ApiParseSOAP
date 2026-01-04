@@ -1,7 +1,8 @@
 {
-    "UrlHost": "https://datapower.caixaseguros.intranet:443/GEWSV0006_Banco",
+    "UrlHost": "https://site/GEWSV0006_Banco",
     "UrlLocation": "GEWSV0006_Banco",
     "Prefixo": "xsd",
+    "PrefixoImportacaoRegex": "",
     "Contratos": [
         {
             "Servico": "listarBancos",
@@ -11,10 +12,11 @@
         }
     ],
     "ArquivosWsdl": [
-        "GEWSV0006_Banco.xml",
-        "GEWSV0006_Banco.xsd1.xsd",
-        "GEWSV0006_Banco.xsd2.xsd",
-        "GEWSV0006_Banco.xsd3.xsd"
+      	"GEWSV0006_Banco.xml"
+,	"GEWSV0006_Banco.xsd1.xsd"
+,	"GEWSV0006_Banco.xsd2.xsd"
+,	"GEWSV0006_Banco.xsd3.xsd"
+
     ]
 }
  

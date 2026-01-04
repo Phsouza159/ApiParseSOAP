@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
-	xmlns:Q1="http://ge.caixaseguros.com.br/bo"
-	xmlns:bons0="http://ge.caixaseguros.com.br/wsv0006/bo"
+	xmlns:Q1="http://site.com.br/bo"
+	xmlns:bons0="http://site.com.br/wsv0006/bo"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:bons1="http://ge.caixaseguros.com.br/wsv0006/bo"
+	xmlns:bons1="http://site.com.br/wsv0006/bo"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://ge.caixaseguros.com.br/wsv0006"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ge.caixaseguros.com.br/wsv0006/bo">
-	<xsd:import schemaLocation="GEWSV0006_Banco.xsd3.xsd" namespace="http://ge.caixaseguros.com.br/bo"/>
+	xmlns:tns="http://site.com.br/wsv0006"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://site.com.br/wsv0006/bo">
+	<xsd:import schemaLocation="GEWSV0006_Banco.xsd3.xsd" namespace="http://site.com.br/bo"/>
 	<xsd:complexType name="GEWSV0006_ListarBancosRetorno">
 		<xsd:annotation>
 			<xsd:documentation>Objeto de neg&#243;cio contendo os dados de retorno do m&#233;todo listarBancos do servi&#231;o GE0006_Banco.</xsd:documentation>
