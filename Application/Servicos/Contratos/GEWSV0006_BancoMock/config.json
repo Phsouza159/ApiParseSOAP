@@ -1,0 +1,22 @@
+{
+    "UrlHost": "https://site/GEWSV0006_Banco",
+    "UrlLocation": "GEWSV0006_BancoMock",
+    "Prefixo": "xsd",
+    "PrefixoImportacaoRegex": "",
+    "Contratos": [
+        {
+            "Servico": "listarBancos",
+            "Api": "C:\\_git\\ApiParseSOAP\\Application\\Servicos\\Mock\\GEWSV0006_Banco.json",
+            "Tipo": "FILE",
+            "Autenticacao": ""
+        }
+    ],
+    "ArquivosWsdl": [
+      	"GEWSV0006_BancoMock.xml"
+,	"GEWSV0006_BancoMock.xsd1.xsd"
+,	"GEWSV0006_BancoMock.xsd2.xsd"
+,	"GEWSV0006_BancoMock.xsd3.xsd"
+
+    ]
+}
+ 

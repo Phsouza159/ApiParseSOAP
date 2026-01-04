@@ -8,13 +8,13 @@ namespace Api.Application.Facede
 {
     public class ServicoWebFacede : IServicoWebFacede
     {
-        public ServicoWebFacede(IServicoWeb servicoWeb, IConvercaoXmlParaJson convercaoXmlParaJson)
+        public ServicoWebFacede(IServicoIntegracao servicoWeb, IConvercaoXmlParaJson convercaoXmlParaJson)
         {
             ServicoWeb = servicoWeb;
             ConvercaoXmlParaJson = convercaoXmlParaJson;
         }
 
-        public IServicoWeb ServicoWeb { get; }
+        public IServicoIntegracao ServicoWeb { get; }
 
         public IConvercaoXmlParaJson ConvercaoXmlParaJson { get; }
 

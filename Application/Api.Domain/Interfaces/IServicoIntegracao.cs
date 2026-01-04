@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IServicoWeb
+    public interface IServicoIntegracao
     {
         Task Enviar(Schema schema, ObjectValues.EnvelopeEnvio envelope, IServicoLog servicoLog);
     }

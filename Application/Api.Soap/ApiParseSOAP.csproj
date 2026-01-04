@@ -12,9 +12,13 @@
 
   <ItemGroup>
     <Compile Remove="Api.teste\**" />
+    <Compile Remove="Servicos\**" />
     <Content Remove="Api.teste\**" />
+    <Content Remove="Servicos\**" />
     <EmbeddedResource Remove="Api.teste\**" />
+    <EmbeddedResource Remove="Servicos\**" />
     <None Remove="Api.teste\**" />
+    <None Remove="Servicos\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,10 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Api.Application\Api.Application.csproj" />
     <ProjectReference Include="..\Api.Domain\Api.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Servicos\LOG\" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@ namespace Api.Application.Facede
     public class ProcessarChamadaSoapFacede : IProcessarChamadaSoapFacede
     {
         public ProcessarChamadaSoapFacede(
-                  IServicoWeb servicoWeb
+                  IServicoIntegracao servicoWeb
                 , IConvercaoXmlParaJson conversaoJson
                 , IConvercaoJsonParaXml conversaoXml
                 , IServicoWebFacede servicoWebFacede
@@ -25,7 +25,7 @@ namespace Api.Application.Facede
             ServicoWebFacede = servicoWebFacede;
         }
 
-        public IServicoWeb ServicoWeb { get; }
+        public IServicoIntegracao ServicoWeb { get; }
         public IConvercaoXmlParaJson ConversaoJson { get; }
         public IConvercaoJsonParaXml ConversaoXml { get; }
         public IServicoWebFacede ServicoWebFacede { get; }
