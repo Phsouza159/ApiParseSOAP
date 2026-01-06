@@ -17,6 +17,8 @@ namespace ApiPainel.Controllers
                , [FromServices] IConfiguration configuration
             )
         {
+            
+
             return Ok();
         }
     }

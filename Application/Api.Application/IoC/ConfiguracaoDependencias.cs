@@ -1,7 +1,8 @@
-﻿using Api.Application;
-using Api.Application.Facede;
+﻿using Api.Application.Facede;
+using Api.Data.Repository;
 using Api.Domain.Conversor;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.Repository;
 using Api.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,7 +22,8 @@ namespace ApiParseSOAP.Application.IoC
             services.AddScoped<IServicoWebFacede, ServicoWebFacede>();
 
             services.AddScoped<IServicoIntegracao, ServicoIntegracao>();
-            
+
+            services.AddScoped<IRepositorioData, RepositorioData>();
         }
     }
 }

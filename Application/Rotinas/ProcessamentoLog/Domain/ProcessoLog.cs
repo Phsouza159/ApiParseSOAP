@@ -1,4 +1,5 @@
 ﻿using Api.Domain.Api.Domain;
+using Api.Domain.Interfaces.Repository;
 using Newtonsoft.Json;
 using ProcessamentoLog.Domain.Interface;
 using System.IO;
@@ -7,13 +8,13 @@ namespace ProcessamentoLog.Domain
 {
     internal class ProcessoLog : IProcessoLog
     {
-        public ProcessoLog(IServicoData servicoData)
+        public ProcessoLog(IRepositorioData repositorioData)
         {
             this.PastaLog = string.Empty;
             this.CaminhoData = string.Empty;
             this.Arquvos = new List<string>();
             this.RegistrosLogs = new List<RegistroLog>();
-            this.ServicoData = servicoData;
+            this.RepositorioData = repositorioData;
         }
 
         public string PastaLog { get; set; }
@@ -24,12 +25,12 @@ namespace ProcessamentoLog.Domain
 
         private List<RegistroLog> RegistrosLogs { get; set; }
 
-        public IServicoData ServicoData { get; }
+        public IRepositorioData RepositorioData { get; }
 
 
         public void Executar()
         {
-            this.ServicoData.CaminhoArquivoData = this.CaminhoData;
+            this.RepositorioData.ConfgurarCaminhoData(this.CaminhoData);
 
             this.CarregarArquivosLog();
             this.CarregarLog();
@@ -57,7 +58,7 @@ namespace ProcessamentoLog.Domain
 
             foreach (var registro in this.RegistrosLogs)
             {
-                bool sucessoGravacao = this.ServicoData.Adicionar(registro);
+                bool sucessoGravacao = this.RepositorioData.AdicionarRegistroLog(registro);
                 if (!sucessoGravacao)
                     arquivosFalha.Add(registro.ID);
             }
@@ -105,7 +106,7 @@ namespace ProcessamentoLog.Domain
             if(!this.IsDiponse)
             {
                 this.IsDiponse = true;
-                this.ServicoData.Dispose();
+                this.RepositorioData.Dispose();
                 GC.SuppressFinalize(this);
             }
         }

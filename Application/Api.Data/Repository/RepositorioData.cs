@@ -1,19 +1,28 @@
 ﻿using Api.Domain.Api.Domain;
+using Api.Domain.Interfaces.Repository;
 using Microsoft.Data.Sqlite;
-using ProcessamentoLog.Domain.Interface;
 
-namespace ProcessamentoLog.Data
+namespace Api.Data.Repository
 {
-    public class ServicoData : IServicoData, IDisposable
+    public class RepositorioData : IRepositorioData
     {
-        public ServicoData()
+        public RepositorioData()
         {
             this.CaminhoArquivoData = string.Empty;
         }
 
-        public string CaminhoArquivoData { get; set; }
+        public string CaminhoArquivoData { get; private set; }
 
-        public bool Adicionar(RegistroLog registro)
+        public void ConfgurarCaminhoData(string caminho)
+        {
+            this.CaminhoArquivoData = caminho;
+            if (!File.Exists(this.CaminhoArquivoData))
+                throw new ArgumentException($"Caminho arquivo DB não localizado: {caminho}");
+        }
+
+        #region ADD REGISTRO LOG
+
+        public bool AdicionarRegistroLog(RegistroLog registro)
         {
             using var conn = new SqliteConnection($"Data Source={CaminhoArquivoData}");
             conn.Open();
@@ -32,14 +41,16 @@ namespace ProcessamentoLog.Data
             return cmd.ExecuteNonQuery() == 1;
         }
 
-        public bool IsDispose { get; set; }
+        #endregion
+
+        public bool IsDisponse { get; set; }
 
         public void Dispose()
         {
-            if(!this.IsDispose)
+            if(!this.IsDisponse)
             {
+                this.IsDisponse = true;
                 GC.SuppressFinalize(this);
-                this.IsDispose = true;
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using ApiParseSOAP.Application.IoC;
 using Microsoft.Extensions.DependencyInjection;
-using ProcessamentoLog.Data;
 using ProcessamentoLog.Domain;
 using ProcessamentoLog.Domain.Interface;
 
@@ -42,7 +41,6 @@ namespace ProcessamentoLog
             ConfiguracaoDependencias.Configurar(services);
 
             services.AddScoped<IProcessoLog, ProcessoLog>();
-            services.AddScoped<IServicoData, ServicoData>();
         }
     }
 }
