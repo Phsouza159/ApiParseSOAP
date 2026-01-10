@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Api.Domain.Interfaces;
 using Api.Domain.Exceptions;
 using Api.Domain.Enum;
-using Api.Domain;
 using Api.Domain.Api.Domain.Autenticacao;
+using Api.Domain.Api;
 
 namespace ApiParseSOAP.Controllers.Base
 {

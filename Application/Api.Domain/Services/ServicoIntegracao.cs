@@ -1,4 +1,5 @@
-﻿using Api.Domain.Configuracao;
+﻿using Api.Domain.Api;
+using Api.Domain.Configuracao;
 using Api.Domain.Enum;
 using Api.Domain.Exceptions;
 using Api.Domain.Interfaces;

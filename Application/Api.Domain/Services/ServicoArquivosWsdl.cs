@@ -1,15 +1,12 @@
 ﻿
 
+using Api.Domain.Api;
 using Api.Domain.Configuracao;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Api.Domain.Services
 {
@@ -109,15 +106,22 @@ namespace Api.Domain.Services
             return doc;
         }
 
-        public static Schema CarregarXml(XmlDocument contrato, XmlDocument documento)
+        #region CRIAR XML
+
+        public static Schema CriarSchemaXML(XmlDocument contrato, XmlDocument documento)
         {
-            var schema = new Schema();
-            schema.Documento = documento;
-            schema.Contrato = contrato;
+            var schema = new Schema
+            {
+                Documento = documento,
+                Contrato = contrato
+            };
+
             schema.Carregar();
 
             return schema;
         }
+
+        #endregion
 
         #region RECARREGAR CONFIGURACAO
 

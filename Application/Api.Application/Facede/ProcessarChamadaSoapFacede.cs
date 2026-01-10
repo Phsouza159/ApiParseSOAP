@@ -1,4 +1,4 @@
-﻿using Api.Domain;
+﻿using Api.Domain.Api;
 using Api.Domain.Api.Domain.Autenticacao;
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
@@ -48,7 +48,7 @@ namespace Api.Application.Facede
                     var document = ServicoArquivosWsdl.TransformarXml(xmlContrato);
                     var conteudo = ServicoArquivosWsdl.TransformarXml(xmlConteudo);
 
-                    var schema = ServicoArquivosWsdl.CarregarXml(document, conteudo);
+                    var schema = ServicoArquivosWsdl.CriarSchemaXML(document, conteudo);
 
                     // VALIR SE SERVICO ESTA CONFIGURADO
                     if (!servicoConfiguracao.Contratos.Any(e => e.Servico.ToLower().Equals(schema.NomeServico.ToLower())))

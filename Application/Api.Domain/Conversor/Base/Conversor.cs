@@ -1,4 +1,5 @@
-﻿using Api.Domain.Enum;
+﻿using Api.Domain.Api;
+using Api.Domain.Enum;
 using Api.Domain.Extensions;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
@@ -39,16 +40,16 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// Processar o Elemento do NO e elementos filhos
         /// </summary>
-        internal Element ProcessarElemento(Schema schema, XmlNode item, string prefixoBusca = "")
+        internal Elemento ProcessarElemento(Schema schema, XmlNode item, string prefixoBusca = "")
         {
-            Element element = new()
+            Elemento element = new()
             {
                 Nome = this.RecuperarNomeElemento(item),
                 Prefixo = item.Prefix,
                 Tipo = item.NodeType,
-                IsPropriedade = this.DefinirPropriedadeElemento(item, schema),
-            
             };
+
+            element.Processador.IsPropriedade = this.DefinirPropriedadeElemento(item, schema);
 
             if (string.IsNullOrEmpty(prefixoBusca))
                 prefixoBusca = schema.Servico.Prefixo;
@@ -64,7 +65,7 @@ namespace Api.Domain.Conversor.Base
 
         #region PROCESSAR TIPOS E NOS FILHOS
 
-        private void CarregarProcessadoresEItensFilhos(Schema schema, XmlNode item, Element element, string prefixoBusca)
+        private void CarregarProcessadoresEItensFilhos(Schema schema, XmlNode item, Elemento element, string prefixoBusca)
         {
             //RECUPERAR TIPO PROCESSAR DO NO
             this.RecuperarProcessadorNode(element, schema, item, prefixoBusca);
@@ -107,9 +108,9 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// RECUPERAR VALORES DAS PROPRIEDADES
         /// </summary>
-        private void RecuperarValorPropriedade(Element element, Schema schema)
+        private void RecuperarValorPropriedade(Elemento element, Schema schema)
         {
-            if (!element.IsPropriedade)
+            if (!element.Processador.IsPropriedade)
                 return;
 
             // DEFUALT
@@ -139,7 +140,7 @@ namespace Api.Domain.Conversor.Base
             }
 
             // CARREGAR PROPRIEDADE OBRIGATORIO
-            if (element.IsObrigatorio && element.Valor is null)
+            if (element.Processador.IsObrigatorio && element.Valor is null)
                 element.Notificacoes.AdicionarMensagem($"Propriedade '{element.Nome}' é obrigatório.");
         }
 
@@ -150,11 +151,11 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ELEMENTO DE TIPO SIMPLES
         /// </summary>
-        private void CarregarDadosElementoSimples(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        private void CarregarDadosElementoSimples(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             if (item.ChildNodes.Count > 0)
             {
-                element.No.AddRange(item.ChildNodes.Cast<XmlNode>().Select(e => this.ProcessarElemento(schema, e, prefixoBusca)).ToList());
+                element.ElementosFilhos.AddRange(item.ChildNodes.Cast<XmlNode>().Select(e => this.ProcessarElemento(schema, e, prefixoBusca)).ToList());
             }
         }
 
@@ -165,14 +166,14 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ELEMENTOS DE TIPO COMPLEXO
         /// </summary>
-        private void CarregarDodosElementosComplexo(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        private void CarregarDodosElementosComplexo(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             string path = $"//{prefixoBusca}:complexType[@name='{element.Processador.ElementoImportado}']";
             var dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
 
             foreach (XmlNode d in dados)
             {
-                element.No.AddRange(this.ProcessarListaNoFilhos(schema, d.ChildNodes.Cast<XmlNode>(), prefixoBusca));
+                element.ElementosFilhos.AddRange(this.ProcessarListaNoFilhos(schema, d.ChildNodes.Cast<XmlNode>(), prefixoBusca));
             }
         }
 
@@ -197,9 +198,9 @@ namespace Api.Domain.Conversor.Base
 
         #region RECUPERAR ELEMENTOS FILHOS
 
-        internal List<Element> ProcessarListaNoFilhos(Schema schema, IEnumerable<XmlNode> xmlNodes, string prefixoBusca)
+        internal List<Elemento> ProcessarListaNoFilhos(Schema schema, IEnumerable<XmlNode> xmlNodes, string prefixoBusca)
         {
-            List<Element> elements = new List<Element>();
+            List<Elemento> elements = new List<Elemento>();
 
             foreach (var xmlNode in xmlNodes)
             {
@@ -221,7 +222,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR 'NO' - PROCESSAR ELEMENTOS COMPLEXOS E SIMPLES
         /// </summary>
-        internal void RecuperarProcessadorNode(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        internal void RecuperarProcessadorNode(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             if (item.NodeType != XmlNodeType.Element)
                 return;
@@ -239,7 +240,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ITENS SIMPLES
         /// </summary>
-        private bool RecuperarProcessadorNodeSimples(Element element, Schema schema, XmlNode item, string prefixoBusca)
+        private bool RecuperarProcessadorNodeSimples(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             var p = item?.Attributes?.GetNamedItem("type");
 
@@ -268,20 +269,20 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// 
         /// </summary>
-        internal void ProcessarTipoObrigatorio(Element element, XmlNode item)
+        internal void ProcessarTipoObrigatorio(Elemento element, XmlNode item)
         {
             var minOccurs = item?.RecuperarAtributo("minOccurs");
 
             if (!string.IsNullOrEmpty(minOccurs) && short.TryParse(minOccurs, out short minOccursValue))
             {
-                element.IsObrigatorio = minOccursValue >= 1;
+                element.Processador.IsObrigatorio = minOccursValue >= 1;
             }
         }
 
         /// <summary>
         /// Processar elemento marcado do tipo 'SimplesType'
         /// </summary>
-        internal void ProcessarElementoTipoSimples(Element element, XmlNode? item)
+        internal void ProcessarElementoTipoSimples(Elemento element, XmlNode? item)
         {
             XmlNode? simpleType = this.RecuperarPrimeiroNodeElemento(item?.ChildNodes, $"{element.Prefixo}:simpleType");
             XmlNode? restriction = this.RecuperarPrimeiroNodeElemento(simpleType?.ChildNodes, $"{element.Prefixo}:restriction");
@@ -300,7 +301,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ITENS COMPLEXO
         /// </summary>
-        private void RecuperarProcessadorNodeComplexo(Schema schema, Element element, XmlNode item, string prefixoBusca)
+        private void RecuperarProcessadorNodeComplexo(Schema schema, Elemento element, XmlNode item, string prefixoBusca)
         {
             // TODO: VALIDAR QUANDO NECESSARIO RECUPERAR DO NOME DO SERVICO
             var dados = this.RecuperarElementoServico(schema, item, this.RecuperarNameSpace(schema, prefixoBusca), prefixoBusca);
@@ -319,7 +320,7 @@ namespace Api.Domain.Conversor.Base
             }
         }
             
-        internal void CarregarTipoDoNoComplexo(Schema schema, Element element, XmlNode? node)
+        internal void CarregarTipoDoNoComplexo(Schema schema, Elemento element, XmlNode? node)
         {
             if (node != null && node?.Attributes?.GetNamedItem("type") is XmlNode typeNode && typeNode != null && typeNode.Value != null)
             {
@@ -519,19 +520,19 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// TRATAR LISTA - RECUPERAR ELEMENTOS DE PROPRIEDADE
         /// </summary>
-        internal List<Element> TratarLista(List<Element> lista)
+        internal List<Elemento> TratarLista(List<Elemento> lista)
         {
-            List<Element> listaTratada = new List<Element>();
+            List<Elemento> listaTratada = new List<Elemento>();
 
             foreach (var item in lista)
             {
-                var filhosFiltrados = TratarLista(item.No);
+                var filhosFiltrados = TratarLista(item.ElementosFilhos);
 
-                if (item.IsPropriedade)
+                if (item.Processador.IsPropriedade)
                 {
-                    Element novo = new Element();
+                    Elemento novo = new Elemento();
                     item.Copiar(novo);
-                    novo.No = filhosFiltrados;
+                    novo.ElementosFilhos = filhosFiltrados;
 
                     listaTratada.Add(novo);
                 }

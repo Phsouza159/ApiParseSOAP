@@ -1,4 +1,5 @@
-﻿using Api.Domain.ObjectValues;
+﻿using Api.Domain.Api;
+using Api.Domain.ObjectValues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Api.Domain.Interfaces
 {
     public interface IConvercao : INotificacoes, IDisposable
     {
-        List<Element> ConverterContrato(Schema schema);
+        List<Elemento> ConverterContrato(Schema schema);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Api.Domain.Configuracao;
+﻿using Api.Domain.Api;
+using Api.Domain.Configuracao;
 using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
@@ -21,13 +22,13 @@ namespace Api.Domain.Conversor
         public string ConverterParaJson(Schema schema)
         {
             // RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
-            List<Element> lista = this.ConverterContrato(schema);
+            List<Elemento> lista = this.ConverterContrato(schema);
 
             // CARREGAR MENSAGENS DO CONTRATO
             lista.ForEach(e => this.Notificacoes.AdicionarMensagem(e.RecuperarNotificacoesItensFilhos()));
 
             // RECUPERAR LISTA TRATADA - APENAS ELEMENTOS 
-            List<Element> elementosCorpo = this.TratarLista(lista);
+            List<Elemento> elementosCorpo = this.TratarLista(lista);
 
             // CONVERTER LIST<ELEMENTOS> PARA OBJETO JSON
             JsonObject data = this.ProcessarElementos(elementosCorpo, schema);
@@ -49,11 +50,11 @@ namespace Api.Domain.Conversor
         /// <returns>
         /// <list type="Element">Dados de NO do XML do Contrato + VALOR DO CORPO DO ENVELOPE DE ENVIO</list>
         /// </returns>
-        public List<Element> ConverterContrato(Schema schema)
+        public List<Elemento> ConverterContrato(Schema schema)
         {
             schema.IsElementoEntrada = true;
 
-            List<Element> lista = new();
+            List<Elemento> lista = new();
             // TODO: VALIDAR xs e xsd e CONFIGURAR PREFIXO
             string prefixoBusca = "xsd";
 
@@ -61,8 +62,8 @@ namespace Api.Domain.Conversor
             {
                 if (item != null)
                 {
-                    Element element = this.ProcessarElemento(schema, item, prefixoBusca);
-                    element.IsPropriedade = true;
+                    Elemento element = this.ProcessarElemento(schema, item, prefixoBusca);
+                    element.Processador.IsPropriedade = true;
                     lista.Add(element);
                 }
             }
@@ -79,13 +80,13 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// PROCESSAR ELEMENTOS PARA OBJETO JSON
         /// </summary>
-        internal JsonObject ProcessarElementos(List<Element> elementos, Schema schema)
+        internal JsonObject ProcessarElementos(List<Elemento> elementos, Schema schema)
         {
             JsonObject json = new JsonObject();
 
             for (int i = 0; i < elementos.Count; i += 1)
             {
-                Element elemento = elementos[i];
+                Elemento elemento = elementos[i];
                 if (elemento.Tipo == XmlNodeType.Element)
                     this.ProcessarElementoParaJson(json, elemento, schema);
 
@@ -99,7 +100,7 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CRIAR NO ELEMENTO DENTRO DO OBJETO JSON
         /// </summary>
-        internal void ProcessarElementoParaJson(JsonObject json, Element elemento, Schema schema)
+        internal void ProcessarElementoParaJson(JsonObject json, Elemento elemento, Schema schema)
         {
             if (elemento.Valor is null && schema.Servico.IgnorarNulo)
                 return;
@@ -123,7 +124,7 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CONVERTER ELEMENTO PARA OBJETO
         /// </summary>
-        internal object? ConverterElementoParaObjeto(Element elemento, Schema schema)
+        internal object? ConverterElementoParaObjeto(Elemento elemento, Schema schema)
         {
             //string defaultNull = "null";
 
@@ -141,11 +142,11 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CONVERTER ELEMENTO PARA OBJETOS COMPLEXOS
         /// </summary>
-        internal object ConverterElementoComplexoParaObjeto(Element elemento, Schema schema)
+        internal object ConverterElementoComplexoParaObjeto(Elemento elemento, Schema schema)
         {
             JsonObject json = new JsonObject();
 
-            foreach (var no in elemento.No)
+            foreach (var no in elemento.ElementosFilhos)
             {
                 if (no.Valor is null && schema.Servico.IgnorarNulo)
                     continue;

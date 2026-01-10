@@ -16,6 +16,17 @@ namespace Api.Domain.Conversor
 
         public Enum.TiposProcessadores TiposProcessador { get; set; }
 
+        /// <summary>
+        /// Definicao para registro obrigatorio
+        /// </summary>
+        public bool IsObrigatorio { get; set; }
+
+        /// <summary>
+        /// Definicao de registro como Propriedade
+        /// </summary>
+        public bool IsPropriedade { get; set; }
+
+
         public string ElementoImportado { get; set; }
     }
 }

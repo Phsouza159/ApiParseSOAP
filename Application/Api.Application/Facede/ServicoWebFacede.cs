@@ -1,4 +1,4 @@
-﻿using Api.Domain;
+﻿using Api.Domain.Api;
 using Api.Domain.Enum;
 using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;

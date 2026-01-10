@@ -1,4 +1,5 @@
-﻿using Api.Domain.Enum;
+﻿using Api.Domain.Api;
+using Api.Domain.Enum;
 using Api.Domain.Exceptions;
 using System.Reflection;
 
@@ -91,7 +92,7 @@ namespace Api.Domain.Helper
             return ProcessadoresHelper.Processadores[index];
         }
 
-        public static object? CarregarValorFormatado(this Element elemento, object valor)
+        public static object? CarregarValorFormatado(this Elemento elemento, object valor)
         {
 
             ProcessadoresHelper.CarregarProcessadores();

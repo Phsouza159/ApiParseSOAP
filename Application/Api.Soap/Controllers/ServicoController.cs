@@ -1,4 +1,4 @@
-﻿using Api.Domain;
+﻿using Api.Domain.Api;
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
 using Api.Domain.Exceptions;
@@ -19,6 +19,8 @@ namespace ApiParseSOAP.Controllers
         {
         }
 
+
+        #region SERVICO WSDL - GET
 
         [HttpGet]
         [Route("{servico}")]
@@ -51,10 +53,14 @@ namespace ApiParseSOAP.Controllers
             }
         }
 
+        #endregion
+
+        #region SERVICO - POST
+
         [HttpPost]
         [Route("{servico}")]
         public async Task<IActionResult> Post(
-                  [FromRoute] string servico
+                  [FromRoute]  string servico
                 , [FromHeader] string? queryParametro
                 , [FromServices] IProcessarChamadaSoapFacede processardorChamadaFacede
                 , [FromServices] IServicoLog servicoLog
@@ -82,5 +88,7 @@ namespace ApiParseSOAP.Controllers
                 return await base.TratamentoErro(ex, servicoLog);
             }
         }
+
+        #endregion
     }
 }

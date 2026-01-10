@@ -1,4 +1,5 @@
-﻿using Api.Domain.Conversor.Extensions;
+﻿using Api.Domain.Api;
+using Api.Domain.Conversor.Extensions;
 using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
@@ -14,7 +15,7 @@ namespace Api.Domain.Conversor
 
         public string ConverterParaXml(Schema schema)
         {
-            List<Element> lista = this.ConverterContrato(schema);
+            List<Elemento> lista = this.ConverterContrato(schema);
             var contratoRetorno = this.TratarLista(lista);
 
             // DEBUG
@@ -51,7 +52,7 @@ namespace Api.Domain.Conversor
 
         #region CRIAR DOCUMENTO XML
 
-        internal XmlDocument CriarDocumentoXml(Schema schema, List<Element> listaContrato)
+        internal XmlDocument CriarDocumentoXml(Schema schema, List<Elemento> listaContrato)
         {
             XmlDocument document = new XmlDocument();
             string prefixo = schema.Servico.Prefixo;
@@ -76,7 +77,7 @@ namespace Api.Domain.Conversor
         }
 
 
-        internal void ProcessarListaElement(Schema schema, XmlDocument document, XmlElement documentoAppend, Element elemento, JToken token, string caminhoItem)
+        internal void ProcessarListaElement(Schema schema, XmlDocument document, XmlElement documentoAppend, Elemento elemento, JToken token, string caminhoItem)
         {
             XmlElement item = document.CreateElement($"{elemento.Nome}");
             //JProperty jsonPropriedade = (JProperty)token;
@@ -105,12 +106,12 @@ namespace Api.Domain.Conversor
             , XmlDocument document
             , XmlElement item
             , XmlElement documentoAppend
-            , Element elemento
+            , Elemento elemento
             , JToken token
             , JToken valorToken
             , string caminhoItem)
         {
-            List<Element> elementosContratoArray = elemento.No;
+            List<Elemento> elementosContratoArray = elemento.ElementosFilhos;
             var tokens = token.SelectTokens(caminhoItem);
             int contador = 0;
 
@@ -138,14 +139,14 @@ namespace Api.Domain.Conversor
             , XmlDocument document
             , XmlElement item
             , XmlElement documentoAppend
-            , Element elemento
+            , Elemento elemento
             , JToken token
             , string caminhoItem)
         {
             // ADICIONAR ITEM AO DOM DO XML
             documentoAppend.AppendChild(item);
 
-            foreach (var no in elemento.No)
+            foreach (var no in elemento.ElementosFilhos)
             {
                 this.ProcessarListaElement(schema, document, item, no, token, caminhoItem);
             }
@@ -160,7 +161,7 @@ namespace Api.Domain.Conversor
 
         #region PROCESSAR VALOR DO TIPO JSON
 
-        private void CarregarPropriedadeEValidacoes(XmlElement item, JToken valorToken, Element elemento, string caminhoItem)
+        private void CarregarPropriedadeEValidacoes(XmlElement item, JToken valorToken, Elemento elemento, string caminhoItem)
         {
             if (valorToken is null)
                 return;
@@ -230,7 +231,7 @@ namespace Api.Domain.Conversor
 
         #region CONVERTER CONTRATO
 
-        public List<Element> ConverterContrato(Schema schema)
+        public List<Elemento> ConverterContrato(Schema schema)
         {
             string json = schema.Resultado;
             return this.ProcessarJson(schema, json);
@@ -249,16 +250,16 @@ namespace Api.Domain.Conversor
 
         #region PROCESSAR ELEMENTO JSON
 
-        private List<Element> ProcessarJson(Schema schema, string json)
+        private List<Elemento> ProcessarJson(Schema schema, string json)
         {
-            List<Element> elements = new List<Element>();
+            List<Elemento> elements = new List<Elemento>();
             XmlNode? nodeRetorno = this.RecuperarNodePrinciaplRetorno(schema);
             JObject obj = JObject.Parse(json);
 
             //TODO: VALIDAR DADO RETORNO
             // nodeRetorno
 
-            Element element = this.ProcessarElemento(schema, nodeRetorno);
+            Elemento element = this.ProcessarElemento(schema, nodeRetorno);
             elements.Add(element);
 
             return elements;
@@ -285,9 +286,9 @@ namespace Api.Domain.Conversor
             return noResponse;
         }
 
-        internal Element ProcessarElementoJson(KeyValuePair<string, JToken> item, XmlNode noResponse, XmlNamespaceManager ns)
+        internal Elemento ProcessarElementoJson(KeyValuePair<string, JToken> item, XmlNode noResponse, XmlNamespaceManager ns)
         {
-            Element element = new Element();
+            Elemento element = new Elemento();
 
             string tipagemContrato = this.ProcessarXmlTipoPropriedade(item, noResponse, ns);
             TiposProcessadores tipoProcessador = this.RecuperarTipoProcessador(item.Value);
@@ -443,7 +444,7 @@ namespace Api.Domain.Conversor
 
         #region PROCESSAR ELEMENTOS PARA XML
 
-        internal XmlDocument ProcessarElementos(Schema schema, List<Element> elementos)
+        internal XmlDocument ProcessarElementos(Schema schema, List<Elemento> elementos)
         {
             XmlDocument soapDoc = new XmlDocument();
             string prefixo = this.RecuperarPrefixo(schema);
@@ -462,7 +463,7 @@ namespace Api.Domain.Conversor
 
             for (int i = 0; i < elementos.Count; i += 1)
             {
-                Element elemento = elementos[i];
+                Elemento elemento = elementos[i];
                 XmlElement item = ConverterXml(elemento, soapDoc, schema);
 
                 response.AppendChild(item);
@@ -470,7 +471,7 @@ namespace Api.Domain.Conversor
             return soapDoc;
         }
 
-        internal XmlElement ConverterXml(Element elemento, XmlDocument document, Schema schema)
+        internal XmlElement ConverterXml(Elemento elemento, XmlDocument document, Schema schema)
         {
             XmlElement item = document.CreateElement(schema.Servico.Prefixo, $"{elemento.Nome}", schema.Servico.UrlHost);
             // item.SetAttribute(this.Nome, this.Valor);

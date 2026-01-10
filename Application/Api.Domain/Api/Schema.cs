@@ -1,14 +1,17 @@
-﻿using Api.Domain.Api.Domain.Autenticacao;
+﻿using Api.Domain.Api.Domain;
 using Api.Domain.Configuracao;
 using Api.Domain.Interfaces;
-using System.Net;
-using System.Text.Json.Nodes;
 using System.Xml;
 
-namespace Api.Domain
+namespace Api.Domain.Api
 {
-    public class Schema : IDisposable
+    public class Schema : ObjetoBase
     {
+
+        public Schema()
+        {
+        }
+
         public XmlDocument Documento { get; set; }
 
         public XmlNode Corpo { get; private set; }
@@ -16,13 +19,11 @@ namespace Api.Domain
         public XmlDocument Contrato { get; set; }
 
         public List<XmlNode> XmlNodes { get; set; }
-        
+
         public string NomeServico { get; private set; }
 
-        public IEnumerable<Element> Element { get; set; }
-
         public string Resultado { get; set; }
-        
+
         public Servicos Servico { get; set; }
 
         public bool IsVazio { get; set; }
@@ -31,9 +32,11 @@ namespace Api.Domain
 
         public IAutenticacao Autenticacao { get; set; }
 
+        #region CARREGAR DADOS SCHEMA
+
         internal void Carregar()
         {
-            var doc = this.Documento;
+            var doc = Documento;
             var nodes = doc.ChildNodes.Cast<XmlNode>().ToList();
 
             var envelope = nodes.First(e => e.Name == "soapenv:Envelope");
@@ -48,22 +51,9 @@ namespace Api.Domain
 
             if (servico is null) throw new ArgumentException("Nao localizado - Servico");
 
-            this.XmlNodes = servico.ChildNodes.Cast<XmlNode>().ToList();
-            this.Corpo = body;
-            this.NomeServico = servico.LocalName;
-        }
-
-        #region DISPONSE
-
-        internal bool IsDisponse { get; set; }
-
-        public void Dispose()
-        {
-            if(!this.IsDisponse)
-            {
-                this.IsDisponse = true;
-                GC.SuppressFinalize(this);
-            }
+            XmlNodes = servico.ChildNodes.Cast<XmlNode>().ToList();
+            Corpo = body;
+            NomeServico = servico.LocalName;
         }
 
         #endregion
@@ -72,7 +62,7 @@ namespace Api.Domain
 
         public Contrato GetContrato()
         {
-            return this.Servico.Contratos.First(e => e.Servico.ToLower().Equals(this.NomeServico.ToLower()));
+            return Servico.Contratos.First(e => e.Servico.ToLower().Equals(NomeServico.ToLower()));
         }
 
         #endregion
