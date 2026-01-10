@@ -1,6 +1,9 @@
 ﻿using Api.Domain.Api.Domain;
+using Api.Domain.Enum;
 using Api.Domain.Interfaces.Repository;
+using Api.Domain.ObjectValues;
 using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 
 namespace Api.Data.Repository
 {
@@ -43,11 +46,41 @@ namespace Api.Data.Repository
 
         #endregion
 
+        #region RECUPERAR REGISTROS
+
+        public IEnumerable<RegistroLog> RecuperarRegistros(ParametroDatas parametro)
+        {
+            var lista = new List<RegistroLog>();
+
+            using var conn = new SqliteConnection($"Data Source={this.CaminhoArquivoData}");
+            conn.Open();
+
+            string query = Scripts.Resource.SELECT_REGISTRO_LOG;
+
+            using var cmd = new SqliteCommand(query, conn);
+            cmd.Parameters.AddWithValue("@dataInicio", parametro.DataInicio.ToString("yyyy-MM-dd HH:mm:ss"));
+            cmd.Parameters.AddWithValue("@dataFim", parametro.DataFim.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                RegistroLog registro = Mapper.ToRegistroLog(reader);
+                lista.Add(registro);
+            }
+
+            return lista;
+        }
+
+
+        #endregion
+
+
         public bool IsDisponse { get; set; }
 
         public void Dispose()
         {
-            if(!this.IsDisponse)
+            if (!this.IsDisponse)
             {
                 this.IsDisponse = true;
                 GC.SuppressFinalize(this);

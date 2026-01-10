@@ -1,0 +1,21 @@
+{
+    "UrlHost": "https://site:443/MRWSV0004_PreAvisoSinistro",
+    "UrlLocation": "MRWSV0004_PreAvisoSinistro",
+    "Prefixo": "xsd",
+    "PrefixoImportacaoRegex": "^(bons\\d+|Q\\d+)$",
+    "Contratos": [
+        {
+            "Servico": "incluirPreAvisoSinistro",
+            "Api": "C:\\_git\\ApiParseSOAP\\Application\\Servicos\\Contratos\\MRWSV0004_PreAvisoSinistro\\MRWSV0004_PreAvisoSinistro-incluirPreAvisoSinistro.json",
+            "Tipo": "FILE",
+            "Autenticacao": "REDIRECIONAR_AUTENTICACAO"
+        }
+    ],
+    "ArquivosWsdl": [
+      	"MRWSV0004_PreAvisoSinistro.xml"
+    ,   "MRWSV0004_PreAvisoSinistro.xsd1.xsd"
+    ,	"MRWSV0004_PreAvisoSinistro.xsd2.xsd"
+    ,	"MRWSV0004_PreAvisoSinistro.xsd3.xsd"
+    ]
+}
+ 

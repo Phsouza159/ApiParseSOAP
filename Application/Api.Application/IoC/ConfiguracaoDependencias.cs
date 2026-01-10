@@ -2,6 +2,7 @@
 using Api.Data.Repository;
 using Api.Domain.Conversor;
 using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.Facede;
 using Api.Domain.Interfaces.Repository;
 using Api.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ namespace ApiParseSOAP.Application.IoC
 
             services.AddScoped<IProcessarChamadaSoapFacede, ProcessarChamadaSoapFacede>();
             services.AddScoped<IServicoWebFacede, ServicoWebFacede>();
+            services.AddScoped<IRegistroLogFacede, RegistroLogFacede>();
 
             services.AddScoped<IServicoIntegracao, ServicoIntegracao>();
 
