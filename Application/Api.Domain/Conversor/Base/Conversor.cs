@@ -3,15 +3,8 @@ using Api.Domain.Extensions;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace Api.Domain.Conversor.Base
 {
@@ -37,33 +30,6 @@ namespace Api.Domain.Conversor.Base
             }
 
             return this.NamespaceManager;
-        }
-
-        #endregion
-
-        #region VALIDAR TIPOS
-
-        internal bool IsItemOutput(XmlNode xmlNode) => xmlNode != null && xmlNode.LocalName.Equals("output");
-
-        #endregion
-
-        #region RECUPERAR NODE - ITEM PAI
-
-        /// <summary>
-        /// Recuperar Item Pai do NO com base no nome do ITEM
-        /// </summary>
-        internal XmlNode? RecuperarItemPaiNode(XmlNode xmlNode, string nomeItem, XmlNodeType type = XmlNodeType.Element)
-        {
-            if (xmlNode is null || xmlNode.ParentNode is null)
-                return null;
-
-            foreach (XmlNode node in xmlNode.ParentNode)
-            {
-                if (node.NodeType == type && node.LocalName.Equals(nomeItem))
-                    return node;
-            }
-
-            return null;
         }
 
         #endregion
@@ -171,6 +137,10 @@ namespace Api.Domain.Conversor.Base
                     element.Valor = valor;
                 }
             }
+
+            // CARREGAR PROPRIEDADE OBRIGATORIO
+            if (element.IsObrigatorio && element.Valor is null)
+                element.Notificacoes.AdicionarMensagem($"Propriedade '{element.Nome}' é obrigatório.");
         }
 
         #endregion
@@ -273,17 +243,13 @@ namespace Api.Domain.Conversor.Base
         {
             var p = item?.Attributes?.GetNamedItem("type");
 
+            this.ProcessarTipoObrigatorio(element, item);
+
             if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1).ToUpper(), out Enum.TiposProcessadores tipoNode))
             {
                 element.Processador.TiposProcessador = tipoNode;
                 return true;
             }
-            //// VALORES RESERVADOS
-            //else if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1).ToUpper(), out Enum.TiposProcessadores tipoNode))
-            //{
-            //    element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(p.Value.RecuperarParametro(":", 1));
-            //    return true;
-            //}
             else if (this.IsElementoSimplesType(item))
             {
                 this.ProcessarElementoTipoSimples(element, item);
@@ -297,6 +263,19 @@ namespace Api.Domain.Conversor.Base
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal void ProcessarTipoObrigatorio(Element element, XmlNode item)
+        {
+            var minOccurs = item?.RecuperarAtributo("minOccurs");
+
+            if (!string.IsNullOrEmpty(minOccurs) && short.TryParse(minOccurs, out short minOccursValue))
+            {
+                element.IsObrigatorio = minOccursValue >= 1;
+            }
         }
 
         /// <summary>

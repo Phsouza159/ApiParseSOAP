@@ -23,8 +23,8 @@ namespace Api.Domain.Conversor
             // RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
             List<Element> lista = this.ConverterContrato(schema);
 
-            //TODO - VALIDAR
-            // CRIAR FUNCAO PARA VALIDAR ELEMENTOS
+            // CARREGAR MENSAGENS DO CONTRATO
+            lista.ForEach(e => this.Notificacoes.AdicionarMensagem(e.RecuperarNotificacoesItensFilhos()));
 
             // RECUPERAR LISTA TRATADA - APENAS ELEMENTOS 
             List<Element> elementosCorpo = this.TratarLista(lista);

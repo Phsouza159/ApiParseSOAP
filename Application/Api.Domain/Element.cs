@@ -31,7 +31,15 @@ namespace Api.Domain
 
         public List<Element> No { get; set; }
 
+        /// <summary>
+        /// Definicao de registro como Propriedade
+        /// </summary>
         public bool IsPropriedade { get; set; }
+
+        /// <summary>
+        /// Definicao para registro obrigatorio
+        /// </summary>
+        public bool IsObrigatorio { get; set; }
 
         public DadosProcessamento Processador { get; set; }
 
