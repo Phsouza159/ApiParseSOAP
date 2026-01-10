@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Configuração - PreAvisoSinistro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        fieldset { margin-bottom: 20px; }
+        label { display: block; margin-top: 8px; }
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 4px;
+        }
+        .small-input {
+            max-width: 200px;
+        }
+        table { border-collapse: collapse; margin-top: 10px; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+        .btn { padding: 6px 12px; margin-top: 10px; cursor: pointer; }
+    </style>
+
+    <link rel="stylesheet" href="cdn.jsdelivr.net" integrity="sha384-xOolHFLEh07PJGoPkLv11b5bcESVk2iqY6hWdko1HM9lcIxAz7GlJPhcNyo8+Puan" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <h1>Cadastro de Configuração - PreAvisoSinistro</h1>
+
+    <form id="configForm">
+
+        <fieldset>
+            <legend>Configuração Geral</legend>
+
+            <label for="urlHost">UrlHost</label>
+            <input type="url" id="urlHost" name="UrlHost"
+                   value="https://site:443/MRWSV0004_PreAvisoSinistro" required>
+
+            <label for="urlLocation">UrlLocation</label>
+            <input type="text" id="urlLocation" name="UrlLocation"
+                   value="MRWSV0004_PreAvisoSinistro" required>
+
+            <label for="prefixo">Prefixo</label>
+            <input type="text" id="prefixo" name="Prefixo"
+                   value="xsd" class="small-input" required>
+
+            <label>
+                <input type="checkbox" id="ignorarNulo" name="IgnorarNulo">
+                IgnorarNulo
+            </label>
+
+            <label for="prefixoImportacaoRegex">PrefixoImportacaoRegex</label>
+            <input type="text" id="prefixoImportacaoRegex" name="PrefixoImportacaoRegex"
+                   value="^(bons\\d+|tns|tns\\d+|Q\\d+)$" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Contratos</legend>
+
+            <table id="contratosTable">
+                <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>API</th>
+                        <th>Tipo</th>
+                        <th>Autenticação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplo inicial baseado no JSON -->
+                    <tr>
+                        <td><input type="text" name="Servico" value="incluirPreAvisoSinistro"></td>
+                        <td><input type="text" name="Api" value="C:\\_git\\ApiParseSOAP\\Application\\Servicos\\Contratos\\MRWSV0004_PreAvisoSinistro\\MRWSV0004_PreAvisoSinistro-incluirPreAvisoSinistro.json"></td>
+                        <td><input type="text" name="Tipo" value="FILE" class="small-input"></td>
+                        <td><input type="text" name="Autenticacao" value="REDIRECIONAR_AUTENTICACAO" class="small-input"></td>
+                        <td><button type="button" class="btn" onclick="removerLinhaContrato(this)">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="btn" onclick="adicionarContrato()">Adicionar Contrato</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Arquivos WSDL</legend>
+
+            <table id="arquivosWsdlTable">
+                <thead>
+                    <tr>
+                        <th>Arquivo WSDL/XSD</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplos iniciais baseados no JSON -->
+                    <tr>
+                        <td><input type="text" name="ArquivoWsdl" value="MRWSV0004_PreAvisoSinistro.xml"></td>
+                        <td><button type="button" class="btn" onclick="removerLinhaWsdl(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="ArquivoWsdl" value="MRWSV0004_PreAvisoSinistro.xsd1.xsd"></td>
+                        <td><button type="button" class="btn" onclick="removerLinhaWsdl(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="ArquivoWsdl" value="MRWSV0004_PreAvisoSinistro.xsd2.xsd"></td>
+                        <td><button type="button" class="btn" onclick="removerLinhaWsdl(this)">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="ArquivoWsdl" value="MRWSV0004_PreAvisoSinistro.xsd3.xsd"></td>
+                        <td><button type="button" class="btn" onclick="removerLinhaWsdl(this)">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="btn" onclick="adicionarWsdl()">Adicionar Arquivo</button>
+        </fieldset>
+
+        <button type="submit" class="btn">Salvar</button>
+    </form>
+
+    <h2>JSON Gerado</h2>
+    <pre id="jsonOutput"></pre>
+
+    <script>
+        function adicionarContrato() {
+            const tbody = document.querySelector('#contratosTable tbody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><input type="text" name="Servico"></td>
+                <td><input type="text" name="Api"></td>
+                <td><input type="text" name="Tipo" class="small-input"></td>
+                <td><input type="text" name="Autenticacao" class="small-input"></td>
+                <td><button type="button" class="btn" onclick="removerLinhaContrato(this)">Remover</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function removerLinhaContrato(btn) {
+            const tr = btn.closest('tr');
+            tr.remove();
+        }
+
+        function adicionarWsdl() {
+            const tbody = document.querySelector('#arquivosWsdlTable tbody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><input type="text" name="ArquivoWsdl"></td>
+                <td><button type="button" class="btn" onclick="removerLinhaWsdl(this)">Remover</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function removerLinhaWsdl(btn) {
+            const tr = btn.closest('tr');
+            tr.remove();
+        }
+
+        document.getElementById('configForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const config = {};
+
+            config.UrlHost = document.getElementById('urlHost').value;
+            config.UrlLocation = document.getElementById('urlLocation').value;
+            config.Prefixo = document.getElementById('prefixo').value;
+            config.IgnorarNulo = document.getElementById('ignorarNulo').checked;
+            config.PrefixoImportacaoRegex = document.getElementById('prefixoImportacaoRegex').value;
+
+            // Contratos
+            config.Contratos = [];
+            document.querySelectorAll('#contratosTable tbody tr').forEach(tr => {
+                const servico = tr.querySelector('input[name="Servico"]').value;
+                const api = tr.querySelector('input[name="Api"]').value;
+                const tipo = tr.querySelector('input[name="Tipo"]').value;
+                const autenticacao = tr.querySelector('input[name="Autenticacao"]').value;
+
+                if (servico || api || tipo || autenticacao) {
+                    config.Contratos.push({
+                        Servico: servico,
+                        Api: api,
+                        Tipo: tipo,
+                        Autenticacao: autenticacao
+                    });
+                }
+            });
+
+            // ArquivosWsdl
+            config.ArquivosWsdl = [];
+            document.querySelectorAll('#arquivosWsdlTable tbody tr').forEach(tr => {
+                const arquivo = tr.querySelector('input[name="ArquivoWsdl"]').value;
+                if (arquivo) {
+                    config.ArquivosWsdl.push(arquivo);
+                }
+            });
+
+            document.getElementById('jsonOutput').textContent =
+                JSON.stringify(config, null, 4);
+        });
+    </script>
+
+</body>
+</html>
