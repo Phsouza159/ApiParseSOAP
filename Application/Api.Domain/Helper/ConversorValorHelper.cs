@@ -3,41 +3,41 @@ namespace Api.Domain.Helper
 {
     public static class ConversorValorHelper
     {
-        internal static bool IsNomeReservado(string nome)
-        {
-            switch (nome.ToLower())
-            {
-                case "string":
-                case "short":
-                case "int":
-                case "decimal":
-                case "date":
-                    return true;
+        //internal static bool IsNomeReservado(string nome)
+        //{
+        //    switch (nome.ToLower())
+        //    {
+        //        case "string":
+        //        case "short":
+        //        case "int":
+        //        case "decimal":
+        //        case "date":
+        //            return true;
 
-                default:
-                    return false;
-            }
-        }
+        //        default:
+        //            return false;
+        //    }
+        //}
 
-        internal static Enum.TiposProcessadores RecuperarProcessadorReservado(string nome)
-        {
-            switch (nome.ToLower())
-            {
-                case "string":
-                    return Enum.TiposProcessadores.STRING;
-                case "short":
-                    return Enum.TiposProcessadores.SHORT;
-                case "int":
-                    return Enum.TiposProcessadores.INTEGER;
-                case "decimal":
-                    return Enum.TiposProcessadores.DECIMAL;
-                case "date":
-                    return Enum.TiposProcessadores.DATE;
+        //internal static Enum.TiposProcessadores RecuperarProcessadorReservado(string nome)
+        //{
+        //    switch (nome.ToLower())
+        //    {
+        //        case "string":
+        //            return Enum.TiposProcessadores.STRING;
+        //        case "short":
+        //            return Enum.TiposProcessadores.SHORT;
+        //        case "int":
+        //            return Enum.TiposProcessadores.INTEGER;
+        //        case "decimal":
+        //            return Enum.TiposProcessadores.DECIMAL;
+        //        case "date":
+        //            return Enum.TiposProcessadores.DATE;
 
-                default:
-                    return Enum.TiposProcessadores.DEFAULT;
-            }
-        }
+        //        default:
+        //            return Enum.TiposProcessadores.DEFAULT;
+        //    }
+        //}
 
         #region PROC
 

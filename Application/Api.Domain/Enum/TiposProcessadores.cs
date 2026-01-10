@@ -12,6 +12,7 @@ namespace Api.Domain.Enum
         // VALORES PRIMITIVOS
         UNSIGNEDLONG,
         SHORT,
+        INT,
         INTEGER,
         DECIMAL,
         LONG,

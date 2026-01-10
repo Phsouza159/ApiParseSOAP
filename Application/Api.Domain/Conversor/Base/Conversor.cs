@@ -278,12 +278,12 @@ namespace Api.Domain.Conversor.Base
                 element.Processador.TiposProcessador = tipoNode;
                 return true;
             }
-            // VALORES RESERVADOS
-            else if (p != null && p.Value != null && ConversorValorHelper.IsNomeReservado(p.Value.RecuperarParametro(":", 1)))
-            {
-                element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(p.Value.RecuperarParametro(":", 1));
-                return true;
-            }
+            //// VALORES RESERVADOS
+            //else if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1).ToUpper(), out Enum.TiposProcessadores tipoNode))
+            //{
+            //    element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(p.Value.RecuperarParametro(":", 1));
+            //    return true;
+            //}
             else if (this.IsElementoSimplesType(item))
             {
                 this.ProcessarElementoTipoSimples(element, item);
@@ -311,9 +311,9 @@ namespace Api.Domain.Conversor.Base
             {
                 // RECUPERAR PROCESSADOR
                 string tipoProcessador = restriction != null ? restriction.RecuperarAtributo("base").RecuperarParametro(":", 1) : string.Empty;
-                if(ConversorValorHelper.IsNomeReservado(tipoProcessador))
+                if(System.Enum.TryParse(tipoProcessador.ToUpper(), out Enum.TiposProcessadores tipoNode))
                 {
-                    element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(tipoProcessador);
+                    element.Processador.TiposProcessador = tipoNode; // ConversorValorHelper.RecuperarProcessadorReservado(tipoProcessador);
                 }
             }
         }

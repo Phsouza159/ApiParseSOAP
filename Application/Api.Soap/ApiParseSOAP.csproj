@@ -8,6 +8,7 @@
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
     <Version>1.0.1</Version>
+	<NoWarn>$(NoWarn);CS8600</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +31,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Api.Application\Api.Application.csproj" />
     <ProjectReference Include="..\Api.Domain\Api.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\_git\ApiParseSOAP\Application\Api.Soap\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\_git\ApiParseSOAP\Application\Api.Soap\.editorconfig" />
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Api.Domain.Interfaces;
 using ApiParseSOAP.Application.IoC;
+using Api.Domain.Helper;
 
 namespace ApiParseSOAP
 {
@@ -48,6 +49,7 @@ namespace ApiParseSOAP
             ServicoArquivosWsdl.PathHost  = config.RecuperarHostServico();
 
             ServicoArquivosWsdl.CarregarArquivosConfiguracao(log);
+            ProcessadoresHelper.CarregarProcessadores();
 
             log.Save();
 
