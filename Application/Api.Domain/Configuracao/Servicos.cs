@@ -18,6 +18,8 @@ namespace Api.Domain.Configuracao
         
         public string Prefixo { get; set; }
 
+        public bool IgnorarNulo { get; set; }
+
         public string PrefixoImportacaoRegex { get; set; }
 
         public List<Contrato> Contratos { get; set; }

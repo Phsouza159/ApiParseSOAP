@@ -28,6 +28,7 @@ namespace Api.Domain.Helper
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.SHORT]          = ConversorValorHelper.PRC_SHORT;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.STRING]         = ConversorValorHelper.PRC_STRING;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.INTEGER]        = ConversorValorHelper.PRC_INTEGER;
+            ProcessadoresHelper.Processadores[(short)TiposProcessadores.DECIMAL]        = ConversorValorHelper.PRC_DECIMAL;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.LONG]           = ConversorValorHelper.PRC_LONG;
             ProcessadoresHelper.Processadores[(short)TiposProcessadores.DATE]           = ConversorValorHelper.PRC_DATE;
 
@@ -55,7 +56,7 @@ namespace Api.Domain.Helper
             }
             catch (Exception ex)
             {
-                string mensagem = $"Erro elemento: {elemento.Nome}. Valor: {valor}. Mensagem: '{ex.Message}'";
+                string mensagem = $"Erro elemento: '{elemento.Nome}'. Mensagem: '{ex.Message}'";
                 elemento.Notificacoes.AdicionarMensagem(mensagem);
 
                 // VALOR DEFAULT PARA ERRO

@@ -145,7 +145,10 @@ namespace Api.Domain.Conversor.Base
         {
             if (!element.IsPropriedade)
                 return;
-            
+
+            // DEFUALT
+            element.Valor = null;
+
             string path = $"//{element.Nome}";
             var p = schema.Corpo.SelectNodes(path, this.RecuperarNameSpace(schema));
 
@@ -281,6 +284,11 @@ namespace Api.Domain.Conversor.Base
                 element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(p.Value.RecuperarParametro(":", 1));
                 return true;
             }
+            else if (this.IsElementoSimplesType(item))
+            {
+                this.ProcessarElementoTipoSimples(element, item);
+                return element.Processador.TiposProcessador != TiposProcessadores.DEFAULT;
+            }
             else if (this.IsElementoExtends(item))
             {
                 element.Processador.ElementoImportado = item.RecuperarAtributo("base").RecuperarParametro(":", 1);
@@ -289,6 +297,25 @@ namespace Api.Domain.Conversor.Base
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Processar elemento marcado do tipo 'SimplesType'
+        /// </summary>
+        internal void ProcessarElementoTipoSimples(Element element, XmlNode? item)
+        {
+            XmlNode? simpleType = this.RecuperarPrimeiroNodeElemento(item?.ChildNodes, $"{element.Prefixo}:simpleType");
+            XmlNode? restriction = this.RecuperarPrimeiroNodeElemento(simpleType?.ChildNodes, $"{element.Prefixo}:restriction");
+
+            if (restriction != null)
+            {
+                // RECUPERAR PROCESSADOR
+                string tipoProcessador = restriction != null ? restriction.RecuperarAtributo("base").RecuperarParametro(":", 1) : string.Empty;
+                if(ConversorValorHelper.IsNomeReservado(tipoProcessador))
+                {
+                    element.Processador.TiposProcessador = ConversorValorHelper.RecuperarProcessadorReservado(tipoProcessador);
+                }
+            }
         }
 
         /// <summary>
@@ -344,6 +371,11 @@ namespace Api.Domain.Conversor.Base
             string prefixoExtends = "xsd";
             return typeNode != null && typeNode.Name == $"{prefixoExtends}:extension";
         }
+        internal bool IsElementoSimplesType(XmlNode? item)
+        {
+            string nomeElementoPesquisa = "xsd:simpleType".ToLower();
+            return item?.ChildNodes != null && item.ChildNodes.Cast<XmlNode>().Any(e => e.Name.ToLower().Equals(nomeElementoPesquisa));
+        }
 
         internal bool IsElementoNodeEntity(Schema schema, XmlNode typeNode)
         {
@@ -372,6 +404,17 @@ namespace Api.Domain.Conversor.Base
         #endregion
 
         #region RECUPEPAR ELEMENTO LISTA
+
+        /// <summary>
+        /// Recuperar Elemento dentro da Lista
+        /// </summary>
+        internal XmlNode? RecuperarPrimeiroNodeElemento(XmlNodeList? xmlList, string nome)
+        {
+            if (xmlList is null)
+                return null;
+
+           return xmlList.Cast<XmlNode>().FirstOrDefault(e => e.Name.ToLower().Equals(nome.ToLower()));
+        }
 
         /// <summary>
         /// RECUPERAR ELEMENTO DA LISTA COM BASE NO LOCAL NAME 

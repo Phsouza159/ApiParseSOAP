@@ -2,7 +2,8 @@
     "UrlHost": "https://site:443/MRWSV0004_PreAvisoSinistro",
     "UrlLocation": "MRWSV0004_PreAvisoSinistro",
     "Prefixo": "xsd",
-    "PrefixoImportacaoRegex": "^(bons\\d+|Q\\d+)$",
+	"IgnorarNulo" : false,
+    "PrefixoImportacaoRegex": "^(bons\\d+|tns|tns\\d+|Q\\d+)$",
     "Contratos": [
         {
             "Servico": "incluirPreAvisoSinistro",

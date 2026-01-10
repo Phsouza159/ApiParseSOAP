@@ -9,6 +9,9 @@ namespace Api.Domain.Helper
             {
                 case "string":
                 case "short":
+                case "int":
+                case "decimal":
+                case "date":
                     return true;
 
                 default:
@@ -24,6 +27,12 @@ namespace Api.Domain.Helper
                     return Enum.TiposProcessadores.STRING;
                 case "short":
                     return Enum.TiposProcessadores.SHORT;
+                case "int":
+                    return Enum.TiposProcessadores.INTEGER;
+                case "decimal":
+                    return Enum.TiposProcessadores.DECIMAL;
+                case "date":
+                    return Enum.TiposProcessadores.DATE;
 
                 default:
                     return Enum.TiposProcessadores.DEFAULT;
@@ -34,6 +43,8 @@ namespace Api.Domain.Helper
 
         internal static object PRC_DEFAULT(object valor)
         {
+            throw new ArgumentException("Sem suporte");
+
             if (valor is null)
                 return null;
 
@@ -69,6 +80,21 @@ namespace Api.Domain.Helper
            //throw ProcessarExecption(valor);
         }
 
+        internal static object PRC_DECIMAL(object valor)
+        {
+            if (valor is null)
+                return null;
+
+            if (decimal.TryParse(valor.ToString(), out decimal _decimal))
+            {
+                return _decimal;
+            }
+
+            // CONVERTER PARA TIPO SUPERIOR
+            //return PRC_LONG(valor);
+            throw ProcessarExecption(valor, typeof(decimal));
+        }
+
         internal static object PRC_LONG(object valor)
         {
             if (valor is null)
@@ -79,7 +105,7 @@ namespace Api.Domain.Helper
                 return _int;
             }
 
-            throw ProcessarExecption(valor);
+            throw ProcessarExecption(valor, typeof(long));
         }
 
         internal static object PRC_DATE(object valor)
@@ -89,10 +115,10 @@ namespace Api.Domain.Helper
 
             if (DateTime.TryParse(valor.ToString(), out DateTime _date))
             {
-                return _date.Date;
+                return _date.ToString("yyyy-MM-dd");
             }
 
-            throw ProcessarExecption(valor);
+            throw ProcessarExecption(valor, typeof(DateTime));
         }
 
         internal static object PRC_USINGNEDLONG(object valor)
@@ -121,9 +147,9 @@ namespace Api.Domain.Helper
 
         #region EXCEPTION
 
-        internal static Exception ProcessarExecption(object valor)
+        internal static Exception ProcessarExecption(object valor, Type type)
         {
-            return new ArgumentException($"Tipo não suportado para Conversão: {valor}");
+            return new ArgumentException($"Valor '{valor}' não suportado para conversão do tipo '{type.Name}'.");
         }
 
         #endregion

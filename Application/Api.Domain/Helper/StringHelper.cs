@@ -17,7 +17,7 @@ namespace Api.Domain.Helper
 
         public static string RecuperarParametro(this string texto, string separador, int posicao)
         {
-           return texto.Contains(separador) ? texto.Split(":")[posicao] : texto;
+           return texto.Contains(separador) ? texto.Split(separador)[posicao] : texto;
         }
 
         public static string ConcatenarUrl(string baseUrl, string path)

@@ -30,7 +30,7 @@ namespace Api.Domain.Conversor
             List<Element> elementosCorpo = this.TratarLista(lista);
 
             // CONVERTER LIST<ELEMENTOS> PARA OBJETO JSON
-            JsonObject data = this.ProcessarElementos(elementosCorpo);
+            JsonObject data = this.ProcessarElementos(elementosCorpo, schema);
 
             base.ValidarNotifcacoes();
 
@@ -79,7 +79,7 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// PROCESSAR ELEMENTOS PARA OBJETO JSON
         /// </summary>
-        internal JsonObject ProcessarElementos(List<Element> elementos)
+        internal JsonObject ProcessarElementos(List<Element> elementos, Schema schema)
         {
             JsonObject json = new JsonObject();
 
@@ -87,7 +87,7 @@ namespace Api.Domain.Conversor
             {
                 Element elemento = elementos[i];
                 if (elemento.Tipo == XmlNodeType.Element)
-                    this.ProcessarElementoParaJson(json, elemento);
+                    this.ProcessarElementoParaJson(json, elemento, schema);
 
                 //Carregar Notificacoes
                 this.Notificacoes.AdicionarMensagem(elemento.RecuperarNotificacoesItensFilhos());
@@ -99,9 +99,12 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CRIAR NO ELEMENTO DENTRO DO OBJETO JSON
         /// </summary>
-        internal void ProcessarElementoParaJson(JsonObject json, Element elemento)
+        internal void ProcessarElementoParaJson(JsonObject json, Element elemento, Schema schema)
         {
-            var objet = this.ConverterElementoParaObjeto(elemento);
+            if (elemento.Valor is null && schema.Servico.IgnorarNulo)
+                return;
+
+            var objet = this.ConverterElementoParaObjeto(elemento, schema);
 
             if (objet is JsonValue data)
             {
@@ -120,7 +123,7 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CONVERTER ELEMENTO PARA OBJETO
         /// </summary>
-        internal object? ConverterElementoParaObjeto(Element elemento)
+        internal object? ConverterElementoParaObjeto(Element elemento, Schema schema)
         {
             //string defaultNull = "null";
 
@@ -128,7 +131,7 @@ namespace Api.Domain.Conversor
             {
                 case TiposProcessadores.OBJETO:
                 case TiposProcessadores.OBJETO_IMPORTADO:
-                    return this.ConverterElementoComplexoParaObjeto(elemento);
+                    return this.ConverterElementoComplexoParaObjeto(elemento, schema);
 
                 default:
                     return elemento.CarregarValorFormatado(elemento.Valor);
@@ -138,13 +141,16 @@ namespace Api.Domain.Conversor
         /// <summary>
         /// CONVERTER ELEMENTO PARA OBJETOS COMPLEXOS
         /// </summary>
-        internal object ConverterElementoComplexoParaObjeto(Element elemento)
+        internal object ConverterElementoComplexoParaObjeto(Element elemento, Schema schema)
         {
             JsonObject json = new JsonObject();
 
             foreach (var no in elemento.No)
             {
-                json[no.Nome] = JsonValue.Create(this.ConverterElementoParaObjeto(no));
+                if (no.Valor is null && schema.Servico.IgnorarNulo)
+                    continue;
+
+                json[no.Nome] = JsonValue.Create(this.ConverterElementoParaObjeto(no, schema));
             }
 
             return json;

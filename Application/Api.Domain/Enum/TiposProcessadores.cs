@@ -13,6 +13,7 @@ namespace Api.Domain.Enum
         UNSIGNEDLONG,
         SHORT,
         INTEGER,
+        DECIMAL,
         LONG,
         DATE,
 
