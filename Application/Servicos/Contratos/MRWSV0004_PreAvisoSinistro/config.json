@@ -7,6 +7,12 @@
     "Contratos": [
         {
             "Servico": "incluirPreAvisoSinistro",
+            "Api": "incluirPreAvisoSinistro",
+            "Tipo": "PROCESSADOR_NODE",
+            "Autenticacao": ""
+        },
+		{
+            "Servico": "incluirPreAvisoSinistro",
             "Api": "C:\\_git\\ApiParseSOAP\\Application\\Servicos\\Contratos\\MRWSV0004_PreAvisoSinistro\\MRWSV0004_PreAvisoSinistro-incluirPreAvisoSinistro.json",
             "Tipo": "FILE",
             "Autenticacao": "REDIRECIONAR_AUTENTICACAO"

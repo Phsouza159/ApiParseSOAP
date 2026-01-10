@@ -20,7 +20,7 @@ namespace ApiParseSOAP.Application.IoC
             
 
             services.AddScoped<IProcessarChamadaSoapFacede, ProcessarChamadaSoapFacede>();
-            services.AddScoped<IServicoWebFacede, ServicoWebFacede>();
+            services.AddScoped<IServicoIntegracaobFacede, ServicoIntegracaoFacede>();
             services.AddScoped<IRegistroLogFacede, RegistroLogFacede>();
 
             services.AddScoped<IServicoIntegracao, ServicoIntegracao>();

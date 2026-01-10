@@ -2,40 +2,51 @@
 using Api.Domain.Configuracao;
 using Api.Domain.Enum;
 using Api.Domain.Exceptions;
+using Api.Domain.Extensions;
 using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using System.Text;
 
 namespace Api.Domain.Services
 {
     public class ServicoIntegracao : IServicoIntegracao
     {
-        public ServicoIntegracao()
+        private IConfiguration Configuration { get; }
+
+        public ServicoIntegracao(IConfiguration configuration)
         {
+            Configuration = configuration;
         }
 
         public async Task Enviar(Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
             var contrato = schema.GetContrato();
 
-            if (contrato != null)
+            if (contrato != null && System.Enum.TryParse(contrato.Tipo, out TipoIntegracao tipoIntegracao))
             {
-                switch (contrato.Tipo)
+                switch (tipoIntegracao)
                 {
-                    case "POST":
+                    case TipoIntegracao.POST:
                         await this.Post(contrato, schema, envelope, servicoLog);
                         return;
 
-                    case "FILE":
+                    case TipoIntegracao.FILE:
                         await this.File(contrato, schema, envelope, servicoLog);
                         return;
 
-                    default:
-                        throw new ArgumentException($"Sem tratamento para envio: {contrato.Tipo}");
+                    case TipoIntegracao.PROCESSADOR:
+                        await this.Processador(contrato, schema, envelope, servicoLog);
+                        return;
                 }
+
+                throw new ArgumentException($"Tipo de integração sem suporte '{contrato.Tipo}'.");
             }
+
+            throw new ArgumentException($"Sem implementação para integração.");
         }
 
         #region FILE
@@ -62,7 +73,7 @@ namespace Api.Domain.Services
 
         #endregion
 
-        #region REQUEST POST
+        #region POST
 
         internal async Task Post(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
@@ -90,6 +101,52 @@ namespace Api.Domain.Services
             }
 
             throw new ArgumentException($"Sem tratamento para retorno: {response.StatusCode}");
+        }
+
+        #endregion
+
+        #region PROCESSADOR
+
+        internal async Task Processador(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
+        {
+            string pastaNode = Configuration.GetPathNode();
+            Process ps = new();
+
+            ps.StartInfo.FileName = pastaNode;
+
+            servicoLog.CriarLog(schema.Servico.Nome, $"Iniciando processador: {contrato.Api}", TipoLog.INFO);
+
+            var processo = new Process();
+            processo.StartInfo.FileName = "node";
+            processo.StartInfo.Arguments = $"{pastaNode}  {contrato.Api} '{Convert.ToBase64String(Encoding.UTF8.GetBytes(envelope.ConteudoEnvio))}'";
+            processo.StartInfo.UseShellExecute = false;
+            processo.StartInfo.RedirectStandardOutput = true;
+            processo.StartInfo.RedirectStandardError = true;
+
+            processo.Start();
+
+            string dataProcessamento = await processo.StandardOutput.ReadToEndAsync();
+            string dataErro = await processo.StandardError.ReadToEndAsync();
+
+            await processo.WaitForExitAsync();
+
+            var objetoResultado = JsonConvert.DeserializeObject<ResultadoProcessamentoBatch>(dataProcessamento);
+
+            if (objetoResultado.Sucesso)
+            {
+                servicoLog.CriarLog(schema.Servico.Nome, objetoResultado.Mensagem, TipoLog.RETORNO_JSON);
+                envelope.ConteudoRetorno = objetoResultado.Mensagem;
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(dataErro))
+            {
+                servicoLog.CriarLog(schema.Servico.Nome, dataErro, TipoLog.TRACE_ERRO);
+                throw new ArgumentException($"Erro registrado no processador configurado '{contrato.Api}'. Saida console: {dataErro}");
+            }
+
+            servicoLog.CriarLog(schema.Servico.Nome, objetoResultado.Mensagem, TipoLog.TRACE_ERRO);
+            throw new ArgumentException($"Processamento sem sucesso para o processador '{contrato.Api}'. Saida console: {objetoResultado.Mensagem}");
         }
 
         #endregion

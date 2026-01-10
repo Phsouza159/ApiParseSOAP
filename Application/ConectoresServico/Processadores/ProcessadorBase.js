@@ -21,8 +21,13 @@ class processadorBase {
             return;
         }
 
-        const modulo   = await import(this.ProcessadorJs);
-        this.Output    = await modulo.default(this.Input);
+        const input = Buffer.from(this.Input, 'base64').toString('utf8')
+        let source = JSON.parse(input)
+
+        const modulo = await import(this.ProcessadorJs);
+        let data     = await modulo.default(source);
+
+        this.Output = typeof data == 'object' ? JSON.stringify(data) : data;
         this.IsSucesso = true;
     }
 }

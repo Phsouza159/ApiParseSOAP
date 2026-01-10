@@ -22,6 +22,12 @@ namespace Api.Domain.Extensions
             return configuration.GetItem(par);
         }
 
+        public static string GetPathNode(this IConfiguration configuration)
+        {
+            string par = "PATH_NODE";
+            return configuration.GetItem(par);
+        }
+
         public static string GetPastaDatabase(this IConfiguration configuration)
         {
             string par = "PATH_DATA";

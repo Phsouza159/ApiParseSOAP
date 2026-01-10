@@ -16,7 +16,7 @@ namespace Api.Application.Facede
                   IServicoIntegracao servicoWeb
                 , IConvercaoXmlParaJson conversaoJson
                 , IConvercaoJsonParaXml conversaoXml
-                , IServicoWebFacede servicoWebFacede
+                , IServicoIntegracaobFacede servicoWebFacede
             )
         {
             ServicoWeb = servicoWeb;
@@ -28,7 +28,7 @@ namespace Api.Application.Facede
         public IServicoIntegracao ServicoWeb { get; }
         public IConvercaoXmlParaJson ConversaoJson { get; }
         public IConvercaoJsonParaXml ConversaoXml { get; }
-        public IServicoWebFacede ServicoWebFacede { get; }
+        public IServicoIntegracaobFacede ServicoWebFacede { get; }
 
         #region CRIAR DADOS SCHEMA
 
@@ -98,6 +98,9 @@ namespace Api.Application.Facede
 
             var envelope = await this.ServicoWebFacede.EnviarProcessamento(schema, servicoLog);
             schema.Resultado = envelope.ConteudoRetorno;
+
+            if (string.IsNullOrEmpty(schema.Resultado))
+                throw new ArgumentException("Resposta vazia no tratamento de fluxo.");
 
             string xmlResposta = this.ConversaoXml.ConverterParaXml(schema);
             servicoLog.CriarLog(schema.Servico.Nome, xmlResposta, TipoLog.RETORNO_XML);

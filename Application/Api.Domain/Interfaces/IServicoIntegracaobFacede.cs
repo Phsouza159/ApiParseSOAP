@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Interfaces
 {
-    public interface IServicoWebFacede
+    public interface IServicoIntegracaobFacede
     {
 
         Task<EnvelopeEnvio> EnviarProcessamento(Schema schema, IServicoLog servicoLog);

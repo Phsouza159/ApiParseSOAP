@@ -30,7 +30,7 @@ const args = process.argv;
             throw 'Esperado INPUT data para processamento.';
 
         var process = new processadorBase()
-        
+
         process.ProcessadorJs   = pathToFileURL(path.join(filePath, `${args[2]}.js`));
         process.Input           = args[3];
 

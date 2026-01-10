@@ -6,15 +6,15 @@ using System.Text;
 
 namespace Api.Application.Facede
 {
-    public class ServicoWebFacede : IServicoWebFacede
+    public class ServicoIntegracaoFacede : IServicoIntegracaobFacede
     {
-        public ServicoWebFacede(IServicoIntegracao servicoWeb, IConvercaoXmlParaJson convercaoXmlParaJson)
+        public ServicoIntegracaoFacede(IServicoIntegracao servicoIntegracao, IConvercaoXmlParaJson convercaoXmlParaJson)
         {
-            ServicoWeb = servicoWeb;
+            ServicoIntegracao = servicoIntegracao;
             ConvercaoXmlParaJson = convercaoXmlParaJson;
         }
 
-        public IServicoIntegracao ServicoWeb { get; }
+        public IServicoIntegracao ServicoIntegracao { get; }
 
         public IConvercaoXmlParaJson ConvercaoXmlParaJson { get; }
 
@@ -29,7 +29,7 @@ namespace Api.Application.Facede
             servicoLog.CriarLog(schema.Servico.Nome, envelope.ConteudoEnvio, TipoLog.CHAMADA_JSON);
           
 
-            await ServicoWeb.Enviar(schema, envelope, servicoLog);
+            await ServicoIntegracao.Enviar(schema, envelope, servicoLog);
 
             return envelope;
         }
