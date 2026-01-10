@@ -1,6 +1,4 @@
-﻿
-
-using Api.Domain.Api;
+﻿using Api.Domain.Api;
 using Api.Domain.Configuracao;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
