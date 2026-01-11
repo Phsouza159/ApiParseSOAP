@@ -1,77 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:ns0="http://mr.site.com.br/wsv0004" targetNamespace="http://mr.site.com.br/wsv0004">
-<wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<xsd:schema>
-<xsd:import schemaLocation="MRWSV0004_PreAvisoSinistro.xsd1.xsd" namespace="http://mr.site.com.br/wsv0004"/></xsd:schema></wsdl:types>
-<wsdl:message name="alterarResponsavelSinistroRequestMsg">
-<wsdl:part name="alterarResponsavelSinistroParameters" element="xsns:alterarResponsavelSinistro" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="alterarResponsavelSinistroResponseMsg">
-<wsdl:part name="alterarResponsavelSinistroResult" element="xsns:alterarResponsavelSinistroResponse" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoHabitacionalRequestMsg">
-<wsdl:part name="incluirPreAvisoHabitacionalParameters" element="xsns:incluirPreAvisoHabitacional" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoHabitacionalResponseMsg">
-<wsdl:part name="incluirPreAvisoHabitacionalResult" element="xsns:incluirPreAvisoHabitacionalResponse" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoPrestamistaRequestMsg">
-<wsdl:part name="incluirPreAvisoPrestamistaParameters" element="xsns:incluirPreAvisoPrestamista" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoPrestamistaResponseMsg">
-<wsdl:part name="incluirPreAvisoPrestamistaResult" element="xsns:incluirPreAvisoPrestamistaResponse" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoSinistroRequestMsg">
-<wsdl:part name="incluirPreAvisoSinistroParameters" element="xsns:incluirPreAvisoSinistro" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="incluirPreAvisoSinistroResponseMsg">
-<wsdl:part name="incluirPreAvisoSinistroResult" element="xsns:incluirPreAvisoSinistroResponse" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="listarPreAvisoSinistroRequestMsg">
-<wsdl:part name="listarPreAvisoSinistroParameters" element="xsns:listarPreAvisoSinistro" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:message name="listarPreAvisoSinistroResponseMsg">
-<wsdl:part name="listarPreAvisoSinistroResult" element="xsns:listarPreAvisoSinistroResponse" xmlns:xsns="http://mr.site.com.br/wsv0004"/></wsdl:message>
-<wsdl:portType name="MRWSV0004_PreAvisoSinistroInterface">
-<wsdl:operation name="alterarResponsavelSinistro">
-<wsdl:input name="alterarResponsavelSinistroRequest" message="ns0:alterarResponsavelSinistroRequestMsg"/>
-<wsdl:output name="alterarResponsavelSinistroResponse" message="ns0:alterarResponsavelSinistroResponseMsg"/></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoHabitacional">
-<wsdl:input name="incluirPreAvisoHabitacionalRequest" message="ns0:incluirPreAvisoHabitacionalRequestMsg"/>
-<wsdl:output name="incluirPreAvisoHabitacionalResponse" message="ns0:incluirPreAvisoHabitacionalResponseMsg"/></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoPrestamista">
-<wsdl:input name="incluirPreAvisoPrestamistaRequest" message="ns0:incluirPreAvisoPrestamistaRequestMsg"/>
-<wsdl:output name="incluirPreAvisoPrestamistaResponse" message="ns0:incluirPreAvisoPrestamistaResponseMsg"/></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoSinistro">
-<wsdl:input name="incluirPreAvisoSinistroRequest" message="ns0:incluirPreAvisoSinistroRequestMsg"/>
-<wsdl:output name="incluirPreAvisoSinistroResponse" message="ns0:incluirPreAvisoSinistroResponseMsg"/></wsdl:operation>
-<wsdl:operation name="listarPreAvisoSinistro">
-<wsdl:input name="listarPreAvisoSinistroRequest" message="ns0:listarPreAvisoSinistroRequestMsg"/>
-<wsdl:output name="listarPreAvisoSinistroResponse" message="ns0:listarPreAvisoSinistroResponseMsg"/></wsdl:operation></wsdl:portType>
-<wsdl:binding name="MRWSV0004_PreAvisoSinistroHttpBinding" type="ns0:MRWSV0004_PreAvisoSinistroInterface">
-<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<wsdl:operation name="alterarResponsavelSinistro">
-<soap11:operation soapAction="http://mr.site.com.br/wsv0004/alterarResponsavelSinistro" style="document"/>
-<wsdl:input name="alterarResponsavelSinistroRequest">
-<soap11:body use="literal"/></wsdl:input>
-<wsdl:output name="alterarResponsavelSinistroResponse">
-<soap11:body use="literal"/></wsdl:output></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoHabitacional">
-<soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoHabitacional" style="document"/>
-<wsdl:input name="incluirPreAvisoHabitacionalRequest">
-<soap11:body use="literal"/></wsdl:input>
-<wsdl:output name="incluirPreAvisoHabitacionalResponse">
-<soap11:body use="literal"/></wsdl:output></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoPrestamista">
-<soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoPrestamista" style="document"/>
-<wsdl:input name="incluirPreAvisoPrestamistaRequest">
-<soap11:body use="literal"/></wsdl:input>
-<wsdl:output name="incluirPreAvisoPrestamistaResponse">
-<soap11:body use="literal"/></wsdl:output></wsdl:operation>
-<wsdl:operation name="incluirPreAvisoSinistro">
-<soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoSinistro" style="document"/>
-<wsdl:input name="incluirPreAvisoSinistroRequest">
-<soap11:body use="literal"/></wsdl:input>
-<wsdl:output name="incluirPreAvisoSinistroResponse">
-<soap11:body use="literal"/></wsdl:output></wsdl:operation>
-<wsdl:operation name="listarPreAvisoSinistro">
-<soap11:operation soapAction="http://mr.site.com.br/wsv0004/listarPreAvisoSinistro" style="document"/>
-<wsdl:input name="listarPreAvisoSinistroRequest">
-<soap11:body use="literal"/></wsdl:input>
-<wsdl:output name="listarPreAvisoSinistroResponse">
-<soap11:body use="literal"/></wsdl:output></wsdl:operation></wsdl:binding>
-<wsdl:service name="MRWSV0004_PreAvisoSinistroHttpService">
-<wsdl:port name="MRWSV0004_PreAvisoSinistroHttpPort" binding="ns0:MRWSV0004_PreAvisoSinistroHttpBinding">
-<soap11:address location="https://site:443/MRWSV0004_PreAvisoSinistro"/></wsdl:port></wsdl:service></wsdl:definitions>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://mr.site.com.br/wsv0004" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" targetNamespace="http://mr.site.com.br/wsv0004">
+   <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:schema>
+         <xsd:import schemaLocation="MRWSV0004_PreAvisoSinistro.xsd1.xsd" namespace="http://mr.site.com.br/wsv0004" />
+      </xsd:schema>
+   </wsdl:types>
+   <wsdl:message name="alterarResponsavelSinistroRequestMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="alterarResponsavelSinistroParameters" element="xsns:alterarResponsavelSinistro" />
+   </wsdl:message>
+   <wsdl:message name="alterarResponsavelSinistroResponseMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="alterarResponsavelSinistroResult" element="xsns:alterarResponsavelSinistroResponse" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoHabitacionalRequestMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoHabitacionalParameters" element="xsns:incluirPreAvisoHabitacional" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoHabitacionalResponseMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoHabitacionalResult" element="xsns:incluirPreAvisoHabitacionalResponse" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoPrestamistaRequestMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoPrestamistaParameters" element="xsns:incluirPreAvisoPrestamista" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoPrestamistaResponseMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoPrestamistaResult" element="xsns:incluirPreAvisoPrestamistaResponse" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoSinistroRequestMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoSinistroParameters" element="xsns:incluirPreAvisoSinistro" />
+   </wsdl:message>
+   <wsdl:message name="incluirPreAvisoSinistroResponseMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="incluirPreAvisoSinistroResult" element="xsns:incluirPreAvisoSinistroResponse" />
+   </wsdl:message>
+   <wsdl:message name="listarPreAvisoSinistroRequestMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="listarPreAvisoSinistroParameters" element="xsns:listarPreAvisoSinistro" />
+   </wsdl:message>
+   <wsdl:message name="listarPreAvisoSinistroResponseMsg">
+      <wsdl:part xmlns:xsns="http://mr.site.com.br/wsv0004" name="listarPreAvisoSinistroResult" element="xsns:listarPreAvisoSinistroResponse" />
+   </wsdl:message>
+   <wsdl:portType name="MRWSV0004_PreAvisoSinistroInterface">
+      <wsdl:operation name="alterarResponsavelSinistro">
+         <wsdl:input name="alterarResponsavelSinistroRequest" message="ns0:alterarResponsavelSinistroRequestMsg" />
+         <wsdl:output name="alterarResponsavelSinistroResponse" message="ns0:alterarResponsavelSinistroResponseMsg" />
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoHabitacional">
+         <wsdl:input name="incluirPreAvisoHabitacionalRequest" message="ns0:incluirPreAvisoHabitacionalRequestMsg" />
+         <wsdl:output name="incluirPreAvisoHabitacionalResponse" message="ns0:incluirPreAvisoHabitacionalResponseMsg" />
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoPrestamista">
+         <wsdl:input name="incluirPreAvisoPrestamistaRequest" message="ns0:incluirPreAvisoPrestamistaRequestMsg" />
+         <wsdl:output name="incluirPreAvisoPrestamistaResponse" message="ns0:incluirPreAvisoPrestamistaResponseMsg" />
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoSinistro">
+         <wsdl:input name="incluirPreAvisoSinistroRequest" message="ns0:incluirPreAvisoSinistroRequestMsg" />
+         <wsdl:output name="incluirPreAvisoSinistroResponse" message="ns0:incluirPreAvisoSinistroResponseMsg" />
+      </wsdl:operation>
+      <wsdl:operation name="listarPreAvisoSinistro">
+         <wsdl:input name="listarPreAvisoSinistroRequest" message="ns0:listarPreAvisoSinistroRequestMsg" />
+         <wsdl:output name="listarPreAvisoSinistroResponse" message="ns0:listarPreAvisoSinistroResponseMsg" />
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="MRWSV0004_PreAvisoSinistroHttpBinding" type="ns0:MRWSV0004_PreAvisoSinistroInterface">
+      <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+      <wsdl:operation name="alterarResponsavelSinistro">
+         <soap11:operation soapAction="http://mr.site.com.br/wsv0004/alterarResponsavelSinistro" style="document" />
+         <wsdl:input name="alterarResponsavelSinistroRequest">
+            <soap11:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="alterarResponsavelSinistroResponse">
+            <soap11:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoHabitacional">
+         <soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoHabitacional" style="document" />
+         <wsdl:input name="incluirPreAvisoHabitacionalRequest">
+            <soap11:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="incluirPreAvisoHabitacionalResponse">
+            <soap11:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoPrestamista">
+         <soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoPrestamista" style="document" />
+         <wsdl:input name="incluirPreAvisoPrestamistaRequest">
+            <soap11:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="incluirPreAvisoPrestamistaResponse">
+            <soap11:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="incluirPreAvisoSinistro">
+         <soap11:operation soapAction="http://mr.site.com.br/wsv0004/incluirPreAvisoSinistro" style="document" />
+         <wsdl:input name="incluirPreAvisoSinistroRequest">
+            <soap11:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="incluirPreAvisoSinistroResponse">
+            <soap11:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="listarPreAvisoSinistro">
+         <soap11:operation soapAction="http://mr.site.com.br/wsv0004/listarPreAvisoSinistro" style="document" />
+         <wsdl:input name="listarPreAvisoSinistroRequest">
+            <soap11:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="listarPreAvisoSinistroResponse">
+            <soap11:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="MRWSV0004_PreAvisoSinistroHttpService">
+      <wsdl:port name="MRWSV0004_PreAvisoSinistroHttpPort" binding="ns0:MRWSV0004_PreAvisoSinistroHttpBinding">
+         <soap11:address location="https://site:443/MRWSV0004_PreAvisoSinistro" />
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

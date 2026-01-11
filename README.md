@@ -26,79 +26,50 @@ No momento de start da API, e feito a leitura de todas as pastas que ficam dentr
 ```
 PASTA DE CONTRATOS:               // PASTA CONFIGURADA PARA OS CONTRATOS [PATH_CONTRATO]
     |                             
-    +--[SERVICO A]                // PASTA COM O SERVICO
+    +--[SERVIÇO A]                // PASTA COM O SERVIÇO
     |    |
-    |    +--- Config.json          // ARQUIVO DE CONFIGURAÇÃO DO SERVICO
+    |    +--- Config.json          // ARQUIVO DE CONFIGURAÇÃO DO SERVIÇO
     |    +--- Servico A.xml        // CONTRATO WSDL
     |    +--- Servico A.xsd1.xsd   // CONTRATO DE IMPORTAÇÃO XSD
     |    +--- Servico A.xsd2.xsd   // CONTRATO DE IMPORTAÇÃO XSD
     |    ....
-    +--[SERVICO B]
+    +--[SERVIÇO B]
     ....
 ```
 
 * Arquivo de configuração
 
-O arquivo `Config.json` é o arquivo de entrada para a configuração e controle dos serviços mapeados.
-
-Modelo de arquivo:
-```
-{
-    "UrlHost": "https://site:/ServicoA",
-    "UrlLocation": "ServicoA",
-    "Prefixo": "xsd",
-    "IgnorarNulo" : false,
-    "PrefixoImportacaoRegex": "^(bons\\d+|tns|tns\\d+|Q\\d+)$",
-    "Contratos": [
-        {
-            "Servico": "ServicoTeste1",
-            "Api": "https://siteWeb/api/teste",
-            "Tipo": "POST",
-            "Autenticacao": "REDIRECIONAR_AUTENTICACAO"
-        },
-        {
-            "Servico": "ServicoTeste2",
-            "Api": "WorkTest",
-            "Tipo": "PROCESSADOR_NODE",
-            "Autenticacao": ""
-        },
-		{
-            "Servico": "ServicoTeste3",
-            "Api": "C:\\..\\ServicoA\\arquivo.json",
-            "Tipo": "FILE",
-            "Autenticacao": ""
-        }
-    ],
-    "ArquivosWsdl": [
-       "ServicoA.xml"
-     , "ServicoA.xsd1.xsd"
-     , "ServicoA.xsd2.xsd"
-    ]
-}
- 
-```
-
----
+O arquivo `Config.json` é o arquivo de entrada para a configuração e controle dos serviços mapeados - [Modelo de arquivo JSON](Documentacao/configuracao-servico.md)
 
 
+#### Integração dos serviços
+As integrações da API tem suporte a três modelos e são configuradas nos arquivos de configuração `Config.json` no item `"Tipo": "[TIPO]"`.
 
+Tipos suportados:
 
+* POST - Requisições WEB do tipo REST/POST
+  * Para autentição de API, existe o parametro de redirecionamento de tokens `{ "Autenticacao": "REDIRECIONAR_AUTENTICACAO" }`   
+  * Autenticação do Serviço A e carregada para o Serviço B
+
+* FILE - Leitura de arquivos `.json`
+
+* WORK - Execução de work processamento em `Node.js` em arquivos pré-configurados - [Modelo de configuração NODE.JS](Documentacao/configuracao-servico.md) 
 
 
 
 ```
-+-----------+               +-----------+                           +-----------+
-|           |               |           |                           |           |
-|  SERVICO  | ------------> | API PARSE	| ---------- [POST] ----->  | CONSUMIR	|
-|           |  <-- SAOP --> |           |         <-- JSON -->      |	 API	|
-|+----------+               +-|-------|-+                           +-----------+
-                              |       |
-                              |       |
-                              |       |                            +-----------------------+
-                              |       + ------------ [FILE] -----> | LER ARQUIVO .JSON     |
-                              |                   <-- JSON -->     +-----------------------|
-                              +--------------------- [WORK] -----> | EXECUTAR WORK NODE.JS | 
-                                                                   +-----------------------|
++------------+               +-----------+                          +-----------------------+
+|            |               |           |                          |                       |
+| SERVICO A  | ------------> | API PARSE | ---------- [POST] -----> |  SERVIÇO B (API REST) |
+|            |  <-- SAOP --> |           |         <-- JSON -->     |                       |
+|+-----------+               +-|-------|-+                          +-----------------------+
+                               |       |
+                               |       |
+                               |       |                            +-----------------------+
+                               |       + ------------ [FILE] -----> |   LER ARQUIVO .JSON   |
+                               |                   <-- JSON         +-----------------------|
+                               +--------------------- [WORK] -----> | EXECUTAR WORK NODE.JS | 
+                                                   <-- JSON -->     +-----------------------|
                                       
 ```
 
