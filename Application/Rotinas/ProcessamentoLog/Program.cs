@@ -18,7 +18,7 @@ namespace ProcessamentoLog
             if (args.Length < 2)
                 throw new ArgumentException("Esperado argumento 2 - Caminho pasta arquivo DATA");
 
-            string pastaLog = args[0];
+            string pastaLog    = args[0];
             string caminhoData = args[1];
 
             if (!Directory.Exists(pastaLog))

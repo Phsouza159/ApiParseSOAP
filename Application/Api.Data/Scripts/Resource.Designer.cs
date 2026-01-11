@@ -61,14 +61,14 @@ namespace Api.Data.Scripts {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a SELECT 
-        ///    CODIGO_TICKET,
-        ///    COD_TIPO_LOG,
-        ///    REGISTRO,
-        ///    DTH_REGISTRO
-        ///FROM REGISTRO_LOG
-        ///WHERE DTH_REGISTRO BETWEEN @dataInicio AND @dataFim
-        ///ORDER BY DTH_REGISTRO;.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SELECT  
+        ///	  LOG.ID 
+        ///	, LOG.CODIGO_TICKET 
+        ///	, TIP.DESCRICAO 
+        ///	, LOG.REGISTRO 
+        ///	, LOG.DTH_REGISTRO 
+        ///FROM REGISTRO_LOG AS LOG
+        ///	LEFT JOIN TIPO_LOG AS TIP ON TIP.COD_TIPO = LOG.COD_TIPO_LOG ;.
         /// </summary>
         internal static string SELECT_REGISTRO_LOG {
             get {

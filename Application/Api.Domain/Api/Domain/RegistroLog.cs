@@ -16,6 +16,8 @@ namespace Api.Domain.Api.Domain
 
         public TipoLog TipoLog { get; set; }
 
+        public string DescricaoTipoLog { get; set; }
+
         public string Conteudo { get; set; }
 
         public DateTime Data { get; set; }

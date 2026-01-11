@@ -15,11 +15,21 @@ namespace Api.Data.Repository
         {
             return new RegistroLog
             {
-                ID       = Guid.Parse(reader["CODIGO_TICKET"].ToString()),
-                TipoLog  = (TipoLog)Convert.ToInt32(reader["COD_TIPO_LOG"]),
-                Conteudo = reader["REGISTRO"].ToString(),
-                Data     = DateTime.Parse(reader["DTH_REGISTRO"].ToString())
+                ID                 = Guid.Parse(reader["CODIGO_TICKET"].ToString()),
+                DescricaoTipoLog  = reader["DESCRICAO"].ToString(),
+                Conteudo          = reader["REGISTRO"].ToString(),
+                Data              = DateTime.Parse(reader["DTH_REGISTRO"].ToString())
             };
         }
     }
 }
+
+
+//SELECT
+//      LOG.ID
+//	, LOG.CODIGO_TICKET
+//	, TIP.DESCRICAO
+//	, LOG.REGISTRO
+//	, LOG.DTH_REGISTRO
+//FROM REGISTRO_LOG AS LOG
+//	LEFT JOIN TIPO_LOG AS TIP ON TIP.COD_TIPO = LOG.COD_TIPO_LOG ;

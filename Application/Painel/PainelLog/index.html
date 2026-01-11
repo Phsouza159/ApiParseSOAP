@@ -65,10 +65,10 @@
 
                     <form class="form-inline" id="form-data">
                         <div class="form-group mb-2">
-                            <input type="date" class="form-control form-control-sm" id="data-inicio" value="">
+                            <input type="date" class="form-control form-control-sm" id="data-inicio" value="" required>
                         </div>
                         <div class="form-group mx-sm-3 mb-2">
-                            <input type="date" class="form-control form-control-sm" id="data-fim">
+                            <input type="date" class="form-control form-control-sm" id="data-fim" value="" required>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
                     </form>
@@ -104,33 +104,20 @@
                         <table class="table table-sm table-hover mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="200">Time</th>
-                                    <th>Message</th>
+                                    <th width="200">Data</th>
+                                    <th width="200">Ticket</th>
+                                    <th>Tipo</th>
+                                    <th>Serviço</th>
+                                    <th>Mensagem</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="log-body">
+                                <!--
                                 <tr class="log-row">
                                     <td class="log-time">Aug 9, 2022 11:18:50.189</td>
                                     <td class="log-message">Attempting to delete cart for user</td>
                                 </tr>
-                                <tr class="log-row">
-                                    <td class="log-time">Aug 9, 2022 11:18:50.196</td>
-                                    <td class="log-message">User cart deleted with status: 202</td>
-                                </tr>
-                                <tr class="log-row">
-                                    <td class="log-time">Aug 9, 2022 11:18:50.197</td>
-                                    <td class="log-message">DELETE /cart | 202 | 8ms</td>
-                                </tr>
-                                <tr class="log-row">
-                                    <td class="log-time">Aug 9, 2022 11:18:50.203</td>
-                                    <td class="log-message">Attempting to add to cart: { "id": "...", "quantity": 1 }
-                                    </td>
-                                </tr>
-                                <tr class="log-row">
-                                    <td class="log-time">Aug 9, 2022 11:18:50.205</td>
-                                    <td class="log-message">POST /items | body: { "itemId": "...", "unitPrice": 18 }
-                                    </td>
-                                </tr>
+                                 -->
                             </tbody>
                         </table>
 
@@ -166,6 +153,23 @@
             let ulr = $('')
         }
 
+        function criarRegistrosLogs(data)
+        {
+            $('#log-body').empty()
+
+            data.forEach( element => {
+                $('#log-body').append(`
+                    <tr class="log-row">
+                        <td class="log-time">${element.data}}</td>
+                        <td class="log-ticket">${element.id}</td>
+                        <td class="log-ticket">${element.descricaoTipoLog}</td>
+                        <td class="log-servico">${element.servico}</td>
+                        <td class="log-message"><textarea class="form-control" disabled="true" readonly>${element.conteudo}</textarea></pre></td>
+                    </tr>
+                `)
+            });
+        }
+
         $(document).ready(function() {
             $("#form-data").on("submit", function(event) {
                 // Prevent the default form submission that reloads the page
@@ -174,20 +178,23 @@
                 // Perform custom actions here, like form validation or an AJAX request
                 console.log("Form submission intercepted!");
 
-                const formData = new FormData();
-            
-                formData.append('dataInicio', $('#data-inicio').val())
-                formData.append('dataFim', $('#data-fim').val())
-
                 $.ajax({
                     url: $('#url-api').val(),
-                    data: formData,
+                    data: {
+                        dataInicio : $('#data-inicio').val(),
+                        dataFim : $('#data-fim').val()
+                    },
+                    headers : {
+                       'Access-Control-Allow-Origin' : '*' ,
+                       'Content-Type': 'application/json'
+                    },
                     cache: false,
                     type: 'GET',
                     success: function (response) {
                         // do something with the result
 
                         console.log(response)
+                        criarRegistrosLogs(response.data)
                     }
                 });
             });

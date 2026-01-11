@@ -1,6 +1,7 @@
 ﻿using Api.Domain.Api.Domain;
 using Api.Domain.Interfaces.Facede;
 using Api.Domain.ObjectValues;
+using ApiPainel.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPainel.Controllers
@@ -15,14 +16,21 @@ namespace ApiPainel.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get(
-                 [FromForm] DateTime dataInicio
-               , [FromForm] DateTime dataFim
+                 [FromQuery] DateTime? dataInicio
+               , [FromQuery] DateTime? dataFim
                , [FromServices] IRegistroLogFacede registroLogFacede
             )
         {
             try
             {
-                return base.Ok(registroLogFacede.RecuperarRegistroLog(dataInicio, dataFim));
+
+                if (dataInicio.HasValue && dataFim.HasValue)
+                {
+                    var p = new ParametrosPesquisaDTO(dataInicio, dataFim);
+                    return base.Ok(registroLogFacede.RecuperarRegistroLog(p.DataInicio, p.DataFim));
+                }
+
+                return BadRequest(new ResponseData<string>() { Mensagem = "Parametros de pesquisa inválido"});
             }
             catch (Exception ex)
             {

@@ -12,11 +12,24 @@ builder.Services.AddSwaggerGen();
 
 ConfiguracaoDependencias.Configurar(builder.Services);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MinhaPoliticaCORS", policy =>
+    {
+        policy
+            .AllowAnyOrigin()   // Permite requisições de qualquer domínio
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("MinhaPoliticaCORS");
     app.UseSwagger();
     app.UseSwaggerUI();
 }

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\Api.Domain\Api.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Model\" />
+  </ItemGroup>
+
 </Project>
