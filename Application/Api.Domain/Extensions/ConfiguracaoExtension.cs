@@ -10,9 +10,9 @@ namespace Api.Domain.Extensions
             return string.Format("{0}/api/Servico", configuration.GetItem(par));
         }
 
-        public static string GetPathServicos(this IConfiguration configuration)
+        public static string GetPastaContratos(this IConfiguration configuration)
         {
-            string par = "PATH_SERVICOS";
+            string par = "PATH_CONTRATO";
             return configuration.GetItem(par);
         }
 
@@ -22,9 +22,9 @@ namespace Api.Domain.Extensions
             return configuration.GetItem(par);
         }
 
-        public static string GetPathNode(this IConfiguration configuration)
+        public static string GetAppNode(this IConfiguration configuration)
         {
-            string par = "PATH_NODE";
+            string par = "PATH_APP_NODE";
             return configuration.GetItem(par);
         }
 

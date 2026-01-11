@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Api.Application\Api.Application.csproj" />
     <ProjectReference Include="..\Api.Domain\Api.Domain.csproj" />
+    <ProjectReference Include="..\Rotinas\ConectoresServico\ConectoresServico.esproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -110,7 +110,7 @@ namespace ApiParseSOAP.Controllers.Base
             }
 
             // TEMPLETE DEFAULT
-            path = Path.Combine(this.Config.GetPathServicos(), "Templetes", $"TEMPLETE_{(short)tipoArquivo}.txt");
+            path = Path.Combine(this.Config.GetPastaContratos(), "Templetes", $"TEMPLETE_{(short)tipoArquivo}.txt");
 
             if (System.IO.File.Exists(path))
                 return await System.IO.File.ReadAllTextAsync(path);

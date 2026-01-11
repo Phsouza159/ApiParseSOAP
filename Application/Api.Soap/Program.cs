@@ -45,7 +45,7 @@ namespace ApiParseSOAP
 
             var log = provider.GetRequiredService<IServicoLog>();
 
-            ServicoArquivosWsdl.PastaWsdl = Path.Combine(config.GetPathServicos(), "Contratos");
+            ServicoArquivosWsdl.PastaWsdl = Path.Combine(config.GetPastaContratos(), "Contratos");
             ServicoArquivosWsdl.PathHost  = config.RecuperarHostServico();
 
             ServicoArquivosWsdl.CarregarArquivosConfiguracao(log);

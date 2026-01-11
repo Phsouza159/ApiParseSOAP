@@ -38,7 +38,7 @@ namespace Api.Domain.Services
                         await this.File(contrato, schema, envelope, servicoLog);
                         return;
 
-                    case TipoIntegracao.PROCESSADOR:
+                    case TipoIntegracao.PROCESSADOR_NODE:
                         await this.Processador(contrato, schema, envelope, servicoLog);
                         return;
                 }
@@ -109,7 +109,7 @@ namespace Api.Domain.Services
 
         internal async Task Processador(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
-            string pastaNode = Configuration.GetPathNode();
+            string pastaNode = Configuration.GetAppNode();
             Process ps = new();
 
             ps.StartInfo.FileName = pastaNode;
