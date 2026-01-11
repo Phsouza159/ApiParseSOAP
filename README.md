@@ -1,7 +1,7 @@
 
 # API de Parse de SOAP para JSON
 
-Api responsável por fazer integração de serviços de API que consume serviços SOAP e interagem com outras API ou Servicos com REST/JSON. Fazendo a comunicão de XML para JSON respeitando os contratos definidos nos serviços SOAP.
+Api responsável por fazer integração de serviços de API que consumem serviços SOAP e interagem com outras API ou Servicos com REST/JSON. Fazendo a comunicão de XML para JSON respeitando os contratos definidos nos serviços SOAP.
 
 ### Funcionamento da API
 
@@ -53,7 +53,7 @@ Tipos suportados:
 
 * FILE - Leitura de arquivos `.json`
 
-* WORK - Execução de work processamento em `Node.js` em arquivos pré-configurados - [Modelo de configuração NODE.JS](Documentacao/configuracao-servico.md) 
+* WORK - Execução de work processamento em `Node.js` em arquivos pré-configurados - [Modelo de configuração NODE.JS](Documentacao/configuracao-work.md) 
 
 
 
