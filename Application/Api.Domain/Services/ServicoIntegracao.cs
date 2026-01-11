@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace Api.Domain.Services
@@ -109,16 +110,14 @@ namespace Api.Domain.Services
 
         internal async Task Processador(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
-            string pastaNode = Configuration.GetAppNode();
-            Process ps = new();
-
-            ps.StartInfo.FileName = pastaNode;
+            string appNode = Configuration.GetAppNode();
 
             servicoLog.CriarLog(schema.Servico.Nome, $"Iniciando processador: {contrato.Api}", TipoLog.INFO);
+            string data = Convert.ToBase64String(Encoding.UTF8.GetBytes(envelope.ConteudoEnvio));
 
             var processo = new Process();
             processo.StartInfo.FileName = "node";
-            processo.StartInfo.Arguments = $"{pastaNode}  {contrato.Api} '{Convert.ToBase64String(Encoding.UTF8.GetBytes(envelope.ConteudoEnvio))}'";
+            processo.StartInfo.Arguments = $"{appNode} {contrato.Api} '{data}'";
             processo.StartInfo.UseShellExecute = false;
             processo.StartInfo.RedirectStandardOutput = true;
             processo.StartInfo.RedirectStandardError = true;
@@ -130,6 +129,25 @@ namespace Api.Domain.Services
 
             await processo.WaitForExitAsync();
 
+            this.TratarRetornoProcessador(
+                contrato
+                , schema
+                , envelope
+                , servicoLog
+                , dataProcessamento
+                , dataErro
+            );
+        }
+
+        private void TratarRetornoProcessador(
+               Contrato contrato
+             , Schema schema
+             , EnvelopeEnvio envelope
+             , IServicoLog servicoLog
+             , string dataProcessamento
+             , string dataErro
+            )
+        {
             var objetoResultado = JsonConvert.DeserializeObject<ResultadoProcessamentoBatch>(dataProcessamento);
 
             if (objetoResultado.Sucesso)
@@ -148,6 +166,7 @@ namespace Api.Domain.Services
             servicoLog.CriarLog(schema.Servico.Nome, objetoResultado.Mensagem, TipoLog.TRACE_ERRO);
             throw new ArgumentException($"Processamento sem sucesso para o processador '{contrato.Api}'. Saida console: {objetoResultado.Mensagem}");
         }
+
 
         #endregion
 
