@@ -51,6 +51,7 @@ namespace Api.Domain.Services
         }
 
         #region FILE
+
         private async Task File(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
             // TODO: ADICIONAR AUTENTICACAO
