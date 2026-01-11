@@ -1,11 +1,12 @@
 
 # Arquivo de configuração `Config.json`
 
-`UrlHost` - URL original do arquivo WSDL. Exemplo de localização: `<soap11:address location="https://site/ServicoA" />`
+`UrlHost` - URL original do arquivo WSDL
+> Exemplo de localização: `<soap11:address location="https://site/ServicoA" />`
 
 `UrlLocation` -  Nome do serviço configurado - Mesmo nome da pasta onde está os demais arquivos 
 
-`Prefixo` - Valor estatico para 'xsd'
+`Prefixo` - Valor estatico e fixo com `XSD`
 
 `IgnorarNulo` - Valor boleano `True` ou `False` para sinalização se os arquivos JSON serão tratados carregandos as propriedades `NULL`
 > exemplo `True` para `Nome : Null` arquivo JSON com `{ }` \
@@ -65,7 +66,7 @@ PASTA DE CONTRATOS:               // PASTA CONFIGURADA PARA OS CONTRATOS [PATH_C
     |                             
     +--[SERVICO A]                // PASTA COM O SERVICO
     |    |
-    |    +--- Config.json          // ARQUIVO DE CONFIGURAÇÃO DO SERVICO
+    |    +--- Config.json         // ARQUIVO DE CONFIGURAÇÃO DO SERVICO
     |    +--- ServicoA.xml        // CONTRATO WSDL
     |    +--- ServicoA.xsd1.xsd   // CONTRATO DE IMPORTAÇÃO XSD
     |    +--- ServicoA.xsd2.xsd   // CONTRATO DE IMPORTAÇÃO XSD
