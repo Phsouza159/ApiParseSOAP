@@ -25,6 +25,7 @@ class processadorBase {
         let source = JSON.parse(input)
 
         const modulo = await import(this.ProcessadorJs);
+        // EXECUCAO DO WORK
         let data     = await modulo.default(source);
 
         this.Output = typeof data == 'object' ? JSON.stringify(data) : data;

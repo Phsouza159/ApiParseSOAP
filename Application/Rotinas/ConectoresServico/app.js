@@ -34,6 +34,7 @@ const args = process.argv;
         process.ProcessadorJs   = pathToFileURL(path.join(filePath, `${args[2]}.js`));
         process.Input           = args[3];
 
+        // EXECUCAO DO PROCESSADOR BASE
         await process.ExecutarProcessador();
 
         data.sucesso  = process.IsSucesso;
@@ -45,6 +46,8 @@ const args = process.argv;
         data.mensagem = ex.message
     }
     finally {
+
+        // SAIDA DO OUTPUT PARA O CONSOLE
         console.log(JSON.stringify(data));
     }
 })()
