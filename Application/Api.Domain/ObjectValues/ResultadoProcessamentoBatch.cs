@@ -1,6 +1,6 @@
 ﻿namespace Api.Domain.ObjectValues
 {
-    internal class ResultadoProcessamentoBatch
+    public class ResultadoProcessamentoBatch
     {
         public bool Sucesso { get; set; }
 
