@@ -7,7 +7,7 @@
     <UserSecretsId>59667db5-449a-42a0-a44e-0cfede3eca9c</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
 	<NoWarn>$(NoWarn);CS8600</NoWarn>
   </PropertyGroup>
 
