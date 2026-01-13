@@ -1,5 +1,6 @@
 ﻿using Api.Application.Facede;
 using Api.Application.Integration;
+using Api.Application.Integration.Servicos;
 using Api.Data.Repository;
 using Api.Domain.Conversor;
 using Api.Domain.Interfaces;
@@ -30,6 +31,9 @@ namespace ApiParseSOAP.Application.IoC
 
 
             services.AddScoped<IServicoPost, ServicoPost>();
+            services.AddScoped<IServicoArquivo, ServicoArquivo>();
+            services.AddScoped<IServicoProcessadoresNode, ServicoProcessadoresNode>();
+
             services.AddScoped<IServicoNotImplementation, ServicoNotImplementation>();
         }
     }

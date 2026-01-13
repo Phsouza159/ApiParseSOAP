@@ -8,19 +8,19 @@ using Api.Domain.ObjectValues;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Api.Application.Integration
+namespace Api.Application.Integration.Servicos
 {
     public class ServicoArquivo : ObjetoBase, IServicoArquivo
     {
         public async Task Executar(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
             // TODO: ADICIONAR AUTENTICACAO
-            if (!System.IO.File.Exists(contrato.Api))
+            if (!File.Exists(contrato.Api))
                 throw new ArgumentException($"Arquivo não localizado em: {contrato.Api}");
 
             try
             {
-                envelope.ConteudoRetorno = await System.IO.File.ReadAllTextAsync(contrato.Api);
+                envelope.ConteudoRetorno = await File.ReadAllTextAsync(contrato.Api);
 
                 // ITEM DE VALIDACAO JSON
                 JToken.Parse(envelope.ConteudoRetorno);

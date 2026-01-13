@@ -6,31 +6,29 @@ using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
 using Api.Domain.Services;
 using System.Text;
-using System.Web.Helpers;
 
 namespace Api.Application.Facede
 {
     public class ProcessarChamadaSoapFacede : IProcessarChamadaSoapFacede
     {
         public ProcessarChamadaSoapFacede(
-                  IServicoIntegracao servicoWeb
-                , IConvercaoXmlParaJson conversaoJson
+                  IConvercaoXmlParaJson conversaoJson
                 , IConvercaoJsonParaXml conversaoXml
-                , IServicoIntegracaobFacede servicoWebFacede
+                , IServicoIntegracaobFacede servicoIntegracaoFacede
             )
         {
-            ServicoWeb = servicoWeb;
             ConversaoJson = conversaoJson;
             ConversaoXml = conversaoXml;
-            ServicoWebFacede = servicoWebFacede;
+            ServicoIntegracaoFacede = servicoIntegracaoFacede;
         }
 
-        public IServicoIntegracao ServicoWeb { get; }
         public IConvercaoXmlParaJson ConversaoJson { get; }
-        public IConvercaoJsonParaXml ConversaoXml { get; }
-        public IServicoIntegracaobFacede ServicoWebFacede { get; }
 
-        #region CRIAR DADOS SCHEMA
+        public IConvercaoJsonParaXml ConversaoXml { get; }
+
+        public IServicoIntegracaobFacede ServicoIntegracaoFacede { get; }
+
+        #region CRIAR DADOS SCHEMA XML
 
         public Schema CarregarDadosChamadaSoap(string servico, string xmlConteudo, string autenticacao)
         {
@@ -67,11 +65,11 @@ namespace Api.Application.Facede
 
         private void CarregarDadosAutenticacao(Schema schema, string autenticacao)
         {
-            var contrato = schema.GetContrato();
+            var contrato = schema.RecuperarContrato();
 
-            if(contrato != null && !string.IsNullOrEmpty(autenticacao) && !string.IsNullOrEmpty(contrato.Autenticacao))
+            if(contrato != null && !string.IsNullOrEmpty(autenticacao) && !string.IsNullOrEmpty(contrato.TipoAutenticacao))
             {
-                schema.Autenticacao = contrato.Autenticacao switch
+                contrato.Autenticacao = contrato.TipoAutenticacao switch
                 {
                     "REDIRECIONAR_AUTENTICACAO" => new RedirecionamentoAutenticacao(autenticacao),
                     // DEFAULT
@@ -82,21 +80,17 @@ namespace Api.Application.Facede
 
         #endregion
 
+        #region PROCESSAR FLUXO 
+
         public async Task<ProcessamentoFluxoSoap> ProcessarFluxoSoap(Schema schema, IServicoLog servicoLog)
         {
             ProcessamentoFluxoSoap processamento = new ProcessamentoFluxoSoap();
 
-            if(servicoLog.IsDebug)
-            {
-                var json = this.ConversaoJson.ConverterParaJson(schema);
-                servicoLog.CriarLog(schema.Servico.Nome, json, TipoLog.DEBUG);
-                processamento.Conteudo = json;
-                processamento.TipoConteudo = "application/json";
+            if (servicoLog.IsDebug)
+                return this.ProcessarFluxoDebug(schema, processamento, servicoLog);
 
-                return processamento;
-            }
+            var envelope = await this.ServicoIntegracaoFacede.EnviarProcessamento(schema, servicoLog);
 
-            var envelope = await this.ServicoWebFacede.EnviarProcessamento(schema, servicoLog);
             schema.Resultado = envelope.ConteudoRetorno;
 
             if (string.IsNullOrEmpty(schema.Resultado))
@@ -108,24 +102,20 @@ namespace Api.Application.Facede
             processamento.Conteudo = xmlResposta;
             processamento.TipoConteudo = "text/xml";
 
-            //if (queryParametro == "DEBUG")
-            //{
-            //    // DEBUG 
-            //    var json = conversaoJson.ConverterParaJson(schema);
-            //    servicoLog.CriarLog(servico, json, TipoLog.DEBUG);
-            //    return await base.ProcessarResposta(Content(json, "application/json"), servicoLog);
-            //}
+            return processamento;
+        }
 
-            //var envelope = await servicoWebFacede.EnviarProcessamento(schema, servicoLog);
-            //schema.Resultado = envelope.ConteudoRetorno;
+        private ProcessamentoFluxoSoap ProcessarFluxoDebug(Schema schema, ProcessamentoFluxoSoap processamento, IServicoLog servicoLog)
+        {
+            var json = this.ConversaoJson.ConverterParaJson(schema);
+            servicoLog.CriarLog(schema.Servico.Nome, json, TipoLog.DEBUG);
 
-            //string xmlResposta = conversaoXml.ConverterParaXml(schema);
-
-            //servicoLog.CriarLog(servico, xmlResposta, TipoLog.RETORNO_XML);
-            //return await base.ProcessarResposta(Content(xmlResposta, "text/xml"), servicoLog);
-
+            processamento.Conteudo = json;
+            processamento.TipoConteudo = "application/json";
 
             return processamento;
         }
+
+        #endregion
     }
 }

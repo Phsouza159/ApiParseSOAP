@@ -77,6 +77,7 @@ namespace Api.Domain.Services
 
         #endregion
 
+        #region TRATATIVAS NOME ARQUIVO
 
         public static string ResoverNomeArquivo(string servico)
         {
@@ -96,6 +97,9 @@ namespace Api.Domain.Services
             return $"{servico}.xml";
         }
 
+        #endregion
+
+        #region CONVERTER TEXTO PARA XML
 
         public static XmlDocument TransformarXml(string xmlContent)
         {
@@ -104,6 +108,8 @@ namespace Api.Domain.Services
             return doc;
         }
 
+        #endregion
+
         #region CRIAR XML
 
         public static Schema CriarSchemaXML(XmlDocument contrato, XmlDocument documento)
@@ -111,12 +117,25 @@ namespace Api.Domain.Services
             var schema = new Schema
             {
                 Documento = documento,
-                Contrato = contrato
+                Contrato  = contrato
             };
 
-            schema.Carregar();
+            ServicoArquivosWsdl.CarregarDadosSchema(schema, contrato, documento);
 
             return schema;
+        }
+
+        private static void CarregarDadosSchema(Schema schema, XmlDocument contrato, XmlDocument documento)
+        {
+            var nodes = documento.ChildNodes.Cast<XmlNode>().ToList();
+
+            var envelope = nodes.First(e => e.Name == "soapenv:Envelope") ?? throw new ArgumentException("Nao localizado - bloco Envelope no arquivo de entrada XML.");
+            var body     = envelope.ChildNodes.Cast<XmlNode>().FirstOrDefault(e => e.Name == "soapenv:Body") ?? throw new ArgumentException("Nao localizado - bloco Body no arquivo de entrada XML.");
+            var servico  = body.ChildNodes[0] ?? throw new ArgumentException("Nao localizado - bloco Servico no arquivo de entrada XML.");
+
+            schema.XmlNodes = servico.ChildNodes.Cast<XmlNode>().ToList();
+            schema.Corpo = body;
+            schema.NomeServico = servico.LocalName;
         }
 
         #endregion

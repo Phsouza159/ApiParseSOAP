@@ -1,4 +1,5 @@
-﻿using Api.Domain.Api;
+﻿using Api.Application.Integration.Servicos;
+using Api.Domain.Api;
 using Api.Domain.Enum;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Integration;
@@ -9,9 +10,7 @@ namespace Api.Application.Integration
     public class ServicoIntegracao : IServicoIntegracao
     {
         private IServicoPost ServicoPost { get; }
-
         private IServicoArquivo ServicoArquivo { get; }
-
         private IServicoProcessadoresNode ServicoProcessadoresNode { get; }
 
         private IntegrationBase ServiceIntegration { get; set; }    
@@ -32,7 +31,7 @@ namespace Api.Application.Integration
 
         public async Task Enviar(Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
         {
-            var contrato = schema.GetContrato();
+            var contrato = schema.RecuperarContrato();
 
             if (contrato != null && System.Enum.TryParse(contrato.Tipo, out TipoIntegracao tipoIntegracao))
             {

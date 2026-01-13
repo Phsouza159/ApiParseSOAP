@@ -2,7 +2,6 @@
 using Api.Domain.Enum;
 using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
-using System.Text;
 
 namespace Api.Application.Facede
 {
@@ -18,16 +17,12 @@ namespace Api.Application.Facede
 
         public IConvercaoXmlParaJson ConvercaoXmlParaJson { get; }
 
-        /// <summary>
-        /// Enviar Processamento Web
-        /// </summary>
         public async Task<EnvelopeEnvio> EnviarProcessamento(Schema schema, IServicoLog servicoLog)
         {
             EnvelopeEnvio envelope = new EnvelopeEnvio();
 
             envelope.ConteudoEnvio = this.ConvercaoXmlParaJson.ConverterParaJson(schema);
             servicoLog.CriarLog(schema.Servico.Nome, envelope.ConteudoEnvio, TipoLog.CHAMADA_JSON);
-          
 
             await ServicoIntegracao.Enviar(schema, envelope, servicoLog);
 

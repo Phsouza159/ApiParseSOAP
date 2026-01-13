@@ -119,21 +119,5 @@ namespace ApiParseSOAP.Controllers.Base
         }
 
         #endregion
-
-        #region CARREGAR DADOS AUTENTICACAO
-        internal void CarregarDadosAutenticacao(Schema schema, IHeaderDictionary headers)
-        {
-            switch (schema.Servico.Contratos[0].Autenticacao)
-            {
-                default:
-                    break;
-            }
-
-
-            schema.Autenticacao = new RedirecionamentoAutenticacao(headers["Authorization"]);
-        }
-
-        #endregion
-
     }
 }

@@ -5,7 +5,7 @@ using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Integration;
 using Api.Domain.ObjectValues;
 
-namespace Api.Application.Integration
+namespace Api.Application.Integration.Servicos
 {
     internal class ServicoNotImplementation : ObjetoBase, IServicoNotImplementation
     {

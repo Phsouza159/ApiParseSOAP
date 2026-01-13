@@ -40,7 +40,8 @@ const args = process.argv;
         data.sucesso  = process.IsSucesso;
         data.mensagem = process.IsSucesso ? process.Output : process.Mensagem;
 
-    } catch(ex)
+    }
+    catch (ex)
     {
         data.sucesso  = false;
         data.mensagem = ex.message

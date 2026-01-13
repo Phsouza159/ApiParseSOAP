@@ -1,4 +1,6 @@
-﻿namespace Api.Domain.Configuracao
+﻿using Api.Domain.Interfaces;
+
+namespace Api.Domain.Configuracao
 {
     public class Contrato
     {
@@ -8,6 +10,9 @@
 
         public string Tipo { get; set; }
 
-        public string Autenticacao { get; set; }
+        public string TipoAutenticacao { get; set; }
+
+        public IAutenticacao Autenticacao { get; set; }
+
     }
 }

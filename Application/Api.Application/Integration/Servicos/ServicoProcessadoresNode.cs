@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 
-namespace Api.Application.Integration
+namespace Api.Application.Integration.Servicos
 {
     public class ServicoProcessadoresNode : ObjetoBase, IServicoProcessadoresNode
     {
@@ -19,7 +19,7 @@ namespace Api.Application.Integration
 
         public ServicoProcessadoresNode(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            Configuration = configuration;
         }
 
         public async Task Executar(Contrato contrato, Schema schema, EnvelopeEnvio envelope, IServicoLog servicoLog)
@@ -43,7 +43,7 @@ namespace Api.Application.Integration
 
             await processo.WaitForExitAsync();
 
-            this.TratarRetornoProcessador(
+            TratarRetornoProcessador(
                 contrato
                 , schema
                 , envelope
