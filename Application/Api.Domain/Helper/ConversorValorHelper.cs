@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace Api.Domain.Helper
 {
     public static class ConversorValorHelper
@@ -57,7 +59,11 @@ namespace Api.Domain.Helper
             if (valor is List<object> lista)
                 return lista.Select(PRC_DECIMAL).ToArray();
 
-            if (decimal.TryParse(valor.ToString(), out decimal _decimal))
+            if (valor.ToString().ToLower().Contains("m"))
+                valor = valor.ToString().ToLower().Replace("m", "");
+
+           // if (decimal.TryParse(valor.ToString(), out decimal _decimal))
+              if(decimal.TryParse(valor.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal _decimal))
                 return _decimal;
 
             // CONVERTER PARA TIPO SUPERIOR
