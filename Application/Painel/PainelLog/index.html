@@ -44,9 +44,17 @@
 
         <!-- Header -->
         <div class="col">
+
             <label for="url-api">URL API:</label>
-            <div class="form-group mb-2">
-                <input type="url" class="form-control form-control-sm" id="url-api" value="https://localhost:7114/api/RegistroLog">
+            <div class="form-group mb-2" style="max-width: 450px;">
+                <input type="url" class="form-control form-control-sm" id="url-api"
+                    value="https://localhost:7114/api/RegistroLog">
+            </div>
+
+            <label for="url-api-servicos">URL SERVICOS:</label>
+            <div class="form-group mb-2" style="max-width: 450px;">
+                <input type="url" class="form-control form-control-sm" id="url-api-servicos"
+                    value="http://localhost:5075/api/servico">
             </div>
         </div>
 
@@ -55,38 +63,19 @@
         <div class="row mb-3">
 
 
-            <div class="col">
-                <h4>49,632 hits</h4>
-                <small>Aug 9, 2022 @ 11:18:50.811 - Aug 9, 2022 @ 11:33:50.811</small>
 
-
-                <div class="mt-2">
-                    Data Inicio / Fim
-
-                    <form class="form-inline" id="form-data">
-                        <div class="form-group mb-2">
-                            <input type="date" class="form-control form-control-sm" id="data-inicio" value="" required>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="date" class="form-control form-control-sm" id="data-fim" value="" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
-                    </form>
-                </div>
-
-
-            </div>
         </div>
 
         <!-- Tabs -->
         <ul class="nav nav-tabs mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#logs">Logs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#patterns">Patterns <span
+                <a class="nav-link active" data-toggle="tab" href="#servicos">Serviços <span
                         class="badge badge-primary">42</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#logs">Logs</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#exceptions">Exceptions <span
                         class="badge badge-danger">1</span></a>
@@ -97,9 +86,30 @@
         <div class="tab-content">
 
             <!-- Logs -->
-            <div class="tab-pane fade show active" id="logs">
+            <div class="tab-pane fade " id="logs">
                 <div class="card">
                     <div class="card-body p-0">
+
+                        <div class="col">
+
+                            <div class="mt-2">
+                                Data Inicio / Fim
+
+                                <form class="form-inline" id="form-data">
+                                    <div class="form-group mb-2">
+                                        <input type="date" class="form-control form-control-sm" id="data-inicio"
+                                            value="" required>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="date" class="form-control form-control-sm" id="data-fim" value=""
+                                            required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                                </form>
+                            </div>
+
+
+                        </div>
 
                         <table class="table table-sm table-hover mb-0">
                             <thead class="thead-light">
@@ -126,10 +136,11 @@
             </div>
 
             <!-- Patterns -->
-            <div class="tab-pane fade" id="patterns">
-                <div class="alert alert-info">
-                    Lista de padrões detectados nos logs.
-                </div>
+            <div class="tab-pane fade show active" id="servicos">
+                <ul class="list-group" id="servicos-body">
+
+
+                </ul>
             </div>
 
             <!-- Exceptions -->
@@ -148,16 +159,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function getRegistrosLogs()
-        {
+        function getRegistrosLogs() {
             let ulr = $('')
         }
 
-        function criarRegistrosLogs(data)
-        {
+        function criarRegistrosLogs(data) {
             $('#log-body').empty()
 
-            data.forEach( element => {
+            data.forEach(element => {
                 $('#log-body').append(`
                     <tr class="log-row">
                         <td class="log-time">${element.data}}</td>
@@ -170,34 +179,111 @@
             });
         }
 
-        $(document).ready(function() {
-            $("#form-data").on("submit", function(event) {
-                // Prevent the default form submission that reloads the page
-                event.preventDefault();
+        function criarRegistrosServicos(data) {
+            $('#servicos-body').empty()
 
-                // Perform custom actions here, like form validation or an AJAX request
-                console.log("Form submission intercepted!");
+            data.forEach(element => {
+                $('#servicos-body').append(`
+                    <li class="mb-3">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                ${element.nome}
+                            </div>
 
-                $.ajax({
-                    url: $('#url-api').val(),
-                    data: {
-                        dataInicio : $('#data-inicio').val(),
-                        dataFim : $('#data-fim').val()
-                    },
-                    headers : {
-                       'Access-Control-Allow-Origin' : '*' ,
-                       'Content-Type': 'application/json'
-                    },
-                    cache: false,
-                    type: 'GET',
-                    success: function (response) {
-                        // do something with the result
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Informações Gerais</h6>
 
-                        console.log(response)
-                        criarRegistrosLogs(response.data)
-                    }
-                });
+                                <p class="mb-1"><strong>URL Host:</strong>${element.urlHost}</p>
+                                <p class="mb-1"><strong>URL Location:</strong>${element.urlLocation}</p>
+                                <p class="mb-1"><strong>Prefixo:</strong>${element.prefixo}</p>
+                                <p class="mb-3"><strong>Ignorar Nulo:</strong>${element.ignorarNulo}</p>
+
+                                <h6 class="card-subtitle mb-2 text-muted">Contratos</h6>
+                                <ul class="list-group mb-3">
+                                    ${element.contratos
+                        .map(item => `
+                                            <li class="list-group-item">
+                                                <strong>Serviço:</strong> ${item.servico}<br>
+                                                <strong>API:</strong> ${item.api}<br>
+                                                <strong>Tipo:</strong> ${item.tipo}<br>
+                                                <strong>Autenticação:</strong> ${item.autenticacao ?? '—'}
+                                            </li>
+                                        `)
+                        .join('')}
+                                </ul>
+                                <h6 class="card-subtitle mb-2 text-muted">Arquivos WSDL</h6>
+                                <ul class="list-group">
+                                    ${element.arquivosWsdl
+                        .map(documento => `
+                                            <li class="list-group-item">${documento}</li>
+                                        `)
+                        .join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                `)
+            })
+        }
+
+        function recuperarServicos() {
+            let url = $('#url-api-servicos').val()
+
+            if (url == '') return;
+
+            $.ajax({
+                url: `${url}/INFO`,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                    'queryInfo': 'INFO'
+                },
+                cache: false,
+                type: 'GET',
+                success: function (response) {
+                    // do something with the result
+
+                    console.log(response)
+                    criarRegistrosServicos(response)
+                }
             });
+        }
+
+        $('#url-api-servicos').change(() => recuperarServicos())
+
+        recuperarServicos()
+
+        $("#form-data").on("submit", function (event) {
+            // Prevent the default form submission that reloads the page
+            event.preventDefault();
+
+            // Perform custom actions here, like form validation or an AJAX request
+            console.log("Form submission intercepted!");
+
+            $.ajax({
+                url: $('#url-api').val(),
+                data: {
+                    dataInicio: $('#data-inicio').val(),
+                    dataFim: $('#data-fim').val()
+                },
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                },
+                cache: false,
+                type: 'GET',
+                success: function (response) {
+                    // do something with the result
+
+                    console.log(response)
+                    criarRegistrosLogs(response.data)
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+
         });
 
     </script>
