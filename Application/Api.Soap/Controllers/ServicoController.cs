@@ -27,10 +27,14 @@ namespace ApiParseSOAP.Controllers
         public async Task<IActionResult> Get(
               [FromRoute] string servico
             , [FromQuery] string? wsdl
+            , [FromHeader] string? queryInfo
             , [FromServices] IServicoLog servicoLog)
         {
             try
             {
+                if (!string.IsNullOrEmpty(queryInfo) && queryInfo == "INFO")
+                    return Ok(ServicoArquivosWsdl.Configuracacoes);
+
                 Servicos? servicoConfiguracao = ServicoArquivosWsdl.RecuperarServico(servico);
 
                 if (servicoConfiguracao != null)

@@ -37,6 +37,17 @@ namespace ApiParseSOAP
                 options.AllowSynchronousIO = true;
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MinhaPoliticaCORS", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()   // Permite requisições de qualquer domínio
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
 
@@ -54,14 +65,14 @@ namespace ApiParseSOAP
             log.Save();
 
             // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI();
-            //}
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseCors("MinhaPoliticaCORS");
+               // app.UseSwagger();
+               // app.UseSwaggerUI();
+            }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
 

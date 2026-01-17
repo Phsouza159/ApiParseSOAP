@@ -1,6 +1,7 @@
 ﻿using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Services;
+using System.Text.Json.Serialization;
 
 namespace Api.Domain.Configuracao
 {
@@ -26,10 +27,13 @@ namespace Api.Domain.Configuracao
         
         public List<string> ArquivosWsdl { get; set; }
 
+        [JsonIgnore]
         public Dictionary<string, byte[]> ConteudoArquivos { get; set; }
 
+        [JsonIgnore]
         public bool IsImportacao { get => this.ConteudoArquivos.Any(e => e.Key.Contains(".xsd")); }
 
+        [JsonIgnore]
         public string PastaRaizServico { get; set; }
 
         internal bool CarregarDados(string raizPasta)

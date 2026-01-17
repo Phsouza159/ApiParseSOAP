@@ -6,9 +6,8 @@
     "Contratos": [
         {
             "Servico": "Sum",
-            "Api": "https://localhost:7108/GEWSV0006_Banco",
-            "Tipo": "POST",
-            "TipoAutenticacao": "REDIRECIONAR_AUTENTICACAO"
+            "Api": "webBenchmark",
+            "Tipo": "PROCESSADOR_NODE",
         }
     ],
     "ArquivosWsdl": [

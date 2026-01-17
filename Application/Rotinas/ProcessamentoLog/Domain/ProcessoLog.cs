@@ -96,9 +96,7 @@ namespace ProcessamentoLog.Domain
             }
         }
 
-
         #region DISPONSE
-
         public bool IsDiponse { get; set; }
 
         public void Dispose()

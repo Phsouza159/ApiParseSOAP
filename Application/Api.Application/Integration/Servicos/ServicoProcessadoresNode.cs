@@ -29,12 +29,13 @@ namespace Api.Application.Integration.Servicos
             servicoLog.CriarLog(schema.Servico.Nome, $"Iniciando processador: {contrato.Api}", TipoLog.INFO);
             string data = Convert.ToBase64String(Encoding.UTF8.GetBytes(envelope.ConteudoEnvio));
 
-            var processo = new Process();
+            using var processo = new Process();
             processo.StartInfo.FileName = "node";
             processo.StartInfo.Arguments = $"{appNode} {contrato.Api} '{data}'";
             processo.StartInfo.UseShellExecute = false;
             processo.StartInfo.RedirectStandardOutput = true;
             processo.StartInfo.RedirectStandardError = true;
+            processo.StartInfo.StandardOutputEncoding = Encoding.UTF8;
 
             processo.Start();
 
@@ -44,7 +45,7 @@ namespace Api.Application.Integration.Servicos
             await processo.WaitForExitAsync();
 
             TratarRetornoProcessador(
-                contrato
+                  contrato
                 , schema
                 , envelope
                 , servicoLog
@@ -64,7 +65,10 @@ namespace Api.Application.Integration.Servicos
         {
             var objetoResultado = JsonConvert.DeserializeObject<ResultadoProcessamentoBatch>(dataProcessamento);
 
-            if (objetoResultado.Sucesso)
+            if (objetoResultado is null && string.IsNullOrEmpty(dataErro))
+                dataErro = $"Erro fatal ao processador Node.";
+
+            if (objetoResultado != null && objetoResultado.Sucesso)
             {
                 servicoLog.CriarLog(schema.Servico.Nome, objetoResultado.Mensagem, TipoLog.RETORNO_JSON);
                 envelope.ConteudoRetorno = objetoResultado.Mensagem;

@@ -39,18 +39,19 @@ namespace Api.Application.Integration
                 {
                     case TipoIntegracao.POST:
                         this.ServiceIntegration = this.ServicoPost;
-                        return;
+                        break;
 
                     case TipoIntegracao.FILE:
                         this.ServiceIntegration = this.ServicoArquivo;
-                        return;
+                        break;
 
                     case TipoIntegracao.PROCESSADOR_NODE:
                         this.ServiceIntegration = this.ServicoProcessadoresNode;
-                        return;
+                        break;
                 }
 
                 await this.ServiceIntegration.Executar(contrato, schema, envelope, servicoLog);
+                return;
             }
 
             throw new ArgumentException($"Sem implementação para integração.");

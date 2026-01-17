@@ -33,7 +33,6 @@ namespace ApiParseSOAP.Application.IoC
             services.AddScoped<IServicoProcessadoresNode, ServicoProcessadoresNode>();
 
             services.AddScoped<IServicoNotImplementation, ServicoNotImplementation>();
-
             return services;
         }
 
