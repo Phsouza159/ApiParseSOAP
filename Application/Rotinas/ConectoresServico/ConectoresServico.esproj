@@ -1,1 +1,6 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1184077" />
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1184077">
+  <ItemGroup>
+    <None Remove="Processadores\Conectores\Sys\**" />
+    <TypeScriptConfiguration Remove="Processadores\Conectores\Sys\**" />
+  </ItemGroup>
+</Project>

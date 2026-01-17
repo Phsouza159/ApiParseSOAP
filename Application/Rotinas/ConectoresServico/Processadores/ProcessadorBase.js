@@ -1,8 +1,5 @@
 
-import path from 'node:path';
 import fs from 'node:fs';
-import { fileURLToPath } from 'url';
-import { pathToFileURL } from 'node:url';
 
 class processadorBase {
 
@@ -13,11 +10,12 @@ class processadorBase {
     IsSucesso = false
 
     ProcessadorJs = ''
+    Log       = []
 
     async ExecutarProcessador() {
 
         if (!fs.existsSync(this.ProcessadorJs)) {
-            this.Mensagem = 'Arquivo de processamento não localizado.';
+            this.Mensagem = `Arquivo de processamento não localizado em: ${this.ProcessadorJs}`;
             return;
         }
 
@@ -25,8 +23,13 @@ class processadorBase {
         let source = JSON.parse(input)
 
         const modulo = await import(this.ProcessadorJs);
+
+        this.Log.push('Iniciando processamento WORK: webBenchmark')
+
         // EXECUCAO DO WORK
-        let data     = await modulo.default(source);
+        let data     = await modulo.default(source, this.Log);
+
+        this.Log.push('Executado com sucesso WORK: webBenchmark')
 
         this.Output = typeof data == 'object' ? JSON.stringify(data) : data;
         this.IsSucesso = true;

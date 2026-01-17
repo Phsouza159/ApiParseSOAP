@@ -1,14 +1,9 @@
 
 import { processadorBase }  from './Processadores/ProcessadorBase.js'
-import { fileURLToPath }    from 'url';
 import { pathToFileURL }    from 'node:url';
 import path                 from 'node:path';
 
-
-const __filename  = fileURLToPath(import.meta.url);
-const __dirname   = path.dirname(__filename);
-const filePath    = path.join(__dirname, 'Processadores', 'Conectores');
-
+// ARUGMENTOS DA EXECUCAO
 const args = process.argv;
 
 /**
@@ -16,9 +11,13 @@ const args = process.argv;
  */
 (async function program() {
 
+    /**
+     * ENVELOPE DE RESPOSTA DO app.js
+     */
     let data = { 
           sucesso  : false
         , mensagem : ''
+        , log      : []
     }
 
     try
@@ -29,16 +28,19 @@ const args = process.argv;
         if(args.length < 3)
             throw 'Esperado INPUT data para processamento.';
 
-        var process = new processadorBase()
+        var process             = new processadorBase()
 
-        process.ProcessadorJs   = pathToFileURL(path.join(filePath, `${args[2]}.js`));
+        const caminhoRaiz       = args[1].replace('app.js', '')                             // PEGAR CAMINHO DO ARQUIVO APP.JS 
+        const filePath          = path.join(caminhoRaiz, 'Processadores', 'Conectores');    // MONTAR PATH PARA PASTA CONECTORES
+
+        process.ProcessadorJs   = pathToFileURL(path.join(filePath, `${args[2]}.js`));      // NONTAR NOME ARQUIVO WOKR
         process.Input           = args[3];
 
-        // EXECUCAO DO PROCESSADOR BASE
-        await process.ExecutarProcessador();
+        await process.ExecutarProcessador();                                                // EXECUTAR PROCESSADOR
 
-        data.sucesso  = process.IsSucesso;
-        data.mensagem = process.IsSucesso ? process.Output : process.Mensagem;
+        data.sucesso            = process.IsSucesso;
+        data.mensagem           = process.IsSucesso ? process.Output : process.Mensagem;    // RECUPERAR MENSAGEM PROCESSAMENTO
+        data.log.push(...process.Log)
 
     }
     catch (ex)
@@ -48,7 +50,7 @@ const args = process.argv;
     }
     finally {
 
-        // SAIDA DO OUTPUT PARA O CONSOLE
+        // SAIDA COM OUTPUT PARA O CONSOLE
         console.log(JSON.stringify(data));
     }
 })()
