@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Data", "..\Api.Data\Api
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ConectoresServico", "..\Rotinas\ConectoresServico\ConectoresServico.esproj", "{A423A0F3-218F-4493-BEE8-E699E3EAB384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Validacoes", "..\Testes\Api.Validacoes\Api.Validacoes.csproj", "{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{A423A0F3-218F-4493-BEE8-E699E3EAB384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A423A0F3-218F-4493-BEE8-E699E3EAB384}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A423A0F3-218F-4493-BEE8-E699E3EAB384}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{1D695E72-1B35-4CD2-BBB0-ACBD9FE907F9} = {5B56CD64-4037-468D-98DE-5084A0657F85}
 		{2946533F-2A87-4F05-9A1C-3AB76E320A86} = {5B56CD64-4037-468D-98DE-5084A0657F85}
 		{A423A0F3-218F-4493-BEE8-E699E3EAB384} = {D095525C-CD6A-447F-BD7E-438157D5F335}
+		{A106C7B2-2B7A-48CD-89F5-5B3FEBC2DADF} = {8FCBC26A-4455-4B45-A988-2CD157A8E12D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5744E6-DD58-4BC7-90E9-F19066A00FA1}

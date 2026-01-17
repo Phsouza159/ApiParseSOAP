@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy"
+	xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy"
+	xmlns:ns0="http://site.com.br/wsv0006" targetNamespace="http://site.com.br/wsv0006">
+	<wsdl:types
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:schema>
+			<xsd:import schemaLocation="GEWSV0006_Banco.xsd1.xsd" namespace="http://site.com.br/wsv0006"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="listarBancosRequestMsg">
+		<wsdl:part name="listarBancosParameters" element="xsns:listarBancos"
+			xmlns:xsns="http://site.com.br/wsv0006"/>
+		</wsdl:message>
+		<wsdl:message name="listarBancosResponseMsg">
+			<wsdl:part name="listarBancosResult" element="xsns:listarBancosResponse"
+				xmlns:xsns="http://site.com.br/wsv0006"/>
+			</wsdl:message>
+			<wsdl:portType name="GEWSV0006_BancoInterface">
+				<wsdl:operation name="listarBancos">
+					<wsdl:input name="listarBancosRequest" message="ns0:listarBancosRequestMsg"/>
+					<wsdl:output name="listarBancosResponse" message="ns0:listarBancosResponseMsg"/>
+				</wsdl:operation>
+			</wsdl:portType>
+			<wsdl:binding name="GEWSV0006_BancoHttpBinding" type="ns0:GEWSV0006_BancoInterface">
+				<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+				<wsdl:operation name="listarBancos">
+					<soap11:operation soapAction="" style="document"/>
+					<wsdl:input name="listarBancosRequest">
+						<soap11:body use="literal"/>
+					</wsdl:input>
+					<wsdl:output name="listarBancosResponse">
+						<soap11:body use="literal"/>
+					</wsdl:output>
+				</wsdl:operation>
+			</wsdl:binding>
+			<wsdl:service name="GEWSV0006_BancoHttpService">
+				<wsdl:port name="GEWSV0006_BancoHttpPort" binding="ns0:GEWSV0006_BancoHttpBinding">
+					<soap11:address location="https://site/GEWSV0006_Banco"/>
+				</wsdl:port>
+			</wsdl:service>
+		</wsdl:definitions>
