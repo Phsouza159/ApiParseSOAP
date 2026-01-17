@@ -1,28 +1,27 @@
 ﻿using Api.Domain.Api;
-using Api.Domain.Configuracao;
 using Api.Domain.Enum;
 using Api.Domain.Helper;
 using Api.Domain.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Schema;
 
 namespace Api.Domain.Conversor
 {
     public class ConvercaoXmlParaJson : Base.Conversor, IConvercaoXmlParaJson
     {
+        public ConvercaoXmlParaJson()
+        {
+        }
+
         public string ConverterParaJson(Schema schema)
         {
-            // RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
+            //RECUPERAR LISTA COMPLETA - CONTRATO + VALORES ENVELOPE
             List<Elemento> lista = this.ConverterContrato(schema);
+
+            // [DEBUG] - MAPA XML
+            //return JsonConvert.SerializeObject(lista);
 
             // CARREGAR MENSAGENS DO CONTRATO
             lista.ForEach(e => this.Notificacoes.AdicionarMensagem(e.RecuperarNotificacoesItensFilhos()));
@@ -52,7 +51,7 @@ namespace Api.Domain.Conversor
         /// </returns>
         public List<Elemento> ConverterContrato(Schema schema)
         {
-            schema.IsElementoEntrada = true;
+            this.Encapsulamento = schema.Servico.ArquivosWsdl.Count == 1 ? TipoEncapsulamento.ENCAPSULAMENTO : TipoEncapsulamento.MULTIPLO;
 
             List<Elemento> lista = new();
             // TODO: VALIDAR xs e xsd e CONFIGURAR PREFIXO
@@ -60,15 +59,13 @@ namespace Api.Domain.Conversor
 
             foreach (var item in schema.XmlNodes)
             {
-                if (item != null)
+                if (item != null && item.NodeType != XmlNodeType.Comment)
                 {
                     Elemento element = this.ProcessarElemento(schema, item, prefixoBusca);
                     element.Processador.IsPropriedade = true;
                     lista.Add(element);
                 }
             }
-
-            schema.IsElementoEntrada = false;
 
             return lista;
         }
@@ -151,7 +148,9 @@ namespace Api.Domain.Conversor
                 if (no.Valor is null && schema.Servico.IgnorarNulo)
                     continue;
 
-                json[no.Nome] = JsonValue.Create(this.ConverterElementoParaObjeto(no, schema));
+                var valor = this.ConverterElementoParaObjeto(no, schema);
+                json[no.Nome] = JsonValue.Create(valor);
+
             }
 
             return json;

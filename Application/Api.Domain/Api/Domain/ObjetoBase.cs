@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Api.Domain.Api.Domain
@@ -15,6 +16,7 @@ namespace Api.Domain.Api.Domain
             this.Notificacoes = new Notificacoes();
         }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public Notificacoes Notificacoes { get; }
 
         #region DISPONSE

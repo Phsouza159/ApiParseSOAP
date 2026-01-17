@@ -6,6 +6,7 @@ using Api.Domain.Interfaces;
 using Api.Domain.ObjectValues;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Api.Domain.Conversor.Base
 {
@@ -15,6 +16,15 @@ namespace Api.Domain.Conversor.Base
         {
             this.Notificacoes = new Notificacoes();
         }
+
+        protected enum TipoEncapsulamento
+        {
+            ENCAPSULAMENTO = 0,
+            MULTIPLO = 1,
+        }
+
+        protected TipoEncapsulamento Encapsulamento { get; set; }
+
 
         public Notificacoes Notificacoes { get; }
 
@@ -40,7 +50,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// Processar o Elemento do NO e elementos filhos
         /// </summary>
-        internal Elemento ProcessarElemento(Schema schema, XmlNode item, string prefixoBusca = "")
+        internal virtual Elemento ProcessarElemento(Schema schema, XmlNode item, string prefixoBusca = "")
         {
             Elemento element = new()
             {
@@ -65,9 +75,9 @@ namespace Api.Domain.Conversor.Base
 
         #region PROCESSAR TIPOS E NOS FILHOS
 
-        private void CarregarProcessadoresEItensFilhos(Schema schema, XmlNode item, Elemento element, string prefixoBusca)
+        internal virtual void CarregarProcessadoresEItensFilhos(Schema schema, XmlNode item, Elemento element, string prefixoBusca)
         {
-            //RECUPERAR TIPO PROCESSAR DO NO
+            //RECUPERAR TIPO PROCESSAR DO CONTRATO - MONTAR OBJETO DO CONTRATO
             this.RecuperarProcessadorNode(element, schema, item, prefixoBusca);
 
             // MODO : complexType
@@ -91,7 +101,7 @@ namespace Api.Domain.Conversor.Base
 
         #endregion
 
-        private bool DefinirPropriedadeElemento(XmlNode item, Schema schema)
+        internal bool DefinirPropriedadeElemento(XmlNode item, Schema schema)
         {
             if(item.NodeType == XmlNodeType.Element)
             {
@@ -108,7 +118,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// RECUPERAR VALORES DAS PROPRIEDADES
         /// </summary>
-        private void RecuperarValorPropriedade(Elemento element, Schema schema)
+        protected void RecuperarValorPropriedade(Elemento element, Schema schema)
         {
             if (!element.Processador.IsPropriedade)
                 return;
@@ -117,31 +127,69 @@ namespace Api.Domain.Conversor.Base
             element.Valor = null;
 
             string path = $"//{element.Nome}";
-            var p = schema.Corpo.SelectNodes(path, this.RecuperarNameSpace(schema));
+            var propriedade = schema.Corpo.SelectNodes(path, this.RecuperarNameSpace(schema));
 
-            if (p != null && p.Count == 1)
+            if (propriedade != null && propriedade.Count == 1)
             {
-                string valor = p[0].InnerText;
-                short codigoProcessaro = (short)element.Processador.TiposProcessador;
-                
-                // VALOR PRIMITIVO
-                if (   codigoProcessaro > (short)TiposProcessadores.STRING
-                    && codigoProcessaro < (short)TiposProcessadores.OBJETO)
-                {
-                    // TRATAR VALOR '' VAZIO PARA NULL 
-                    // DEVOLVER NULL PARA NAO TER ERRO NO CAST DE STRING '' PARA TIPOS PRIMITIVOS
-                    element.Valor = string.IsNullOrEmpty(valor) ? null : valor;
-                }
-                // VALOR TEXTO
-                else if (codigoProcessaro <= (short)TiposProcessadores.STRING)
-                {
-                    element.Valor = valor;
-                }
+                element.Valor = this.ProcessarValorPropriedade(element, propriedade[0].InnerText);
             }
+            else if (propriedade != null && propriedade.Count >= 1 && element.Processador.IsElementoArray)
+            {
+                List<object?> lista = new List<object?>();
+
+                foreach (XmlNode item in propriedade)
+                {
+                    lista.Add(this.ProcessarValorPropriedade(element, item.InnerText));
+                }
+
+                element.Valor = lista;
+            }
+
+
+
+            //    string valor = p[0].InnerText;
+            //    short codigoProcessaro = (short)element.Processador.TiposProcessador;
+                
+            //    // VALOR PRIMITIVO
+            //    if (   codigoProcessaro > (short)TiposProcessadores.STRING
+            //        && codigoProcessaro < (short)TiposProcessadores.OBJETO)
+            //    {
+            //        // TRATAR VALOR '' VAZIO PARA NULL 
+            //        // DEVOLVER NULL PARA NAO TER ERRO NO CAST DE STRING '' PARA TIPOS PRIMITIVOS
+            //        element.Valor = string.IsNullOrEmpty(valor) ? null : valor;
+            //    }
+            //    // VALOR TEXTO
+            //    else if (codigoProcessaro <= (short)TiposProcessadores.STRING)
+            //    {
+            //        element.Valor = valor;
+            //    }
+            //}
 
             // CARREGAR PROPRIEDADE OBRIGATORIO
             if (element.Processador.IsObrigatorio && element.Valor is null)
                 element.Notificacoes.AdicionarMensagem($"Propriedade '{element.Nome}' é obrigatório.");
+        }
+
+
+        protected object? ProcessarValorPropriedade(Elemento element, string valor)
+        {
+            short codigoProcessaro = (short)element.Processador.TiposProcessador;
+
+            // VALOR PRIMITIVO
+            if (codigoProcessaro    > (short)TiposProcessadores.STRING
+                && codigoProcessaro < (short)TiposProcessadores.OBJETO)
+            {
+                // TRATAR VALOR '' VAZIO PARA NULL 
+                // DEVOLVER NULL PARA NAO TER ERRO NO CAST DE STRING '' PARA TIPOS PRIMITIVOS
+                return string.IsNullOrEmpty(valor) ? null : valor;
+            }
+            // VALOR TEXTO
+            else if (codigoProcessaro <= (short)TiposProcessadores.STRING)
+            {
+                return valor;
+            }
+
+            return null;
         }
 
         #endregion
@@ -151,7 +199,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ELEMENTO DE TIPO SIMPLES
         /// </summary>
-        private void CarregarDadosElementoSimples(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
+        protected void CarregarDadosElementoSimples(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             if (item.ChildNodes.Count > 0)
             {
@@ -166,7 +214,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// PROCESSAR ELEMENTOS DE TIPO COMPLEXO
         /// </summary>
-        private void CarregarDodosElementosComplexo(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
+        protected void CarregarDodosElementosComplexo(Elemento element, Schema schema, XmlNode item, string prefixoBusca)
         {
             string path = $"//{prefixoBusca}:complexType[@name='{element.Processador.ElementoImportado}']";
             var dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
@@ -184,7 +232,7 @@ namespace Api.Domain.Conversor.Base
         /// <summary>
         /// RECUPERAR NOME DO ELEMENTO
         /// </summary>
-        private string RecuperarNomeElemento(XmlNode item)
+        protected string RecuperarNomeElemento(XmlNode item)
         {
             var name = item?.Attributes?.GetNamedItem("name");
 
@@ -230,10 +278,24 @@ namespace Api.Domain.Conversor.Base
             // RESOLVER ITEM SIMPLES
             bool itemProcessado = this.RecuperarProcessadorNodeSimples(element, schema, item, prefixoBusca);
 
-            if (!itemProcessado)
+            if (!itemProcessado && this.Encapsulamento == TipoEncapsulamento.MULTIPLO)
             {
                 // RESOLVER ITEM COMPLEXO
-                this.RecuperarProcessadorNodeComplexo(schema,element, item, prefixoBusca);
+                this.RecuperarProcessadorNodeComplexo(schema, element, item, prefixoBusca);
+            }
+            else if (!itemProcessado && item.Prefix != prefixoBusca)
+            {
+                var ns = this.RecuperarNameSpace(schema, prefixoBusca);
+                var dados = schema.Contrato.SelectNodes($"//{prefixoBusca}:element[@name='{item.LocalName}']", ns);
+
+                if (dados != null && dados.Count == 0)
+                {
+                    string path = $"//{prefixoBusca}:complexType[@name='{item.LocalName}']";
+                    dados = this.RecuperarElementoImportacaoServico(schema, path, prefixoBusca);
+                }
+
+                var node = dados.Count == 1 ? dados.Item(0) : this.RecuperarNodeElemento(schema, item, dados);
+                this.CarregarTipoDoNoComplexo(schema, element, node);
             }
         }
 
@@ -248,6 +310,7 @@ namespace Api.Domain.Conversor.Base
 
             if (p != null && p.Value != null && System.Enum.TryParse(p.Value.RecuperarParametro(":", 1).ToUpper(), out Enum.TiposProcessadores tipoNode))
             {
+                element.Processador.IsElementoArray  = this.IsElementoArrayList(item);
                 element.Processador.TiposProcessador = tipoNode;
                 return true;
             }
@@ -298,6 +361,8 @@ namespace Api.Domain.Conversor.Base
             }
         }
 
+        #region RECUPERAR NODE DO CONTRATO
+
         /// <summary>
         /// PROCESSAR ITENS COMPLEXO
         /// </summary>
@@ -319,7 +384,10 @@ namespace Api.Domain.Conversor.Base
                 this.CarregarTipoDoNoComplexo(schema, element, item);
             }
         }
-            
+
+
+        #endregion
+
         internal void CarregarTipoDoNoComplexo(Schema schema, Elemento element, XmlNode? node)
         {
             if (node != null && node?.Attributes?.GetNamedItem("type") is XmlNode typeNode && typeNode != null && typeNode.Value != null)
@@ -490,7 +558,7 @@ namespace Api.Domain.Conversor.Base
                 XmlDocument importedDoc = new XmlDocument();
                 var arquivoXml = servico.ConteudoArquivos.ElementAt(i);
 
-                if (arquivoXml.Key.Contains(".xsd"))
+                if (arquivoXml.Key.Contains(".xsd") || this.Encapsulamento == TipoEncapsulamento.ENCAPSULAMENTO)
                 {
                     using (var stream = new MemoryStream(arquivoXml.Value))
                     using (var reader = XmlReader.Create(stream))

@@ -43,10 +43,10 @@ namespace Api.Domain.Helper
 
         internal static object PRC_DEFAULT(object valor)
         {
-            throw new ArgumentException("Sem suporte");
+            //throw new ArgumentException("Sem suporte");
 
-            if (valor is null)
-                return null;
+            //if (valor is null)
+            //    return null;
 
             return valor.ToString();
         }
@@ -84,6 +84,16 @@ namespace Api.Domain.Helper
         {
             if (valor is null)
                 return null;
+
+            if(valor is List<object> lista)
+            {
+                return lista.Select(e =>
+                {
+                    // VALIDAR ITEM INDIVIDUAL
+                    object valor = PRC_DECIMAL(e);
+                    return valor;
+                }).ToArray();
+            }
 
             if (decimal.TryParse(valor.ToString(), out decimal _decimal))
             {

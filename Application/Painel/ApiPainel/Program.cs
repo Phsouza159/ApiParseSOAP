@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-ConfiguracaoDependencias.Configurar(builder.Services);
+builder.Services.ConfigurarIoC().ConfigurarPainelLogIoC();
 
 builder.Services.AddCors(options =>
 {

@@ -1,12 +1,10 @@
 ﻿using Api.Application.Facede;
 using Api.Application.Integration;
 using Api.Application.Integration.Servicos;
-using Api.Data.Repository;
 using Api.Domain.Conversor;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Facede;
 using Api.Domain.Interfaces.Integration;
-using Api.Domain.Interfaces.Repository;
 using Api.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +12,7 @@ namespace ApiParseSOAP.Application.IoC
 {
     public static class ConfiguracaoDependencias
     {
-        public static void Configurar(IServiceCollection services)
+        public static IServiceCollection ConfigurarIoC(this IServiceCollection services)
         {
 
             services.AddScoped<IConvercaoJsonParaXml, ConvercaoJsonParaXml>();
@@ -24,7 +22,7 @@ namespace ApiParseSOAP.Application.IoC
 
             services.AddScoped<IProcessarChamadaSoapFacede, ProcessarChamadaSoapFacede>();
             services.AddScoped<IServicoIntegracaobFacede, ServicoIntegracaoFacede>();
-            services.AddScoped<IRegistroLogFacede, RegistroLogFacede>();
+           
 
             services.AddScoped<IServicoIntegracao, ServicoIntegracao>();
             services.AddScoped<IServicoIntegracao, ServicoIntegracao>();
@@ -35,6 +33,16 @@ namespace ApiParseSOAP.Application.IoC
             services.AddScoped<IServicoProcessadoresNode, ServicoProcessadoresNode>();
 
             services.AddScoped<IServicoNotImplementation, ServicoNotImplementation>();
+
+            return services;
+        }
+
+
+        public static IServiceCollection ConfigurarPainelLogIoC(this IServiceCollection services)
+        {
+            services.AddScoped<IRegistroLogFacede, RegistroLogFacede>();
+
+            return services;
         }
     }
 }

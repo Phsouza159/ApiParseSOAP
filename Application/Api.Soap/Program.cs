@@ -16,7 +16,7 @@ namespace ApiParseSOAP
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            ConfiguracaoDependencias.Configurar(builder.Services);
+            builder.Services.ConfigurarIoC();
 
             builder.Services.AddControllers()
                         .AddXmlSerializerFormatters();

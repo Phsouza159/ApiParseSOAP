@@ -28,9 +28,6 @@ namespace Api.Domain.Api
 
         public bool IsVazio { get; set; }
 
-        public bool IsElementoEntrada { get; set; }
-
-
         public Contrato RecuperarContrato()
         {
             return this.Servico.Contratos.First(e => e.Servico.ToLower().Equals(this.NomeServico.ToLower()));

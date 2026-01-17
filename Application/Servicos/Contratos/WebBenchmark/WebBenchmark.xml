@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://tempuri.org/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    targetNamespace="http://tempuri.org/"
+    name="WebBenchmark">
+
+  <!-- ================= TYPES ================= -->
+  <types>
+    <xsd:schema targetNamespace="http://tempuri.org/">
+
+      <!-- Objeto de entrada -->
+		 <xsd:complexType name="DadosEntrada">
+			<xsd:sequence>
+			<xsd:element name="numbers" type="xsd:decimal" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		 </xsd:complexType>
+
+      <!-- Request -->
+      <xsd:element name="Sum">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DadosEntrada" type="tns:DadosEntrada"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- Response -->
+      <xsd:element name="SumResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SumResult" type="xsd:decimal"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    </xsd:schema>
+  </types>
+
+  <!-- ================= MESSAGES ================= -->
+  <message name="SumSoapIn">
+    <part name="parameters" element="tns:Sum"/>
+  </message>
+
+  <message name="SumSoapOut">
+    <part name="parameters" element="tns:SumResponse"/>
+  </message>
+
+  <!-- ================= PORT TYPE ================= -->
+  <portType name="WebBenchmarkSoap">
+    <operation name="Sum">
+      <input message="tns:SumSoapIn"/>
+      <output message="tns:SumSoapOut"/>
+    </operation>
+  </portType>
+
+  <!-- ================= BINDING ================= -->
+  <binding name="WebBenchmarkSoap" type="tns:WebBenchmarkSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+
+    <operation name="Sum">
+      <soap:operation soapAction="http://tempuri.org/Sum" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <!-- ================= SERVICE ================= -->
+  <service name="WebBenchmark">
+    <port name="WebBenchmarkSoap" binding="tns:WebBenchmarkSoap">
+      <soap:address location="http://teste/WebBenchmark.asmx"/>
+    </port>
+  </service>
+
+</definitions>

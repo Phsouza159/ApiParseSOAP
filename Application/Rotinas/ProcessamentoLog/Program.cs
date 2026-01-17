@@ -38,8 +38,7 @@ namespace ProcessamentoLog
 
         static void ConfigurarDependencias(IServiceCollection services)
         {
-            ConfiguracaoDependencias.Configurar(services);
-
+            services.ConfigurarIoC();
             services.AddScoped<IProcessoLog, ProcessoLog>();
         }
     }

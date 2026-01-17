@@ -22,6 +22,11 @@ namespace Api.Domain.Conversor
         public bool IsObrigatorio { get; set; }
 
         /// <summary>
+        /// Definir se elemento é uma lista de DEF<TiposProcessador>
+        /// </summary>
+        public bool IsElementoArray { get; set; }
+
+        /// <summary>
         /// Definicao de registro como Propriedade
         /// </summary>
         public bool IsPropriedade { get; set; }

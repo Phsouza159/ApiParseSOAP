@@ -1,6 +1,6 @@
 {
     "UrlHost": "http://www.dataaccess.com/webservicesserver/",
-    "UrlLocation": "NumberConversion.wso",
+    "UrlLocation": "NumberConversion",
     "Prefixo" : "m",
     "Contratos": [
         {
